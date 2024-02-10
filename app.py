@@ -81,9 +81,12 @@ def dispatcher():
 @app.route("/intro", methods=["POST"])
 def intro():
     convo = Conversation(nick=request.get_json()["nick"], flow=session["flow"])
+    session["phase"] += 1
     db.session.add(convo)
     db.session.commit()
-    session["phase"] += 1
+    session["conversation_id"] = convo.id
+    print(convo.id)
+    print(session["conversation_id"])
     return jsonify({}), 200
 
 @app.route("/start", methods=["POST"])
@@ -92,7 +95,7 @@ def start():
     return jsonify({}), 200
 
 @app.route("/bot", methods=["POST"])
-def chat():
+def bot():
     [user_speech, cstatus_in] = request.get_json()
     cstatus_out = reply(user_speech, cstatus_in)
 
@@ -111,7 +114,12 @@ def abort():
 def outro():
     [comment, grade] = request.get_json()
 
+    print(comment, grade)
+
+    print(session["conversation_id"])
+
     convo = Conversation.query.filter_by(id=session["conversation_id"]).first()
+    print(convo.id)
     convo.end_date = datetime.utcnow()
     convo.abort = session.get("abort", False)
     convo.rating = int(grade)
