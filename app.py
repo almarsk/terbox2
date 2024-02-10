@@ -78,13 +78,23 @@ def dispatcher():
 
 @app.route("/intro")
 def intro():
-    user = Conversation(nick=request.form.get("nick"), flow=session["flow"])
+    user = Conversation(nick=request.get_json()["nick"], flow=session["flow"])
     db.session.add(user)
     db.session.commit()
     session["phase"] += 1
-    return redirect(url_for("dispatcher"))
+    return jsonify({}), 200
 
 @app.route("/start")
 def start():
     session["phase"] += 1
-    return redirect(url_for("dispatcher"))
+    return jsonify({}), 200
+
+@app.route("/chat")
+def chat():
+    [user_speech, cstatus_in] = request.get_json()
+    cstatus_out = reply(user_speech, cstatus_in)
+
+    if cstatus_out["end"]:
+        session["phase"] += 1
+
+    return jsonify(cstatus_out)
