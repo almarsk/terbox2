@@ -65,6 +65,7 @@ if not db_path.is_file():
 @app.route("/")
 def dispatcher():
      flow = request.args.get("flow") or None
+
      if flow is not None:
          session.clear()
          session["flow"] = flow
@@ -78,8 +79,8 @@ def dispatcher():
 
 @app.route("/intro")
 def intro():
-    user = Conversation(nick=request.get_json()["nick"], flow=session["flow"])
-    db.session.add(user)
+    convo = Conversation(nick=request.get_json()["nick"], flow=session["flow"])
+    db.session.add(convo)
     db.session.commit()
     session["phase"] += 1
     return jsonify({}), 200
@@ -98,3 +99,25 @@ def chat():
         session["phase"] += 1
 
     return jsonify(cstatus_out)
+
+@app.route("/abort")
+def abort():
+    session["abort"] = True
+    session["phase"] += 1
+    return jsonify({})
+
+@app.route("/outro")
+def outro():
+    [comment, grade] = request.get_json()
+
+    convo = Conversation.query.filter_by(id=session["conversation_id"]).first()
+    convo.end_date = datetime.utcnow()
+    convo.abort = session.get("abort", False)
+    convo.rating = int(grade)
+    convo.comment = comment
+    db.session.add(convo)
+    db.session.commit()
+
+    session["phase"] += 1
+
+    return jsonify({})
