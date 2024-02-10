@@ -1,0 +1,5 @@
+terbox
+venv
+update_terbox.sh
+chatbot.db
+pyrightconfig.json
