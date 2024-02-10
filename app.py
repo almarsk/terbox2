@@ -21,7 +21,8 @@ from convval import validate_flow
 from convform import reply
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/assets', static_folder='static/assets')
+
 secret_key = os.environ.get("CHATBOT_SECRET_KEY", secrets.token_bytes(32))
 db_path = Path(__file__).parent / "chatbot.db"
 app.config.update(
@@ -62,7 +63,7 @@ if not db_path.is_file():
 
 # –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– Handling Requests
 
-@app.route("/")
+@app.route("/", methods=("GET", "POST"))
 def dispatcher():
      flow = request.args.get("flow") or None
 
@@ -74,10 +75,10 @@ def dispatcher():
 
      if "flow" not in session or not validate_flow("bots", session["flow"]):
          session["flow"] = ""
-
+         session["phase"] = 0
      return render_template("index.html", bot=session["flow"], phase=session["phase"])
 
-@app.route("/intro")
+@app.route("/intro", methods=["POST"])
 def intro():
     convo = Conversation(nick=request.get_json()["nick"], flow=session["flow"])
     db.session.add(convo)
@@ -85,12 +86,12 @@ def intro():
     session["phase"] += 1
     return jsonify({}), 200
 
-@app.route("/start")
+@app.route("/start", methods=["POST"])
 def start():
     session["phase"] += 1
     return jsonify({}), 200
 
-@app.route("/chat")
+@app.route("/bot", methods=["POST"])
 def chat():
     [user_speech, cstatus_in] = request.get_json()
     cstatus_out = reply(user_speech, cstatus_in)
@@ -100,13 +101,13 @@ def chat():
 
     return jsonify(cstatus_out)
 
-@app.route("/abort")
+@app.route("/abort", methods=["POST"])
 def abort():
     session["abort"] = True
     session["phase"] += 1
     return jsonify({})
 
-@app.route("/outro")
+@app.route("/outro", methods=["POST"])
 def outro():
     [comment, grade] = request.get_json()
 
@@ -121,3 +122,6 @@ def outro():
     session["phase"] += 1
 
     return jsonify({})
+
+if __name__ == "__main__":
+    app.run(debug=True)
