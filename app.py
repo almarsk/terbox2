@@ -31,6 +31,7 @@ app.config.update(
     SESSION_COOKIE_SAMESITE="Lax",
     SQLALCHEMY_DATABASE_URI=f"sqlite:///{db_path}",
     SQLALCHEMY_TRACK_MODIFICATIONS=False,
+    BOTS_FOLDER="/bots"
 )
 db = SQLAlchemy(app)
 
@@ -63,6 +64,24 @@ if not db_path.is_file():
 
 # –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– Handling Requests
 
+@app.route("/admin", methods=("GET", "POST"))
+def admin():
+    return render_template("index.html", admin="true")
+
+@app.route("/login", methods=["POST"])
+def login():
+    [nickname, password] = request.get_json()
+    return jsonify({"success": nickname == "almarsk" and password == "Sl0nice!"})
+
+@app.route("/list-bots", methods=["GET"])
+def list_bots():
+    try:
+        files = [os.path.splitext(file)[0] for file in os.listdir(f"{os.getcwd()}{app.config['BOTS_FOLDER']}")]
+        return jsonify(files)
+    except Exception as e:
+        print(f"Error listing files: {e}")
+        return []
+
 @app.route("/", methods=("GET", "POST"))
 def dispatcher():
      flow = request.args.get("flow") or None
@@ -76,7 +95,7 @@ def dispatcher():
      if "flow" not in session or not validate_flow("bots", session["flow"]):
          session["flow"] = ""
          session["phase"] = 0
-     return render_template("index.html", bot=session["flow"], phase=session["phase"])
+     return render_template("index.html", bot=session["flow"], phase=session["phase"], admin="false")
 
 @app.route("/intro", methods=["POST"])
 def intro():
@@ -85,8 +104,6 @@ def intro():
     db.session.add(convo)
     db.session.commit()
     session["conversation_id"] = convo.id
-    print(convo.id)
-    print(session["conversation_id"])
     return jsonify({}), 200
 
 @app.route("/start", methods=["POST"])
@@ -113,13 +130,7 @@ def abort():
 @app.route("/outro", methods=["POST"])
 def outro():
     [comment, grade] = request.get_json()
-
-    print(comment, grade)
-
-    print(session["conversation_id"])
-
     convo = Conversation.query.filter_by(id=session["conversation_id"]).first()
-    print(convo.id)
     convo.end_date = datetime.utcnow()
     convo.abort = session.get("abort", False)
     convo.rating = int(grade)
