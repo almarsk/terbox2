@@ -1,0 +1,18 @@
+valid references
+    flow
+        the track
+        coda
+    state
+        intent
+            name
+            adjecent
+        context
+            add state
+            interate state
+            add intent
+    intent
+        adjacent
+        context
+            add state
+            interate state
+            add intent

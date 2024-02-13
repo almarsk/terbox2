@@ -1,0 +1,18 @@
+list intents
+list states
+
+list individual intent
+list individual state
+
+list metadata
+list possible paths to state
+show network
+
+add state
+edit state
+add intent
+edit intent
+
+validate
+fix
+clean unused
