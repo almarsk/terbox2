@@ -116,10 +116,9 @@ def bot():
     [user_speech, cstatus_in] = request.get_json()
     cstatus_out = reply(user_speech, cstatus_in)
 
-    if cstatus_out["end"]:
+    if cstatus_out.end:
         session["phase"] += 1
-
-    return jsonify(cstatus_out)
+    return jsonify(cstatus_out.__dict__)
 
 @app.route("/abort", methods=["POST"])
 def abort():
