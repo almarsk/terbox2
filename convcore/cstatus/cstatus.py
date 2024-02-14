@@ -23,6 +23,9 @@ class ConversationStatus:
 
     def __init__(self, userSpeech, flow, prev_cs):
         # flow isnt yet passed to all places it should be
+        # flow is an instance of class Flow
+
+        print("flow type in cs", type(flow))
 
         # number of bot turns increment
         self.bot_turns = (

@@ -10,14 +10,13 @@
 
 import json
 import os
-print(os.getcwd())
-from convval import validate_flow
+from convproof import validate_flow
 
 class Flow:
     def __init__(self, path, flow_name):
 
         flow = validate_flow(path, flow_name, return_flow=True)
-        print(type(flow))
+        print("flow type in Flow", type(flow))
         self.persona = flow["persona"]
         self.track = flow["track"]
         self.coda = flow["coda"]

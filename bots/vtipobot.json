@@ -1,4 +1,9 @@
 {
   "flow": "vtipobot",
-  "má se": "dobře"
+  "má se": "dobře",
+  "persona": "vtipobot",
+  "track": ["že prostě"],
+  "coda": false,
+  "states": "united",
+  "intents": "nekalé"
 }

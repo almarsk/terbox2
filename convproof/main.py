@@ -6,7 +6,7 @@ from .references_validation import flow_references, intents_references, states_r
 
 def validate_flow(path, flow, return_flow=False):
     issues = list()
-
+    bot = dict()
     full_path = f"./{path}/{flow.lower()}.json"
     if not os.path.exists(full_path):
         issues.append("invalid path")
@@ -22,6 +22,6 @@ def validate_flow(path, flow, return_flow=False):
             states_references(bot, issues)
 
     if return_flow:
-        return flow if not issues else issues
+        return bot if not issues else issues
     else:
         return not issues

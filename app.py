@@ -17,8 +17,8 @@ from pathlib import Path
 from datetime import datetime
 import json
 
-from convval import validate_flow
-from convform import reply
+from convproof import validate_flow
+from convcore import reply, Flow
 
 
 app = Flask(__name__, static_url_path='/assets', static_folder='static/assets')
@@ -53,6 +53,7 @@ class Conversation(db.Model):
 class Reply(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("conversation.id"), nullable=False)
+    user_reply = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     reaction_ms = db.Column(db.Integer) # chatbot replies have a NULL reaction_ms
     cstatus = db.Column(JSON)
@@ -114,7 +115,7 @@ def start():
 @app.route("/bot", methods=["POST"])
 def bot():
     [user_speech, c_status_in] = request.get_json()
-    cstatus_out = reply(user_speech, session["flow"], c_status_in)
+    cstatus_out = reply(user_speech, Flow(app.config.BOTS_PATH, session["flow"]), c_status_in)
     if cstatus_out.end:
         session["phase"] += 1
     return jsonify(cstatus_out.__dict__)
