@@ -16,3 +16,8 @@ edit intent
 validate
 fix
 clean unused
+
+later refactor to sqlite
+folder bots will be a table in sqlite
+endpoint list bots will target the database
+etc

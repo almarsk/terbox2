@@ -113,9 +113,8 @@ def start():
 
 @app.route("/bot", methods=["POST"])
 def bot():
-    [user_speech, cstatus_in] = request.get_json()
-    cstatus_out = reply(user_speech, cstatus_in)
-
+    [user_speech, c_status_in] = request.get_json()
+    cstatus_out = reply(user_speech, session["flow"], c_status_in)
     if cstatus_out.end:
         session["phase"] += 1
     return jsonify(cstatus_out.__dict__)
