@@ -1,6 +1,5 @@
 frontend
 venv
-update_terbox.sh
 chatbot.db
 pyrightconfig.json
 **/__pycache__
