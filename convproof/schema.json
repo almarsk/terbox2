@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "State": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "intents": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "annotation": {
+          "type": "string"
+        },
+        "say": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "response_type": {
+          "$ref": "#/definitions/Type"
+        },
+        "iteration": {
+          "type": "integer"
+        },
+        "prioritize": {
+          "type": "boolean"
+        },
+        "initiativity": {
+          "type": "integer"
+        },
+        "context_intents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "context_states": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "iterate_states": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "intents",
+        "annotation",
+        "say",
+        "response_type",
+        "iteration",
+        "prioritize",
+        "initiativity",
+        "context_intents",
+        "context_states",
+        "iterate_states"
+      ]
+    },
+    "Intent": {
+      "type": "object",
+      "properties": {}
+    },
+    "Type": {
+      "type": "string",
+      "enum": ["Responsive", "Initiative", "Connective", "Flexible"]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "persona": {
+      "type": "string"
+    },
+    "track": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "coda": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "states": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/State" }
+    },
+    "intents": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Intent" }
+    }
+  },
+  "required": ["persona", "track", "coda", "states", "intents"]
+}

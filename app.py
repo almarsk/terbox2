@@ -31,7 +31,7 @@ app.config.update(
     SESSION_COOKIE_SAMESITE="Lax",
     SQLALCHEMY_DATABASE_URI=f"sqlite:///{db_path}",
     SQLALCHEMY_TRACK_MODIFICATIONS=False,
-    BOTS_FOLDER="/bots"
+    BOTS_PATH="/bots"
 )
 db = SQLAlchemy(app)
 
@@ -77,7 +77,11 @@ def login():
 @app.route("/list-bots", methods=["GET"])
 def list_bots():
     try:
-        files = [os.path.splitext(file)[0] for file in os.listdir(f"{os.getcwd()}{app.config['BOTS_FOLDER']}")]
+        files = [
+            os.path.splitext(file)[0]
+            for file
+            in os.listdir(f"{os.getcwd()}{app.config['BOTS_PATH']}")
+        ]
         return jsonify(files)
     except Exception as e:
         print(f"Error listing files: {e}")
@@ -115,7 +119,7 @@ def start():
 @app.route("/bot", methods=["POST"])
 def bot():
     [user_speech, c_status_in] = request.get_json()
-    cstatus_out = reply(user_speech, Flow(app.config.BOTS_PATH, session["flow"]), c_status_in)
+    cstatus_out = reply(user_speech, Flow(app.config['BOTS_PATH'], session["flow"]), c_status_in)
     if cstatus_out.end:
         session["phase"] += 1
     return jsonify(cstatus_out.__dict__)

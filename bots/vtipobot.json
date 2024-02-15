@@ -2,8 +2,24 @@
   "flow": "vtipobot",
   "má se": "dobře",
   "persona": "vtipobot",
-  "track": ["že prostě"],
-  "coda": false,
-  "states": "united",
-  "intents": "nekalé"
+  "track": ["sgsf"],
+  "coda": ["sgfs"],
+  "states": [
+    {
+      "name": "str",
+      "intents": {
+        "name": ["str"]
+      },
+      "annotation": "str",
+      "say": ["str"],
+      "response_type": "Flexible",
+      "iteration": 2,
+      "prioritize": true,
+      "initiativity": 0,
+      "context_intents": ["trs"],
+      "context_states": ["srg"],
+      "iterate_states": ["str"]
+    }
+  ],
+  "intents": []
 }
