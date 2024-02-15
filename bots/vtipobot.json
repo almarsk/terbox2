@@ -8,7 +8,8 @@
     {
       "name": "str",
       "intents": {
-        "name": ["str"]
+        "atr": ["blelp"],
+        "name": ["star", "lal"]
       },
       "annotation": "str",
       "say": ["str"],
@@ -16,9 +17,9 @@
       "iteration": 2,
       "prioritize": true,
       "initiativity": 0,
-      "context_intents": ["trs"],
+      "context_intents": ["trs", "trop"],
       "context_states": ["srg"],
-      "iterate_states": ["str"]
+      "iterate_states": ["strr"]
     }
   ],
   "intents": []
