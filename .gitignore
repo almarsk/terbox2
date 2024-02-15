@@ -3,3 +3,5 @@ venv
 update_terbox.sh
 chatbot.db
 pyrightconfig.json
+**/__pycache__
+.DS_Store
