@@ -19,6 +19,7 @@ def validate_flow(path, flow, return_flow=False):
             try:
                 bot = json.loads(b.read())
             except json.JSONDecodeError as e:
+                print("json prablem")
                 issues.append(e)
 
         #if issues:
@@ -28,14 +29,17 @@ def validate_flow(path, flow, return_flow=False):
             schema = json.loads(s.read())
 
         # check structure and non-empty fields
+
         validator = jsonschema.Draft7Validator(schema)
-        [issues.append(e) for e in validator.iter_errors(bot)]
+        [issues.append(f"{e.message}, found in {', '.join(list(e.schema_path))}") for e in validator.iter_errors(bot)]
 
         #if issues:
         #   raise ProofException("structure", issues)
 
+
         # check references
-        proof_references(bot, issues)
+        if not issues:
+            proof_references(bot, issues)
 
         #if issues:
         #    raise ProofException("references",issues)
@@ -45,18 +49,23 @@ def validate_flow(path, flow, return_flow=False):
         #if issues:
         #   raise ProofException("essence",issues)
 
+        result = dict()
+
         if return_flow and not issues:
             return bot
         elif return_flow and issues:
             print(issues)
             raise ProofException(issues)
         elif issues:
-            return {
+            result =  {
                 "success": False,
-                "message": ProofException(issues)
+                "message": ProofException(issues).message
             }
         else:
-            return {
-                "succes": True,
-                "message": "Flow {flow} is valid."
+            result =  {
+                "success": True,
+                "message": f"Flow {flow} is valid."
             }
+
+        print(result)
+        return result

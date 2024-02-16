@@ -32,7 +32,7 @@ app.config.update(
     SESSION_COOKIE_SAMESITE="Lax",
     SQLALCHEMY_DATABASE_URI=f"sqlite:///{db_path}",
     SQLALCHEMY_TRACK_MODIFICATIONS=False,
-    BOTS_PATH="/bots"
+    BOTS_PATH="bots"
 )
 
 from database import db

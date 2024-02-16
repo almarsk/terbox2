@@ -15,6 +15,8 @@ const LoginPage = ({ onLogin, unsuccess }) => {
             className="input-field login-field"
             type="text"
             placeholder="Nick"
+            autocomplete="username"
+            required
           ></input>
         </div>
         <div>
@@ -23,6 +25,8 @@ const LoginPage = ({ onLogin, unsuccess }) => {
             className="input-field login-field"
             type="password"
             placeholder="Pass"
+            autocomplete="current-password"
+            required
           ></input>
         </div>
         <div>

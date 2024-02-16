@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./admin.css";
-import listBots from "./list_bots";
+import listBots from "./list-bots";
 import BotBrick from "./bot-brick.jsx";
 
 const AdminPage = () => {
@@ -22,9 +22,10 @@ const AdminPage = () => {
     <div className="admin-container">
       <h1>admin</h1>
       <ul>
-        {botsList.map((b) => (
-          <BotBrick bot={b} />
-        ))}
+        {botsList.map(([b, s]) => {
+          console.log(b, s);
+          return <BotBrick bot={b} status={s} />;
+        })}
       </ul>
     </div>
   );
