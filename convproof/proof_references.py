@@ -96,7 +96,6 @@ def collect_check_items(destination, check_against, bot):
                     where = current_item[inner_checkpoint]
                 resulting_items = resulting_items + sediment(where)
                 resulting_items = [f"{i} of {check_against[:-1]} {current_item['name']}" for i in resulting_items]
-            print(resulting_items)
             return resulting_items
         else:
             where = where[checkpoint]

@@ -21,8 +21,8 @@ def validate_flow(path, flow, return_flow=False):
             except json.JSONDecodeError as e:
                 issues.append(e)
 
-        if issues:
-           raise ProofException("JSON", issues)
+        #if issues:
+        #   raise ProofException("JSON", issues)
 
         with open("convproof/schema.json", "r") as s:
             schema = json.loads(s.read())
@@ -31,20 +31,32 @@ def validate_flow(path, flow, return_flow=False):
         validator = jsonschema.Draft7Validator(schema)
         [issues.append(e) for e in validator.iter_errors(bot)]
 
-        if issues:
-           raise ProofException("structure", issues)
+        #if issues:
+        #   raise ProofException("structure", issues)
 
         # check references
         proof_references(bot, issues)
 
-        if issues:
-            raise ProofException("references",issues)
+        #if issues:
+        #    raise ProofException("references",issues)
 
-        issues.append("todo check that there isnt only $")
+        print('issues.append("todo check that there isnt only $")')
 
-        if issues:
-           raise ProofException("essence",issues)
-        if return_flow:
+        #if issues:
+        #   raise ProofException("essence",issues)
+
+        if return_flow and not issues:
             return bot
+        elif return_flow and issues:
+            print(issues)
+            raise ProofException(issues)
+        elif issues:
+            return {
+                "success": False,
+                "message": ProofException(issues)
+            }
         else:
-            return not issues
+            return {
+                "succes": True,
+                "message": "Flow {flow} is valid."
+            }

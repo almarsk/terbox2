@@ -1,21 +1,19 @@
-list intents
-list states
-
-list individual intent
-list individual state
-
-list metadata
 list possible paths to state
 show network
 
-add state
-edit state
-add intent
-edit intent
-
+list metadata
+list intents
+list states
+view state name
+add state name
+edit state name
+view intent name
+add intent name
+edit intent name
 validate
-fix
-clean unused
+
+fix - add templates of missing states and intents
+clean unused - remove unreferenced intents and states
 
 later refactor to sqlite
 folder bots will be a table in sqlite
