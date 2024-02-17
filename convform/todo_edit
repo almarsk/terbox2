@@ -10,7 +10,7 @@ edit state name
 view intent name
 add intent name
 edit intent name
-validate
+validate (sidebar)
 
 fix - add templates of missing states and intents
 clean unused - remove unreferenced intents and states

@@ -73,22 +73,23 @@ if not db_path.is_file():
 
 # –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– Handling Requests
 
-@app.route("/", methods=("GET", "POST"))
-def dispatcher():
-     flow = request.args.get("flow") or None
+@app.route('/', defaults={'path': ''}, methods=("GET", "POST"))
+@app.route('/<path:path>')
+def dispatcher(path):
+    if not path:
+        flow = request.args.get("flow") or None
 
-     if flow is not None:
-         session.clear()
-         session["flow"] = flow
-         session["phase"] = 0
-         return redirect(url_for("dispatcher"))
+        if flow is not None:
+            session.clear()
+            session["flow"] = flow
+            session["phase"] = 0
+            return redirect(url_for("dispatcher"))
 
-     success, message = validate_flow("bots", session["flow"] if "flow" in session else "").values()
-     if "flow" not in session or not success:
-         print(message)
-         session["flow"] = ""
-         session["phase"] = 0
-     return render_template("index.html", bot=session["flow"], phase=session["phase"], admin="false")
+        success, message = validate_flow("bots", session["flow"] if "flow" in session else "").values()
+        if "flow" not in session or not success:
+            session["flow"] = ""
+            session["phase"] = 0
+    return render_template("index.html", bot=session["flow"], phase=session["phase"])
 
 # conversation endpoints
 from convroute.intro import intro_bp
@@ -106,8 +107,6 @@ app.register_blueprint(outro_bp)
 # admin endpoints
 from convroute.admin.call_convform import convform_bp
 app.register_blueprint(convform_bp)
-from convroute.admin.admin import admin_bp
-app.register_blueprint(admin_bp)
 from convroute.admin.login import login_bp
 app.register_blueprint(login_bp)
 from convroute.admin.list_bots import list_bot_bp

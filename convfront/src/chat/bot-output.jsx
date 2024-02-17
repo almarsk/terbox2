@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 
 const BotOutput = ({ botSpeech, loading }) => {
-  console.log(loading);
   return (
     <div className="content-box">
       <p className="icon">🤖:️</p>

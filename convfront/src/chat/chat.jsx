@@ -25,7 +25,6 @@ const Chat = () => {
   const handleCStatus = async (userSpeech) => {
     const newCStatus = await updateCStatus(userSpeech, cStatus);
     setCStatus(newCStatus);
-    console.log("chat", cStatus);
     setTimeout(() => setLoading([false, false]), 1500);
   };
 

@@ -1,0 +1,26 @@
+setup router for editing
+
+refactor into db
+
+(db op)                 archive bot / unarchive bot
+(db op)                 copy bot
+(db op)                 move to folder
+(edit interface)        edit bot - control light for validation
+(redirect, add tab)     run bot
+(clipboard op)          copy link to bot
+(db query)              filter for nonarchived / archived / all bots
+
+project folders
+(db op)    - add project folders,
+(db op)    - archive / unarchive project folders
+(query)    - filter for nonarchived
+
+db tables
+    folder - id, name, date, isArchived
+    bot - id, name, flow, date, isArchived
+
+edit interface
+make some flows
+cstatus pipe line (as already done)
+convpeek (cstatus interface dependency
+(cstatus interface)     test bot - cstatus jsonscheme
