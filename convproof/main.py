@@ -9,17 +9,21 @@ def validate_flow(path, flow, return_flow=False):
     issues = list()
     bot = dict()
     schema = dict()
+    result = dict()
     full_path = f"./{path}/{flow.lower()}.json"
 
     # check valid path
     if not os.path.exists(full_path):
         issues.append("invalid path")
+        result =  {
+            "success": False,
+            "message": ProofException(issues).message
+        }
     else:
         with open(full_path, "r") as b:
             try:
                 bot = json.loads(b.read())
             except json.JSONDecodeError as e:
-                print("json prablem")
                 issues.append(e)
 
         #if issues:
@@ -44,7 +48,7 @@ def validate_flow(path, flow, return_flow=False):
         #if issues:
         #    raise ProofException("references",issues)
 
-        print('issues.append("todo check that there isnt only $")')
+        print("todo check that there isnt only $")
 
         #if issues:
         #   raise ProofException("essence",issues)
@@ -54,7 +58,6 @@ def validate_flow(path, flow, return_flow=False):
         if return_flow and not issues:
             return bot
         elif return_flow and issues:
-            print(issues)
             raise ProofException(issues)
         elif issues:
             result =  {
@@ -67,5 +70,5 @@ def validate_flow(path, flow, return_flow=False):
                 "message": f"Flow {flow} is valid."
             }
 
-        print(result)
-        return result
+
+    return result

@@ -25,23 +25,22 @@ const Chat = () => {
   const handleCStatus = async (userSpeech) => {
     const newCStatus = await updateCStatus(userSpeech, cStatus);
     setCStatus(newCStatus);
-    //console.log("chat", cStatus);
+    console.log("chat", cStatus);
     setTimeout(() => setLoading([false, false]), 1500);
   };
 
   return (
     <>
-      {loading ? (
-        <div className="loader"></div>
-      ) : (
-        <>
-          <BotOutput botSpeech={cStatus.say} />
-          <UserInput submit={handleSubmit} loading={loading} />
-          <button onClick={async () => await abort_convo()} className="submit">
-            🚫
-          </button>
-        </>
-      )}
+      <>
+        <BotOutput
+          botSpeech={cStatus && !loading ? cStatus.say : ""}
+          loading={loading}
+        />
+        <UserInput submit={handleSubmit} loading={loading} />
+        <button onClick={async () => await abort_convo()} className="submit">
+          🚫
+        </button>
+      </>
     </>
   );
 };

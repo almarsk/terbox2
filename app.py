@@ -83,7 +83,7 @@ def dispatcher():
          session["phase"] = 0
          return redirect(url_for("dispatcher"))
 
-     success, message = validate_flow("bots", session["flow"]).values()
+     success, message = validate_flow("bots", session["flow"] if "flow" in session else "").values()
      if "flow" not in session or not success:
          print(message)
          session["flow"] = ""
@@ -97,8 +97,9 @@ from convroute.start import start_bp
 app.register_blueprint(start_bp)
 from convroute.bot import bot_bp
 app.register_blueprint(bot_bp)
-from convroute.abort import abort_bp
+from convroute.abort import abort_bp, is_aborted_bp
 app.register_blueprint(abort_bp)
+app.register_blueprint(is_aborted_bp)
 from convroute.outro import outro_bp
 app.register_blueprint(outro_bp)
 

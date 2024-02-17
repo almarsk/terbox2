@@ -9,7 +9,9 @@
 }
 
 .issues-summary {
-    display: none;
+    left: 10;
+    top: 10;
+
     position: absolute;
     color: white;
     padding: 5px;
@@ -18,7 +20,7 @@
     height: 25px;
 }
 
-. .bot-brick {
+.bot-brick {
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
