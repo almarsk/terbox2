@@ -6,12 +6,15 @@
 
 .admin-button {
     margin: 5px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .issues-summary {
     left: 10;
     top: 10;
-
     position: absolute;
     color: white;
     padding: 5px;
@@ -23,7 +26,7 @@
 .bot-brick {
     margin-bottom: 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     padding: 5px;
     border: 1px solid grey;
@@ -47,4 +50,24 @@ ul {
 
 .login-field {
     margin-bottom: 2px;
+}
+
+.log-off {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.flow-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.flow-list {
+    margin: 5px;
+}
+
+.folder-container {
+    margin: 5px;
+    border: 1px solid rgb(129, 129, 129);
 }

@@ -13,7 +13,12 @@ const login = async (nick, pass) => {
     })
     .catch((error) => {
       console.error("Error:", error);
+      return { success: false };
     });
+
+  if (login.success) {
+    localStorage.setItem("isLoggedIn", true); // Store login status
+  }
 
   return login.success;
 };

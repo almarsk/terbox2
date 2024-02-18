@@ -1,6 +1,8 @@
-setup router for editing
-
 refactor into db
+
+db tables
+    folder - id, name, date, isArchived
+    bot - id, name, folderId flow, date, isArchived
 
 (db op)                 archive bot / unarchive bot
 (db op)                 copy bot
@@ -14,10 +16,6 @@ project folders
 (db op)    - add project folders,
 (db op)    - archive / unarchive project folders
 (query)    - filter for nonarchived
-
-db tables
-    folder - id, name, date, isArchived
-    bot - id, name, flow, date, isArchived
 
 edit interface
 make some flows

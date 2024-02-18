@@ -5,17 +5,17 @@ import App from "./app/App.jsx";
 import "./index.css";
 import Admin from "./admin/admin.jsx";
 
-// console.log(window.admin);
+const [bot, phase] = [window.bot, window.phase];
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>
     <React.StrictMode>
       <Routes>
-        <Route
-          path="/"
-          element={<App bot={window.bot} phase={window.phase} />}
-        />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="admin" element={<Admin />}>
+          <Route path="edit/:flow" />
+          <Route path="test/:flow" />
+        </Route>
+        <Route path="*" element={<App bot={bot} phase={phase} />} />
       </Routes>
     </React.StrictMode>
   </Router>,

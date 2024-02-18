@@ -1,9 +1,12 @@
-const listBots = async () => {
+const listBots = async (flow) => {
   const bots_list = await fetch("/list-bots", {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      flow: flow,
+    }),
   })
     .then(async (response) => await response.json())
     .then((result) => {

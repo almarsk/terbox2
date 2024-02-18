@@ -76,20 +76,27 @@ if not db_path.is_file():
 @app.route('/', defaults={'path': ''}, methods=("GET", "POST"))
 @app.route('/<path:path>')
 def dispatcher(path):
-    if not path:
-        flow = request.args.get("flow") or None
+    if path:
+        session.clear()
 
-        if flow is not None:
-            session.clear()
-            session["flow"] = flow
-            session["phase"] = 0
-            return redirect(url_for("dispatcher"))
+    flow = request.args.get("flow") or None
 
-        success, message = validate_flow("bots", session["flow"] if "flow" in session else "").values()
-        if "flow" not in session or not success:
-            session["flow"] = ""
-            session["phase"] = 0
-    return render_template("index.html", bot=session["flow"], phase=session["phase"])
+    if flow is not None:
+        session.clear()
+        session["flow"] = flow
+        session["phase"] = 0
+        return redirect(url_for("dispatcher"))
+
+    success, message = validate_flow("bots", session["flow"] if "flow" in session else "").values()
+
+    if "flow" not in session or not success:
+        session["flow"] = ""
+        session["phase"] = 0
+
+    return render_template(
+        "index.html",
+        bot=session["flow"] if "flow" in session else "",
+        phase=session["phase"] if "phase" in session else 0)
 
 # conversation endpoints
 from convroute.intro import intro_bp
