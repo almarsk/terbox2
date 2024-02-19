@@ -21,6 +21,8 @@ def create():
         db.session.add(item)
         db.session.commit()
     elif item_type == "project":
+        if Project.query.filter_by(project_name=name).first():
+            return jsonify({"success": False, "message": "there is a flow of that name already"})
         item = Project(project_name=name)
         db.session.add(item)
         db.session.commit()

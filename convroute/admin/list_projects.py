@@ -15,6 +15,14 @@ def list_projects():
         projects = cursor.fetchall()
         projects_data = [list(row) for row in projects]
 
+        print(projects_data)
+
+        for sublist in projects_data[:]:
+            if sublist[0] == 2:
+                projects_data.pop(projects_data.index(sublist))
+                projects_data.append(sublist)
+
+
         cursor.close()
         conn.close()
         return jsonify(projects_data)

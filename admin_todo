@@ -1,5 +1,3 @@
-componentize Flows
-check what else should be componetized
 build project brick
 set up state to filter Flows by Projects
 
@@ -9,9 +7,7 @@ set up state to filter Flows by Projects
 (edit interface)        edit bot - control light for validation
 
 project folders
-(db op)    - add project folders,
 (db op)    - archive / unarchive project folders
-(query)    - filter for nonarchived
 
 edit interface
 make some flows

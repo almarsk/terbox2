@@ -7,7 +7,7 @@ const BotBrick = ({ bot, status, setIssues, newFlow }) => {
       <>
         <div className="bot-brick">
           <p className="bot-name">
-            <b>{bot}</b>
+            <b style={{ color: status.success ? "black" : "grey" }}>{bot}</b>
           </p>
           <MenuButton
             icon={"🚀"}

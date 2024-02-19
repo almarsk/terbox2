@@ -136,7 +136,8 @@ blueprint_paths = [
     "admin.create.create_bp",
     "admin.list_projects.list_projects_bp",
     "admin.proof.proof_bp",
-    "admin.login.login_bp"
+    "admin.login.login_bp",
+    "admin.move.move_bp"
 ]
 
 for path in blueprint_paths:

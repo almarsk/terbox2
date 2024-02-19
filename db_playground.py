@@ -13,11 +13,16 @@ conn = sqlite3.connect("chatbot.db")
 cursor = conn.cursor()
 
 def insert_data(cursor, data):
-    cursor.execute('''INSERT INTO Flow (flow_name, flow, project_id, created_on)
-                           VALUES (?, ?, ?, ?)''', data)
+    cursor.execute('''INSERT INTO Project (project_name, is_archived, created_on)
+                           VALUES (?, ?, ?)''', data)
 
 # Insert JSON data into SQLite database
-insert_data(cursor,("brlb", json.dumps(brlb), 1, datetime.utcnow()))
+# insert_data(cursor,("brlb", True ,datetime.utcnow()))
+
+cursor.execute('''DELETE FROM Project WHERE project_name IN ('lol', 'brlb', 'brah');''')
+
+
+
 
 
 # Commit changes and close connection
