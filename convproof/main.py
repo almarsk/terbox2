@@ -49,6 +49,7 @@ def validate_flow(path, flow, return_flow=False):
         #    raise ProofException("references",issues)
 
         print("todo check that there isnt only $")
+        print("todo check that there is a state_intro and a state_outro only $")
 
         #if issues:
         #   raise ProofException("essence",issues)

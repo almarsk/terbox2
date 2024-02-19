@@ -65,10 +65,38 @@ class Reply(db.Model):
     cstatus = db.Column(JSON)
     __table_args__ = {'extend_existing': True}
 
+class Flow(db.Model):
+    __tablename__ = "flow"
+    id = db.Column(db.Integer, primary_key=True)
+    flow_name = db.Column(db.Text, nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False, default=0)
+    flow = db.Column(JSON)
+    created_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    is_archived = db.Column(db.Integer, default=False)
+    __table_args__ = {'extend_existing': True}
+
+
+class Project(db.Model):
+    __tablename__ = "project"
+    id = db.Column(db.Integer, primary_key=True)
+    project_name = db.Column(db.Text, nullable=False)
+    created_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    is_archived = db.Column(db.Integer, nullable=False, default=False)
+    __table_args__ = {'extend_existing': True}
+
 
 if not db_path.is_file():
     with app.app_context():
         db.create_all()
+        workspace = Project("workspace")
+        archived = Project("archived")
+
+        test_flow = Flow("test_flow", {})
+
+        db.session.add(workspace)
+        db.session.add(archived)
+        db.session.commit()
+
 
 
 # –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– Handling Requests

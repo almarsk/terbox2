@@ -8,9 +8,6 @@ db tables
 (db op)                 copy bot
 (db op)                 move to folder
 (edit interface)        edit bot - control light for validation
-(redirect, add tab)     run bot
-(clipboard op)          copy link to bot
-(db query)              filter for nonarchived / archived / all bots
 
 project folders
 (db op)    - add project folders,

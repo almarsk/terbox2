@@ -50,8 +50,14 @@ const BotBrick = ({ bot, status, setIssues, newFlow }) => {
             setIssues={setIssues}
           />
           <MenuButton
-            icon={"📤"}
-            hoverText={`move to ${bot} to folder`}
+            icon={"⬆️"}
+            hoverText={`move ${bot} to folder`}
+            click={() => console.log(`todo - move ${bot}`)}
+            setIssues={setIssues}
+          />
+          <MenuButton
+            icon={"⬇️"}
+            hoverText={`export ${bot} in json`}
             click={() => console.log(`todo - move ${bot}`)}
             setIssues={setIssues}
           />
