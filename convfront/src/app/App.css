@@ -101,3 +101,11 @@
     margin: 0 0 15px 15px;
     width: 25vw;
 }
+
+.admin-button {
+    margin: 5px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

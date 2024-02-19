@@ -9,6 +9,6 @@ def abort():
     session["phase"] += 1
     return jsonify({})
 
-@abort_bp.route("/is_aborted", methods=["GET"])
+@abort_bp.route("/is_aborted", methods=["POST"])
 def isAborted():
     return jsonify({"aborted": session["abort"] if "abort" in session else False})

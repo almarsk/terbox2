@@ -71,7 +71,7 @@ class Flow(db.Model):
     flow_name = db.Column(db.Text, nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False, default=1)
     flow = db.Column(JSON)
-    created_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_on = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
     is_archived = db.Column(db.Integer, default=False)
     __table_args__ = {'extend_existing': True}
 

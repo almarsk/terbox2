@@ -1,33 +1,26 @@
 import PropTypes from "prop-types";
-import submitQuestionnare from "./submit-questionnare";
 import { useState, useEffect } from "react";
+import myRequest from "../myRequest";
 
 const Outro = () => {
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const comment = new FormData(e.target).get("comment");
     const grade = new FormData(e.target).get("grade");
-    submitQuestionnare(comment, grade);
+    await myRequest("/outro", [comment, grade]).then(
+      () => (window.location.href = "/"),
+    );
   };
 
   const [aborted, setAborted] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/is_aborted");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        console.log(data);
-        setAborted(data.aborted);
-      } catch (error) {
-        console.error("There was a problem with your fetch operation:", error);
-      }
+    const isAborted = async () => {
+      return await myRequest("/is_aborted", {}).then((e) =>
+        setAborted(e.aborted),
+      );
     };
-
-    fetchData();
+    isAborted();
   }, []);
 
   return (

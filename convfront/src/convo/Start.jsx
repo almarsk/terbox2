@@ -1,4 +1,4 @@
-import start_convo from "./start-button";
+import myRequest from "../myRequest";
 
 const Start = () => {
   return (
@@ -9,9 +9,11 @@ const Start = () => {
       </p>
       <form
         className="content-box"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          start_convo();
+          await myRequest("/start", {}).then(() => {
+            window.location.href = "/";
+          });
         }}
       >
         <div className="content-box input">

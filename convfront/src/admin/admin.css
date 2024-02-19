@@ -13,14 +13,12 @@
 }
 
 .issues-summary {
-    left: 10;
-    top: 10;
-    position: absolute;
+    position: fixed;
+    left: 10px;
+    top: 10px;
     color: white;
     padding: 5px;
-    border-radius: 4px;
     z-index: 9999;
-    height: 25px;
 }
 
 .bot-brick {

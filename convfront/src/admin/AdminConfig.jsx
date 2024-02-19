@@ -6,8 +6,9 @@ import Flows from "./Flows";
 import { Route, Routes } from "react-router-dom";
 import EditPage from "./EditPage";
 import TestPage from "./TestPage";
+import "./admin.css";
 
-const Admin = () => {
+const AdminConfig = () => {
   const [issues, setIssues] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [unsuccess, setUnsuccess] = useState(false);
@@ -20,14 +21,16 @@ const Admin = () => {
 
   const handleLogin = async (nick, pass) => {
     const success = await myRequest("/login", [nick, pass]).then((e) => {
-      localStorage.setItem("isLoggedIn", e.sucess);
+      console.log(e.success);
+      localStorage.setItem("isLoggedIn", e.success);
       setIsLoggedIn(e.success);
+      setUnsuccess(!e.success);
     });
   };
 
   useEffect(() => {
     const loggedInStatus = localStorage.getItem("isLoggedIn");
-    if (loggedInStatus === "true") {
+    if (loggedInStatus) {
       setIsLoggedIn(true);
     }
   }, []);
@@ -48,10 +51,6 @@ const Admin = () => {
 
       <div
         className="issues-summary"
-        style={{
-          left: 10,
-          top: 10,
-        }}
         dangerouslySetInnerHTML={{
           __html: issues,
         }}
@@ -60,4 +59,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default AdminConfig;

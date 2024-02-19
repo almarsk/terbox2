@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import App from "./app/App.jsx";
 import "./index.css";
-import Admin from "./admin/AdminMain";
+import AdminConfig from "./admin/AdminConfig";
 
 const [bot, phase] = [window.bot, window.phase];
 
@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>
     <React.StrictMode>
       <Routes>
-        <Route path="admin" element={<Admin />}>
+        <Route path="admin" element={<AdminConfig />}>
           <Route path="edit/:flow" />
           <Route path="test/:flow" />
         </Route>

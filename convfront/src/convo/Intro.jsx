@@ -1,6 +1,6 @@
 import UserInput from "../app/UserInput";
 import PropTypes from "prop-types";
-import submitNewConvo from "./submit-new-convo";
+import myRequest from "../myRequest";
 
 const Intro = ({ bot }) => {
   return (
@@ -10,7 +10,14 @@ const Intro = ({ bot }) => {
         prosím vyplňte libovolnou <b>přezdívku</b>:
       </p>
       <UserInput
-        submit={submitNewConvo}
+        submit={async (e) => {
+          e.preventDefault();
+          await myRequest("/intro", {
+            nick: new FormData(e.target).get("content"),
+          }).then(() => {
+            window.location.href = "/";
+          });
+        }}
         loading={false}
         display={[true, false]}
       />

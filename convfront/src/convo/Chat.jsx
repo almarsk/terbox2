@@ -1,7 +1,6 @@
 import UserInput from "../app/UserInput";
 import BotOutput from "./BotOutput";
-import updateCStatus from "./update-cstatus";
-import abort_convo from "./abort-button";
+import myRequest from "../myRequest";
 import { useState, useEffect } from "react";
 import "./loader.css";
 
@@ -15,6 +14,10 @@ const Chat = () => {
       fetchCStatus();
     }
     if (!minLoading) setLoading([false, minLoading]);
+
+    if (cStatus && cStatus.end) {
+      window.location.href = "/";
+    }
   }, [cStatus, loading]);
 
   const handleSubmit = async (e) => {
@@ -23,7 +26,7 @@ const Chat = () => {
   };
 
   const handleCStatus = async (userSpeech) => {
-    const newCStatus = await updateCStatus(userSpeech, cStatus);
+    const newCStatus = await myRequest("/bot", [userSpeech, cStatus]);
     setCStatus(newCStatus);
     setTimeout(() => setLoading([false, false]), 1500);
   };
@@ -36,7 +39,15 @@ const Chat = () => {
           loading={loading}
         />
         <UserInput submit={handleSubmit} loading={loading} />
-        <button onClick={async () => await abort_convo()} className="submit">
+        <button
+          onClick={async () => {
+            console.log("aborting");
+            await myRequest("/abort", {}).then(
+              () => (window.location.href = "/"),
+            );
+          }}
+          className="submit"
+        >
           🚫
         </button>
       </>

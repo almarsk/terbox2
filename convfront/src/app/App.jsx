@@ -1,9 +1,12 @@
 import "./App.css";
 import PropTypes from "prop-types";
-import Intro from "../intro/IntroMain";
-import Chat from "../chat/ChatMain";
-import Outro from "../outro/OutroMain";
-import Start from "../start/StartMain";
+import Intro from "../convo/Intro";
+import Chat from "../convo/Chat";
+import Outro from "../convo/Outro";
+import Start from "../convo/Start";
+
+import { Link } from "react-router-dom";
+import MenuButton from "../admin/MenuButton.jsx";
 
 const PHASES = {
   INTRO: 0,
@@ -19,6 +22,20 @@ const App = ({ bot, phase }) => {
 
   return (
     <div id="main">
+      {localStorage.getItem("isLoggedIn") == "true" ? (
+        <div className="log-off">
+          <MenuButton
+            icon={"🏠"}
+            hoverText={""}
+            click={() => {}}
+            setIssues={() => {}}
+            where="/admin"
+          />
+        </div>
+      ) : (
+        ""
+      )}
+
       {!!bot ? (
         phase === PHASES.INTRO ? (
           <Intro bot={bot} />
