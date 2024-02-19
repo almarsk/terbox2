@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import listBots from "./list-bots";
+import listProjects from "./list-projects";
 import BotBrick from "./bot-brick.jsx";
 
 const Flows = ({ setIssues }) => {
   const [botsList, setBotsList] = useState([]);
+  const [projects, setProjectsList] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchBots = async () => {
       try {
         const result = await listBots();
         setBotsList(result);
@@ -14,23 +16,53 @@ const Flows = ({ setIssues }) => {
         console.error("Error fetching bots:", error);
       }
     };
-    fetchData();
+    const fetchProjects = async () => {
+      try {
+        const result = await listProjects();
+        setProjectsList(result);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+    fetchBots();
+    fetchProjects();
   }, []);
 
   return (
     <div className="flow-container">
       <div className="folder-container">
-        <div>filter</div>
+        <div>
+          archived
+          <input
+            type="checkbox"
+            id="checkbox1"
+            name="checkbox1"
+            value="option1"
+          />
+        </div>
         <ul className="folder-list">
-          <li> workspace </li>
-          <li> folder1 </li>
-          <li> folder2 </li>
-          <li> archived </li>
+          {projects.map(([id, name, date, isArchived]) => {
+            const dateTime = new Date(date);
+            const formattedDateTime = dateTime.toLocaleString(undefined, {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            });
+
+            return (
+              <p>
+                {id} {name} {formattedDateTime} {isArchived}
+              </p>
+            );
+          })}
         </ul>
       </div>
 
       <ul className="flow-list">
-        {botsList.map(([b, s]) => {
+        {botsList.map(([b, s, p, d]) => {
+          //console.log(b, p, d);
           return <BotBrick bot={b} status={s} setIssues={setIssues} />;
         })}
         <BotBrick

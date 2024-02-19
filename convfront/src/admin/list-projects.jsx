@@ -1,5 +1,5 @@
-const listBots = async () => {
-  const bots_list = await fetch("/list-bots", {
+const listProjects = async () => {
+  const projects_list = await fetch("/list-projects", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -7,13 +7,14 @@ const listBots = async () => {
   })
     .then(async (response) => await response.json())
     .then((result) => {
+      console.log("result-", result);
       return result;
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 
-  return bots_list;
+  return projects_list;
 };
 
-export default listBots;
+export default listProjects;

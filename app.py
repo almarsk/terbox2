@@ -69,7 +69,7 @@ class Flow(db.Model):
     __tablename__ = "flow"
     id = db.Column(db.Integer, primary_key=True)
     flow_name = db.Column(db.Text, nullable=False)
-    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False, default=0)
+    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False, default=1)
     flow = db.Column(JSON)
     created_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     is_archived = db.Column(db.Integer, default=False)
@@ -88,10 +88,8 @@ class Project(db.Model):
 if not db_path.is_file():
     with app.app_context():
         db.create_all()
-        workspace = Project("workspace")
-        archived = Project("archived")
-
-        test_flow = Flow("test_flow", {})
+        workspace = Project(project_name="workspace")
+        archived = Project(project_name="archived")
 
         db.session.add(workspace)
         db.session.add(archived)
@@ -146,6 +144,12 @@ from convroute.admin.login import login_bp
 app.register_blueprint(login_bp)
 from convroute.admin.list_bots import list_bot_bp
 app.register_blueprint(list_bot_bp)
+from convroute.admin.create import create_bp
+app.register_blueprint(create_bp)
+from convroute.admin.list_projects import list_projects_bp
+app.register_blueprint(list_projects_bp)
+from convroute.admin.proof import proof_bp
+app.register_blueprint(proof_bp)
 
 if __name__ == "__main__":
     app.run(debug=True)

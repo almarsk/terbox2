@@ -13,7 +13,6 @@ const TestPage = () => {
   const [useValid, setValid] = useState(0);
 
   useEffect(() => {
-    console.log("test timee");
     listBots(flow).then((e) => {
       console.log(e);
       if (e.message === "invalid path") {

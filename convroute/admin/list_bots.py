@@ -1,32 +1,29 @@
 from flask import Blueprint, request, jsonify, request
+import sqlite3
 import os
 from convproof import validate_flow
 
 list_bot_bp = Blueprint('list_bots', __name__)
 
-@list_bot_bp.route("/list-bots", methods=["POST"])
+@list_bot_bp.route("/list-bots", methods=["GET"])
 def list_bots():
-
-    print("lesgo")
-    flow_request = request.get_json()
-
-    print(flow_request)
-
-    from app import app
+    from app import app, db, Flow, db_path
     try:
-        file_names = os.listdir(f"{os.getcwd()}/{app.config['BOTS_PATH']}")
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Flow")
+        flows = cursor.fetchall()
+        flow_names = [[row[1], row[2], row[4]] for row in flows]
+        cursor.close()
+        conn.close()
+
     except Exception as e:
-        print(f"Error listing files: {e}")
-        return []
+        print(f"db issues: {e}")
+        return jsonify([])
 
-    if flow_request is None or "flow" not in flow_request:
-        files = [
-            [os.path.splitext(file)[0], validate_flow(app.config['BOTS_PATH'], os.path.splitext(file)[0])]
-            for file
-            in file_names
-        ]
-        return jsonify(files)
-
-    else:
-        flow = flow_request["flow"]
-        return jsonify(validate_flow(app.config['BOTS_PATH'], flow))
+    files = [
+        [name, validate_flow(app.config['BOTS_PATH'], name), project, date]
+        for [name, date, project]
+        in flow_names
+    ]
+    return jsonify(files)

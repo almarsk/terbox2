@@ -79,9 +79,9 @@ const BotBrick = ({ bot, status, setIssues, newFlow }) => {
         <MenuButton
           icon={status.success ? "🏗️" : "🛠️"}
           hoverText={status.message}
-          click={() => console.log(`todo - edit interface for ${bot}`)}
+          //click={() => console.log(`todo - edit interface for ${bot}`)}
           setIssues={setIssues}
-          where={`/admin/edit/${bot}`}
+          where={`/admin/edit/___`}
         />
       </div>
     );

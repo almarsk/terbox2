@@ -25,6 +25,7 @@
 
 .bot-brick {
     margin-bottom: 10px;
+    min-width: 568px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -70,4 +71,9 @@ ul {
 .folder-container {
     margin: 5px;
     border: 1px solid rgb(129, 129, 129);
+}
+
+.title {
+    color: black;
+    text-decoration: none;
 }

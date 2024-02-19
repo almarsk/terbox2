@@ -1,9 +1,12 @@
-const listBots = async () => {
-  const bots_list = await fetch("/list-bots", {
-    method: "GET",
+const proof = async (flow) => {
+  const proof = await fetch("/proof", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      flow: flow,
+    }),
   })
     .then(async (response) => await response.json())
     .then((result) => {
@@ -13,7 +16,7 @@ const listBots = async () => {
       console.error("Error:", error);
     });
 
-  return bots_list;
+  return proof;
 };
 
-export default listBots;
+export default proof;

@@ -1,6 +1,6 @@
 import "./admin.css";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import MenuButton from "./MenuButton";
 
@@ -14,7 +14,9 @@ const AdminPage = ({ logOff, setIssues, children }) => {
 
   return (
     <div className="admin-container">
-      <h1>Admin</h1>
+      <Link className="title" to="/admin">
+        <h1>Admin</h1>
+      </Link>
       {children}
 
       <div className="log-off">
