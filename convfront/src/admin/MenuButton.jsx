@@ -5,7 +5,10 @@ const MenuButton = ({ icon, click, hoverText, setIssues, where }) => {
     <Link
       className="submit admin-button"
       to={where}
-      onMouseOver={() => setIssues(hoverText.replace(/\n/g, "<br>"))}
+      onMouseOver={() => {
+        setIssues("");
+        setIssues(hoverText.replace(/\n/g, "<br>"));
+      }}
       onMouseLeave={() => setIssues("")}
       onClick={click}
     >

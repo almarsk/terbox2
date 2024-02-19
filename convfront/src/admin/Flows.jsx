@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import myRequest from "../myRequest";
 import BotBrick from "./BotBrick";
+import MenuButton from "./MenuButton";
 
 const Flows = ({ setIssues }) => {
   const [botsList, setBotsList] = useState([]);
   const [projects, setProjectsList] = useState([]);
+  const [archived, setArchived] = useState(false);
 
   useEffect(() => {
     const fetchBots = async () => {
@@ -31,12 +33,13 @@ const Flows = ({ setIssues }) => {
     <div className="flow-container">
       <div className="folder-container">
         <div>
-          archived
-          <input
-            type="checkbox"
-            id="checkbox1"
-            name="checkbox1"
-            value="option1"
+          <MenuButton
+            icon={archived ? "📂" : "📁"}
+            click={() => {
+              setArchived((prevArchived) => !prevArchived);
+            }}
+            setIssues={setIssues}
+            hoverText={`${archived ? "hide" : "view"} archived`}
           />
         </div>
         <ul className="folder-list">

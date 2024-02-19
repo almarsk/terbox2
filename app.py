@@ -96,7 +96,6 @@ if not db_path.is_file():
         db.session.commit()
 
 
-
 # –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– Handling Requests
 
 @app.route('/', defaults={'path': ''}, methods=("GET", "POST"))
@@ -124,32 +123,29 @@ def dispatcher(path):
         bot=session["flow"] if "flow" in session else "",
         phase=session["phase"] if "phase" in session else 0)
 
-# conversation endpoints
-from convroute.intro import intro_bp
-app.register_blueprint(intro_bp)
-from convroute.start import start_bp
-app.register_blueprint(start_bp)
-from convroute.bot import bot_bp
-app.register_blueprint(bot_bp)
-from convroute.abort import abort_bp, is_aborted_bp
-app.register_blueprint(abort_bp)
-app.register_blueprint(is_aborted_bp)
-from convroute.outro import outro_bp
-app.register_blueprint(outro_bp)
 
-# admin endpoints
-from convroute.admin.call_convform import convform_bp
-app.register_blueprint(convform_bp)
-from convroute.admin.login import login_bp
-app.register_blueprint(login_bp)
-from convroute.admin.list_bots import list_bot_bp
-app.register_blueprint(list_bot_bp)
-from convroute.admin.create import create_bp
-app.register_blueprint(create_bp)
-from convroute.admin.list_projects import list_projects_bp
-app.register_blueprint(list_projects_bp)
-from convroute.admin.proof import proof_bp
-app.register_blueprint(proof_bp)
+blueprint_paths = [
+    "intro.intro_bp",
+    "start.start_bp",
+    "bot.bot_bp",
+    "abort.abort_bp",
+    "abort.is_aborted_bp",
+    "outro.outro_bp",
+    "admin.call_convform.convform_bp",
+    "admin.list_bots.list_bot_bp",
+    "admin.create.create_bp",
+    "admin.list_projects.list_projects_bp",
+    "admin.proof.proof_bp",
+    "admin.login.login_bp"
+]
+
+for path in blueprint_paths:
+    module_name, blueprint_name = path.rsplit('.', 1)
+    module = __import__(f"convroute.{module_name}", fromlist=[blueprint_name])
+    blueprint = getattr(module, blueprint_name)
+    app.register_blueprint(blueprint)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

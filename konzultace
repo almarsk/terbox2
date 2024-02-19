@@ -1,0 +1,3 @@
+router - dvojí věc
+mouseout ani mouseleave se netrigrují, když odscrollím
+filename nemůže být dir name capitalized
