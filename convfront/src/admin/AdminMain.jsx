@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import AdminPage from "./admin-page";
-import LoginPage from "./login-page";
-import login from "./login";
+import AdminPage from "./AdminPage";
+import LoginPage from "./LoginPage";
+import myRequest from "../myRequest";
 import Flows from "./Flows";
 import { Route, Routes } from "react-router-dom";
 import EditPage from "./EditPage";
@@ -19,9 +19,10 @@ const Admin = () => {
   };
 
   const handleLogin = async (nick, pass) => {
-    const success = await login(nick, pass);
-    !success ? setUnsuccess(true) : "";
-    setIsLoggedIn(success);
+    const success = await myRequest("/login", [nick, pass]).then((e) => {
+      localStorage.setItem("isLoggedIn", e.sucess);
+      setIsLoggedIn(e.success);
+    });
   };
 
   useEffect(() => {

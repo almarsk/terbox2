@@ -1,4 +1,4 @@
-import UserInput from "../app/user-input";
+import UserInput from "../app/UserInput";
 import PropTypes from "prop-types";
 import submitNewConvo from "./submit-new-convo";
 

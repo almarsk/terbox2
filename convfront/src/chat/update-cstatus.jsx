@@ -1,5 +1,4 @@
 const updateCStatus = async (userSpeech, cStatus) => {
-  // console.log("sending", cStatus);
   const data = JSON.stringify([userSpeech, cStatus]);
   const updatedCStatus = await fetch("/bot", {
     method: "POST",

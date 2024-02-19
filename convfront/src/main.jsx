@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import App from "./app/App.jsx";
 import "./index.css";
-import Admin from "./admin/admin.jsx";
+import Admin from "./admin/AdminMain";
 
 const [bot, phase] = [window.bot, window.phase];
 

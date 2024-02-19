@@ -5,7 +5,7 @@ from convproof import validate_flow
 
 list_bot_bp = Blueprint('list_bots', __name__)
 
-@list_bot_bp.route("/list-bots", methods=["GET"])
+@list_bot_bp.route("/list-bots", methods=["POST"])
 def list_bots():
     from app import app, db, Flow, db_path
     try:

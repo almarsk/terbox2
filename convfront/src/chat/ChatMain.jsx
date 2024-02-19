@@ -1,5 +1,5 @@
-import UserInput from "../app/user-input";
-import BotOutput from "./bot-output";
+import UserInput from "../app/UserInput";
+import BotOutput from "./BotOutput";
 import updateCStatus from "./update-cstatus";
 import abort_convo from "./abort-button";
 import { useState, useEffect } from "react";

@@ -1,9 +1,9 @@
 import "./App.css";
 import PropTypes from "prop-types";
-import Intro from "../intro/intro";
-import Chat from "../chat/chat";
-import Outro from "../outro/outro";
-import Start from "../start/start";
+import Intro from "../intro/IntroMain";
+import Chat from "../chat/ChatMain";
+import Outro from "../outro/OutroMain";
+import Start from "../start/StartMain";
 
 const PHASES = {
   INTRO: 0,

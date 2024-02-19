@@ -1,20 +1,18 @@
-const listProjects = async () => {
-  const projects_list = await fetch("/list-projects", {
-    method: "GET",
+const myRequest = async (endpoint, data) => {
+  return await fetch(endpoint, {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(data),
   })
     .then(async (response) => await response.json())
     .then((result) => {
-      console.log("result-", result);
       return result;
     })
     .catch((error) => {
       console.error("Error:", error);
     });
-
-  return projects_list;
 };
 
-export default listProjects;
+export default myRequest;

@@ -12,10 +12,11 @@ def create():
     except:
         return jsonify({}), 400
 
-    print(f"taso {item_type, name, flow}")
     if item_type == "flow":
-        print(f"creating flow {name}")
+        if Flow.query.filter_by(flow_name=name).first():
+            return jsonify({"success": False, "message": "there is a flow of that name already"})
 
+        print(f"creating flow {name}")
         item = Flow(flow_name=name, flow=flow)
         db.session.add(item)
         db.session.commit()

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import listBots from "./list-bots";
-import listProjects from "./list-projects";
-import BotBrick from "./bot-brick.jsx";
+import myRequest from "../myRequest";
+import BotBrick from "./BotBrick";
 
 const Flows = ({ setIssues }) => {
   const [botsList, setBotsList] = useState([]);
@@ -10,7 +9,7 @@ const Flows = ({ setIssues }) => {
   useEffect(() => {
     const fetchBots = async () => {
       try {
-        const result = await listBots();
+        const result = await myRequest("/list-bots", {});
         setBotsList(result);
       } catch (error) {
         console.error("Error fetching bots:", error);
@@ -18,7 +17,7 @@ const Flows = ({ setIssues }) => {
     };
     const fetchProjects = async () => {
       try {
-        const result = await listProjects();
+        const result = await myRequest("/list-projects", {});
         setProjectsList(result);
       } catch (error) {
         console.error("Error fetching projects:", error);

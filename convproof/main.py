@@ -12,47 +12,36 @@ def validate_flow(path, flow, return_flow=False):
     result = dict()
     full_path = f"./{path}/{flow.lower()}.json"
 
+    from app import db, Flow
+
+    flow_data = Flow.query.filter_by(flow_name=flow).first()
+
     # check valid path
-    if not os.path.exists(full_path):
-        issues.append("invalid path")
+    if flow_data is None:
+        issues.append("no such bot")
         result =  {
             "success": False,
             "message": ProofException(issues).message
         }
     else:
-        with open(full_path, "r") as b:
-            try:
-                bot = json.loads(b.read())
-            except json.JSONDecodeError as e:
-                issues.append(e)
-
-        #if issues:
-        #   raise ProofException("JSON", issues)
+        bot = flow_data.flow
+        print(bot)
 
         with open("convproof/schema.json", "r") as s:
             schema = json.loads(s.read())
 
         # check structure and non-empty fields
-
         validator = jsonschema.Draft7Validator(schema)
         [issues.append(f"{e.message}, found in {', '.join(list(e.schema_path))}") for e in validator.iter_errors(bot)]
 
-        #if issues:
-        #   raise ProofException("structure", issues)
 
 
         # check references
         if not issues:
             proof_references(bot, issues)
 
-        #if issues:
-        #    raise ProofException("references",issues)
-
         print("todo check that there isnt only $")
         print("todo check that there is a state_intro and a state_outro only $")
-
-        #if issues:
-        #   raise ProofException("essence",issues)
 
         result = dict()
 

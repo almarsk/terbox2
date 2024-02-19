@@ -1,20 +1,23 @@
 import { useEffect } from "react";
-import proof from "./proof";
-import create from "./create";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import myRequest from "../myRequest";
 
 const EditPage = () => {
   const { flow } = useParams();
   const [flow_name, setFlowName] = useState(flow);
 
   useEffect(() => {
-    proof(flow).then((e) => console.log(e));
+    myRequest("/proof", { flow: flow }).then((e) => console.log(e));
   }, []);
 
   const handleCreate = (e) => {
     e.preventDefault();
-    create(flow_name, {}).then((e) => console.log(e));
+    myRequest("/create", {
+      item_type: "flow",
+      name: flow_name,
+      flow: {},
+    }).then((e) => console.log(e));
     console.log("new flow will be called:", flow_name);
   };
 

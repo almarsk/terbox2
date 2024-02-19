@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import listBots from "./list-bots";
+import myRequest from "../myRequest";
 import { Navigate, useParams } from "react-router-dom";
 
 const states = {
@@ -13,7 +13,7 @@ const TestPage = () => {
   const [useValid, setValid] = useState(0);
 
   useEffect(() => {
-    listBots(flow).then((e) => {
+    myRequest("/proof", { flow: flow }).then((e) => {
       console.log(e);
       if (e.message === "invalid path") {
         setValid(2);

@@ -1,5 +1,4 @@
 make lesser mess of requests
-capital letters for component names
 unmess flask endpoints
 componentize Flows
 check what else should be componetized
@@ -10,10 +9,6 @@ set up state to filter Flows by Projects
 (db op)                 copy bot
 (db op)                 move to folder
 (edit interface)        edit bot - control light for validation
-
-
-
-    - flask endpoints getting out of hand?
 
 project folders
 (db op)    - add project folders,
