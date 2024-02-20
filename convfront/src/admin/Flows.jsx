@@ -9,18 +9,29 @@ const Flows = ({ setIssues }) => {
   const [archived, setArchived] = useState(false);
 
   const [newProjectValue, setNewProjectValue] = useState("");
-  const handleSubmit = async (event) => {
+  const [newFlowValue, setNewFlowValue] = useState("");
+
+  const [activeProject, setActiveProject] = useState(1);
+  const [activeFlows, setActiveFlows] = useState(botsList);
+
+  const handleSubmitProject = async (event) => {
     event.preventDefault();
     setNewProjectValue("");
     await myRequest("/create", {
       item_type: "project",
       name: newProjectValue,
-      flow: {},
     });
     setProjectsList(await myRequest("/list-projects", {}));
   };
-  const handleChange = (event) => {
-    setNewProjectValue(event.target.value);
+
+  const handleSubmitFlow = async (event) => {
+    event.preventDefault();
+    setNewFlowValue("");
+    await myRequest("/create", {
+      item_type: "flow",
+      name: newFlowValue,
+    });
+    setBotsList(await myRequest("/list-bots", {}));
   };
 
   const fetchProjects = async () => {
@@ -32,18 +43,30 @@ const Flows = ({ setIssues }) => {
     }
   };
 
+  const fetchBots = async () => {
+    try {
+      const result = await myRequest("/list-bots", {});
+      setBotsList(result);
+    } catch (error) {
+      console.error("Error fetching bots:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchBots = async () => {
-      try {
-        const result = await myRequest("/list-bots", {});
-        setBotsList(result);
-      } catch (error) {
-        console.error("Error fetching bots:", error);
-      }
-    };
     fetchBots();
     fetchProjects();
   }, []);
+
+  useEffect(() => {
+    setActiveFlows(
+      botsList.filter((b) => {
+        console.log(b);
+        console.log(activeProject);
+        return b[3] == activeProject;
+      }),
+    );
+    console.log(activeFlows);
+  }, [activeProject, botsList]);
 
   return (
     <div className="flow-container">
@@ -62,21 +85,28 @@ const Flows = ({ setIssues }) => {
           {projects
             .filter((p) => (archived ? true : !p[3]))
             .map(([id, name, , isArchived]) => (
-              <div className="folder-brick">
+              <div
+                className="folder-brick"
+                onClick={() => setActiveProject(id)}
+              >
                 <span className="project-name">{name}</span>
-                <MenuButton
-                  icon={isArchived ? "💡" : "💾"}
-                  click={async () => {
-                    await myRequest("/move", {
-                      item_type: "project",
-                      name: name,
-                      archived: !isArchived,
-                      destination: "",
-                    }).then(() => fetchProjects());
-                  }}
-                  setIssues={setIssues}
-                  hoverText={`${archived ? "unarchive" : "archive"} project ${name}`}
-                />
+                {id > 2 ? (
+                  <MenuButton
+                    icon={isArchived ? "💡" : "💾"}
+                    click={async () => {
+                      await myRequest("/move", {
+                        item_type: "project",
+                        name: name,
+                        archived: !isArchived,
+                        destination: "",
+                      }).then(() => fetchProjects());
+                    }}
+                    setIssues={setIssues}
+                    hoverText={`${archived ? "unarchive" : "archive"} project ${name}`}
+                  />
+                ) : (
+                  ""
+                )}
               </div>
             ))}
           <div>
@@ -86,10 +116,10 @@ const Flows = ({ setIssues }) => {
                 className="new-project"
                 placeholder="new project"
                 value={newProjectValue}
-                onChange={handleChange}
+                onChange={(e) => setNewProjectValue(e.target.value)}
                 type="text"
               />
-              <button className="submit" onClick={handleSubmit}>
+              <button className="submit" onClick={handleSubmitProject}>
                 ↵
               </button>
             </div>
@@ -98,16 +128,33 @@ const Flows = ({ setIssues }) => {
       </div>
 
       <ul className="flow-list">
-        {botsList.map(([b, s, p, d]) => {
-          //console.log(b, p, d);
-          return <BotBrick bot={b} status={s} setIssues={setIssues} />;
+        {activeFlows.map(([b, s, p, project, a]) => {
+          // console.log(b, p, d);
+
+          return (
+            <BotBrick
+              bot={b}
+              status={s}
+              setIssues={setIssues}
+              archived={a}
+              projectId={project}
+              setBotsList={fetchBots}
+            />
+          );
         })}
-        <BotBrick
-          bot=""
-          status={{ success: false, message: "not made" }}
-          setIssues={setIssues}
-          newFlow={true}
-        />
+        <div className="bot-brick">
+          <input
+            required
+            className="new-project"
+            placeholder="new flow"
+            value={newFlowValue}
+            onChange={(e) => setNewFlowValue(e.target.value)}
+            type="text"
+          />
+          <button className="submit" onClick={handleSubmitFlow}>
+            ↵
+          </button>
+        </div>
       </ul>
     </div>
   );

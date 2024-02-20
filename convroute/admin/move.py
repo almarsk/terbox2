@@ -19,6 +19,18 @@ def move():
         db.session.add(project)
         db.session.commit()
 
+    elif item_type == "flow":
+        flow = Flow.query.filter_by(flow_name=name).first()
+        flow.is_archived = int(archived)
+        if not archived and flow.project_id == 2:
+            flow.project_id = 1
+        if archived:
+            flow.project_id = 2
+        if destination != 1 and destination != 2:
+            flow.project_id = destination
+        db.session.add(flow)
+        db.session.commit()
+
 
 
     return jsonify({"success": True, "message": f"{name} moved"})

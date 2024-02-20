@@ -13,7 +13,7 @@ def list_bots():
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM Flow")
         flows = cursor.fetchall()
-        flow_names = [[row[1], row[2], row[4]] for row in flows]
+        flow_names = [[row[1], row[2], row[4], row[5]] for row in flows]
         cursor.close()
         conn.close()
 
@@ -22,8 +22,8 @@ def list_bots():
         return jsonify([])
 
     files = [
-        [name, validate_flow(app.config['BOTS_PATH'], name), project, date]
-        for [name, date, project]
+        [name, validate_flow(app.config['BOTS_PATH'], name), project, date, archived]
+        for [name, date, project, archived]
         in flow_names
     ]
     return jsonify(files)
