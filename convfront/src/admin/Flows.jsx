@@ -20,6 +20,7 @@ const Flows = ({ setIssues }) => {
     await myRequest("/create", {
       item_type: "project",
       name: newProjectValue,
+      destination: activeProject,
     });
     setProjectsList(await myRequest("/list-projects", {}));
   };
@@ -30,6 +31,7 @@ const Flows = ({ setIssues }) => {
     await myRequest("/create", {
       item_type: "flow",
       name: newFlowValue,
+      destination: activeProject,
     });
     setBotsList(await myRequest("/list-bots", {}));
   };
@@ -58,14 +60,12 @@ const Flows = ({ setIssues }) => {
   }, []);
 
   useEffect(() => {
-    setActiveFlows(
-      botsList.filter((b) => {
-        console.log(b);
-        console.log(activeProject);
-        return b[3] == activeProject;
-      }),
-    );
-    console.log(activeFlows);
+    if (activeProject === 3) {
+      setActiveFlows(botsList);
+    } else {
+      const filteredFlows = botsList.filter((b) => b[3] === activeProject);
+      setActiveFlows(filteredFlows);
+    }
   }, [activeProject, botsList]);
 
   return (
@@ -86,11 +86,12 @@ const Flows = ({ setIssues }) => {
             .filter((p) => (archived ? true : !p[3]))
             .map(([id, name, , isArchived]) => (
               <div
+                project-id={id}
                 className="folder-brick"
                 onClick={() => setActiveProject(id)}
               >
                 <span className="project-name">{name}</span>
-                {id > 2 ? (
+                {id > 3 ? (
                   <MenuButton
                     icon={isArchived ? "💡" : "💾"}
                     click={async (e) => {
@@ -111,18 +112,21 @@ const Flows = ({ setIssues }) => {
               </div>
             ))}
           <div>
-            <div className="folder-brick">
-              <input
-                required
-                className="new-project"
-                placeholder="new project"
-                value={newProjectValue}
-                onChange={(e) => setNewProjectValue(e.target.value)}
-                type="text"
-              />
-              <button className="submit" onClick={handleSubmitProject}>
-                ↵
-              </button>
+            <div>
+              <form
+                className="folder-brick new-project-form"
+                onSubmit={handleSubmitProject}
+              >
+                <input
+                  required
+                  className="new-project"
+                  placeholder="new project"
+                  value={newProjectValue}
+                  onChange={(e) => setNewProjectValue(e.target.value)}
+                  type="text"
+                />
+                <button className="submit admin-button">↵</button>
+              </form>
             </div>
           </div>
         </ul>
@@ -144,17 +148,17 @@ const Flows = ({ setIssues }) => {
           );
         })}
         <div className="bot-brick">
-          <input
-            required
-            className="new-project"
-            placeholder="new flow"
-            value={newFlowValue}
-            onChange={(e) => setNewFlowValue(e.target.value)}
-            type="text"
-          />
-          <button className="submit" onClick={handleSubmitFlow}>
-            ↵
-          </button>
+          <form onSubmit={handleSubmitFlow}>
+            <input
+              required
+              className="bot-name new-flow"
+              placeholder="new flow"
+              value={newFlowValue}
+              onChange={(e) => setNewFlowValue(e.target.value)}
+              type="text"
+            />
+            <button className="submit">↵</button>
+          </form>
         </div>
       </ul>
     </div>

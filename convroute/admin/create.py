@@ -8,7 +8,7 @@ create_bp = Blueprint('create', __name__)
 def create():
     from app import db, Flow, Project
     try:
-        item_type, name = request.get_json().values()
+        item_type, name, destination = request.get_json().values()
     except:
         return jsonify({}), 400
 
@@ -16,7 +16,7 @@ def create():
         if Flow.query.filter_by(flow_name=name).first():
             return jsonify({"success": False, "message": "there is a flow of that name already"})
         print(f"creating flow {name}")
-        item = Flow(flow_name=name, flow={})
+        item = Flow(flow_name=name, flow=default_item(item_type), project_id=destination)
         db.session.add(item)
         db.session.commit()
 
@@ -38,3 +38,6 @@ def create():
  db.add(item)
  db.commit()
 """
+
+def default_item(item_type):
+    return {}

@@ -18,9 +18,10 @@ def list_projects():
         print(projects_data)
 
         for sublist in projects_data[:]:
-            if sublist[0] == 2:
+            if sublist[0] == 2 or sublist[0] == 3:
                 projects_data.pop(projects_data.index(sublist))
                 projects_data.append(sublist)
+
 
 
         cursor.close()

@@ -69,6 +69,7 @@
     -ms-user-select: none;
     user-select: none;
     cursor: default;
+    border: none;
 }
 
 .submit:hover {

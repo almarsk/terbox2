@@ -13,7 +13,7 @@ def move():
 
     if item_type == "project":
         project = Project.query.filter_by(project_name=name).first()
-        if project.id == 1 or project.id == 2:
+        if project.id in [1,2,3] :
             return {"success": False, "message": "workspace and archived are never archived"}
         project.is_archived = int(archived)
         db.session.add(project)

@@ -14,13 +14,14 @@
 }
 
 .bot-brick {
-    margin-bottom: 10px;
-    min-width: 568px;
+    margin-bottom: 5px;
+    width: 628px;
+    height: 40px;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 5px;
-    border: 1px solid grey;
+    background-color: rgb(189, 189, 189);
     border-radius: 10px;
 }
 
@@ -38,12 +39,8 @@
 }
 
 .folder-brick:hover {
-    background-color: rgb(160, 160, 160);
     cursor: pointer;
-    font-size: 20px;
-}
-
-.folder-brick:focus {
+    font-size: 18px;
 }
 
 .folder-brick:active {
@@ -58,8 +55,18 @@
     background-color: transparent;
     border: none;
     margin-left: 10px;
-    font-size: 20px;
+    font-size: 16px;
     width: 68%;
+}
+
+.new-flow {
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+}
+
+.new-flow:focus {
+    outline: none;
 }
 
 .new-project:focus {
@@ -69,6 +76,14 @@
 .bot-name {
     width: 150px;
     text-align: center;
+}
+
+.launchable:hover {
+    font-size: 18px;
+}
+
+.is-dragging {
+    transition: transform 0.3s ease-in-out;
 }
 
 ul {
@@ -98,6 +113,7 @@ ul {
 
 .flow-list {
     margin: 5px;
+    min-width: 628px;
 }
 
 .folder-container {

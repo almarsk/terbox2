@@ -88,11 +88,10 @@ class Project(db.Model):
 if not db_path.is_file():
     with app.app_context():
         db.create_all()
-        workspace = Project(project_name="workspace")
-        archived = Project(project_name="archived")
 
-        db.session.add(workspace)
-        db.session.add(archived)
+        db.session.add(Project(project_name="workspace"))
+        db.session.add(Project(project_name="archived"))
+        db.session.add(Project(project_name="all"))
         db.session.commit()
 
 
