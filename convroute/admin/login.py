@@ -7,5 +7,5 @@ login_bp = Blueprint('login', __name__)
 @login_bp.route("/login", methods=["POST"])
 def login():
     [nickname, password] = request.get_json()
-    print(nickname, password)
+
     return jsonify({"success": nickname == "almarsk" and password == "Sl0nice!"})

@@ -15,8 +15,13 @@ def create():
     if item_type == "flow":
         if Flow.query.filter_by(flow_name=name).first():
             return jsonify({"success": False, "message": "there is a flow of that name already"})
-        print(f"creating flow {name}")
-        item = Flow(flow_name=name, flow=default_item(item_type), project_id=destination)
+
+        item = Flow(
+            flow_name=name,
+            flow=default_item(item_type),
+            project_id=destination,
+            is_archived = 1 if int(destination) == 2 else 0
+        )
         db.session.add(item)
         db.session.commit()
 
@@ -40,4 +45,4 @@ def create():
 """
 
 def default_item(item_type):
-    return {}
+    return {"name": "yuh"}

@@ -1,11 +1,5 @@
-clean up Flows
-look through endpoints, fix and polish
-cancel rocket button, have valid flows highlighted on hover and clickable
-(db op)                 move to folder (dragging?)
-
-(db op)                 copy bot
-(db op)                 export json and download
-(edit interface)        edit bot - control light for validation
+clean up Flows and BotBrick and other Admin stuff, put button up
+look through endpoints, fix and polish, unify db op endpoint
 
 
 edit interface

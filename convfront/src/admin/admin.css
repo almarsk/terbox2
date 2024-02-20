@@ -70,7 +70,6 @@
 .new-flow:focus {
     outline: none;
 }
-
 .new-project:focus {
     outline: none;
 }
@@ -79,6 +78,10 @@
     width: 150px;
     margin-left: 10px;
     cursor: move;
+}
+
+.new-flow:hover {
+    cursor: default;
 }
 
 .is-dragging {

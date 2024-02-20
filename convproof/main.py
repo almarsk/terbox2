@@ -25,7 +25,7 @@ def validate_flow(path, flow, return_flow=False):
         }
     else:
         bot = flow_data.flow
-        print(bot)
+        # print(bot)
 
         with open("convproof/schema.json", "r") as s:
             schema = json.loads(s.read())

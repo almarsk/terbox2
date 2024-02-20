@@ -10,7 +10,7 @@ def proof():
     flow = flow_request["flow"] if "flow" in flow_request else ""
     from app import app
 
-    print(flow)
+
 
     try:
         return jsonify(validate_flow(app.config['BOTS_PATH'], flow))
