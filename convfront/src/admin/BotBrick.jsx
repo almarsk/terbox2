@@ -122,9 +122,12 @@ const BotBrick = ({
 
                 console.log("todo change name");
               }}
+              className="bot-name"
               style={{
                 display: "flex",
                 flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-around",
               }}
             >
               <input
