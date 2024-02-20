@@ -93,7 +93,8 @@ const Flows = ({ setIssues }) => {
                 {id > 2 ? (
                   <MenuButton
                     icon={isArchived ? "💡" : "💾"}
-                    click={async () => {
+                    click={async (e) => {
+                      e.stopPropagation();
                       await myRequest("/move", {
                         item_type: "project",
                         name: name,
