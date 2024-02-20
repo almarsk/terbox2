@@ -14,6 +14,7 @@ const BotBrick = ({
 }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [originalPosition, setOriginalPosition] = useState({ x: 0, y: 0 });
+  const [dropPosition, setDropPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
 
   const handleDrag = (e, ui) => {
@@ -21,33 +22,13 @@ const BotBrick = ({
     setPosition({ x: x + ui.deltaX, y: y + ui.deltaY });
   };
 
-  const handleStop = (e, data) => {
-    const { x, y } = data;
-
-    const draggableElement = e.target;
-    const rect = draggableElement.getBoundingClientRect();
+  const handleStop = (e) => {
+    const rect = e.target.getBoundingClientRect();
     const absoluteX = rect.left + window.pageXOffset;
     const absoluteY = rect.top + window.pageYOffset;
-
-    if (e.target === e.currentTarget) {
-      console.log("Dropped on target element itself");
-      // Handle dropping on the target element itself
-    } else {
-      const droppedOnDiv = document.elementFromPoint(absoluteX, absoluteY);
-      console.log(droppedOnDiv);
-      if (
-        droppedOnDiv &&
-        droppedOnDiv.classList.contains("folder-brick") &&
-        !droppedOnDiv.classList.contains("new-project-form")
-      ) {
-        const directoryId = droppedOnDiv.getAttribute("project-id");
-        console.log("Dropped on", directoryId);
-        // Handle dropping on a specific element
-      }
-    }
-
     setPosition(originalPosition);
     setIsDragging(false);
+    setDropPosition({ x: absoluteX, y: absoluteY });
   };
 
   const onStart = (e, ui) => {
@@ -56,7 +37,45 @@ const BotBrick = ({
     setIsDragging(true);
   };
 
-  useEffect(() => {});
+  const findElementUnderTopmost = (element, selector) => {
+    while (element) {
+      if (element.classList.contains(selector)) {
+        return element;
+      }
+      element = element.parentElement;
+    }
+    return null;
+  };
+
+  useEffect(() => {
+    if (dropPosition.x == 0 && dropPosition.y == 0) {
+      return;
+    }
+
+    let droppedOnDiv = document.elementFromPoint(
+      dropPosition.x,
+      dropPosition.y,
+    );
+
+    console.log(droppedOnDiv);
+
+    droppedOnDiv = findElementUnderTopmost(droppedOnDiv, "folder-brick");
+
+    console.log(droppedOnDiv);
+
+    if (
+      droppedOnDiv &&
+      !droppedOnDiv.classList.contains("new-project-form") &&
+      !droppedOnDiv.classList.contains("all-flows")
+    ) {
+      const directoryId = droppedOnDiv.getAttribute("project-id");
+      myRequest("/move", {
+        item_type: "flow",
+        name: bot,
+        destination: directoryId,
+      }).then(() => setBotsList());
+    }
+  }, [dropPosition]);
 
   return (
     <>
@@ -68,16 +87,9 @@ const BotBrick = ({
           onDrag={handleDrag}
           onStart={onStart}
         >
-          <p
-            className={`bot-name ${status.success ? "launchable" : ""}`}
-            style={{ cursor: status.success ? "pointer" : "move" }}
-          >
+          <p className={`bot-name`}>
             <b
-              onMouseEnter={() =>
-                setIssues(
-                  `${status.success ? "click to launch, " : ""} drag to change project`,
-                )
-              }
+              onMouseEnter={() => setIssues(`drag to change project`)}
               onMouseLeave={() => setIssues("")}
               style={{ color: status.success ? "black" : "grey" }}
             >
@@ -85,15 +97,23 @@ const BotBrick = ({
             </b>
           </p>
         </Draggable>
-        <MenuButton
-          icon={"🚀"}
-          hoverText={`redirect to ${bot}`}
-          click={() => {
-            console.log(`todo - redirect to ${bot}`);
-            window.location = `/?flow=${bot}`;
+
+        <div
+          style={{
+            opacity: status.success ? 100 : 0,
+            zIndex: status.success ? 10 : -1,
           }}
-          setIssues={setIssues}
-        />
+        >
+          <MenuButton
+            icon={"🚀"}
+            hoverText={`redirect to ${bot}`}
+            click={() => {
+              console.log(`todo - redirect to ${bot}`);
+              status.success ? (window.location = `/?flow=${bot}`) : ``;
+            }}
+            setIssues={setIssues}
+          />
+        </div>
 
         <MenuButton
           icon={"📎"}
@@ -126,12 +146,6 @@ const BotBrick = ({
           setIssues={setIssues}
         />
         <MenuButton
-          icon={"⬆️"}
-          hoverText={`move ${bot} to folder`}
-          click={() => console.log(`todo - move ${bot}`)}
-          setIssues={setIssues}
-        />
-        <MenuButton
           icon={"⬇️"}
           hoverText={`export ${bot} in json`}
           click={() => console.log(`todo - move ${bot}`)}
@@ -144,8 +158,7 @@ const BotBrick = ({
             myRequest("/move", {
               item_type: "flow",
               name: bot,
-              archived: !archived,
-              destination: projectId,
+              destination: archived ? 1 : 2,
             }).then(() => setBotsList());
           }}
           setIssues={setIssues}

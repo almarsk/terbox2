@@ -49,6 +49,7 @@
 
 .project-name {
     margin-left: 10px;
+    transition: font-size 0.2s ease;
 }
 
 .new-project {
@@ -60,6 +61,7 @@
 }
 
 .new-flow {
+    margin-left: 10px;
     background-color: transparent;
     border: none;
     font-size: 16px;
@@ -75,11 +77,8 @@
 
 .bot-name {
     width: 150px;
-    text-align: center;
-}
-
-.launchable:hover {
-    font-size: 18px;
+    margin-left: 10px;
+    cursor: move;
 }
 
 .is-dragging {
@@ -123,4 +122,8 @@ ul {
 .title {
     color: black;
     text-decoration: none;
+}
+
+.new-project-form:focus-within {
+    background-color: rgb(200, 200, 200);
 }

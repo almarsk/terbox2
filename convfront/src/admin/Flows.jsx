@@ -84,33 +84,38 @@ const Flows = ({ setIssues }) => {
         <ul className="folder-list">
           {projects
             .filter((p) => (archived ? true : !p[3]))
-            .map(([id, name, , isArchived]) => (
-              <div
-                project-id={id}
-                className="folder-brick"
-                onClick={() => setActiveProject(id)}
-              >
-                <span className="project-name">{name}</span>
-                {id > 3 ? (
-                  <MenuButton
-                    icon={isArchived ? "💡" : "💾"}
-                    click={async (e) => {
-                      e.stopPropagation();
-                      await myRequest("/move", {
-                        item_type: "project",
-                        name: name,
-                        archived: !isArchived,
-                        destination: "",
-                      }).then(() => fetchProjects());
-                    }}
-                    setIssues={setIssues}
-                    hoverText={`${archived ? "unarchive" : "archive"} project ${name}`}
-                  />
-                ) : (
-                  ""
-                )}
-              </div>
-            ))}
+            .map(([id, name, , isArchived]) => {
+              return (
+                <div
+                  project-id={id}
+                  className={`folder-brick ${id == 3 ? "all-flows" : ""}`}
+                  onClick={() => setActiveProject(id)}
+                >
+                  <span
+                    className={`project-name ${activeProject == id ? "bold-text" : ""}`}
+                  >
+                    {name}
+                  </span>
+                  {id > 3 ? (
+                    <MenuButton
+                      icon={isArchived ? "💡" : "💾"}
+                      click={async (e) => {
+                        e.stopPropagation();
+                        await myRequest("/move", {
+                          item_type: "project",
+                          name: name,
+                          destination: isArchived ? 1 : 2,
+                        }).then(() => fetchProjects());
+                      }}
+                      setIssues={setIssues}
+                      hoverText={`${archived ? "unarchive" : "archive"} project ${name}`}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </div>
+              );
+            })}
           <div>
             <div>
               <form
