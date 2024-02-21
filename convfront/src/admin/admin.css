@@ -61,7 +61,6 @@
 }
 
 .new-flow {
-    margin-left: 10px;
     background-color: transparent;
     border: none;
     font-size: 16px;
@@ -135,5 +134,4 @@ ul {
     display: "flex";
     flex-direction: "row";
     align-items: "center";
-    justify-content: "space-around";
 }

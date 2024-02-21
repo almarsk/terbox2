@@ -1,7 +1,7 @@
 import React from "react";
 import MenuButton from "./MenuButton";
 import myRequest from "../myRequest";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import DraggableLabel from "./DraggableLabel";
 import RenameFlowForm from "./RenameFlowForm";
 import download_flow from "./download_flow";
@@ -12,7 +12,7 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
 
   return (
     <div className="bot-brick">
-      <p className={`bot-name`}>
+      <div className="bot-name">
         {!renameMode ? (
           <DraggableLabel
             setIssues={setIssues}
@@ -22,6 +22,7 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
           />
         ) : (
           <RenameFlowForm
+            renameMode={renameMode}
             setRenameMode={setRenameMode}
             newFlowValue={newFlowValue}
             setNewFlowValue={setNewFlowValue}
@@ -29,7 +30,7 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
             setBotsList={setBotsList}
           />
         )}
-      </p>
+      </div>
 
       <div
         style={{

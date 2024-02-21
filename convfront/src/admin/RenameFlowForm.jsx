@@ -1,12 +1,22 @@
+import { useEffect, useRef } from "react";
 import myRequest from "../myRequest";
 
 const RenameFlowForm = ({
+  renameMode,
   setRenameMode,
   newFlowValue,
   setNewFlowValue,
   bot,
   setBotsList,
 }) => {
+  const inputRef = useRef(null);
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.select();
+      inputRef.current.focus();
+    }
+  }, [renameMode]);
+
   return (
     <form
       onSubmit={(e) => {
@@ -22,17 +32,17 @@ const RenameFlowForm = ({
           }
         });
       }}
-      className="bot-name rename-flow-form"
+      className="rename-flow-form"
     >
       <input
         required
-        className="bot-name new-flow"
+        ref={inputRef}
+        className="new-flow"
         placeholder="rename flow"
         value={newFlowValue}
         onChange={(e) => setNewFlowValue(e.target.value)}
         type="text"
       />
-      <button className="submit">↵</button>
     </form>
   );
 };
