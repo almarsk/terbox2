@@ -130,3 +130,10 @@ ul {
 .new-project-form:focus-within {
     background-color: rgb(200, 200, 200);
 }
+
+.rename-flow-form {
+    display: "flex";
+    flex-direction: "row";
+    align-items: "center";
+    justify-content: "space-around";
+}

@@ -20,7 +20,7 @@ const AdminConfig = () => {
   };
 
   const handleLogin = async (nick, pass) => {
-    const success = await myRequest("/login", [nick, pass]).then((e) => {
+    myRequest("/login", [nick, pass]).then((e) => {
       console.log(e.success);
       localStorage.setItem("isLoggedIn", e.success);
       setIsLoggedIn(e.success);
@@ -30,7 +30,7 @@ const AdminConfig = () => {
 
   useEffect(() => {
     const loggedInStatus = localStorage.getItem("isLoggedIn");
-    if (loggedInStatus) {
+    if (loggedInStatus == "true") {
       setIsLoggedIn(true);
     }
   }, []);

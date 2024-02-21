@@ -25,7 +25,14 @@ const UserInput = ({ submit, loading }) => {
         value={inputValue}
       ></input>
 
-      {loading ? "" : <button className="submit">↵</button>}
+      <button
+        style={{
+          zIndex: loading ? -1 : 1,
+        }}
+        className="submit"
+      >
+        ↵
+      </button>
     </form>
   );
 };

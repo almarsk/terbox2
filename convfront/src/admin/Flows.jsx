@@ -84,6 +84,7 @@ const Flows = ({ setIssues }) => {
         <ul className="folder-list">
           {projects
             .filter((p) => (archived ? true : !p[3]))
+            .filter((p) => (archived ? true : p[0] != 2))
             .map(([id, name, , isArchived]) => {
               return (
                 <div

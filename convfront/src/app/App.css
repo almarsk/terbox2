@@ -22,6 +22,7 @@
 
 .content-box.input {
     justify-content: flex-end;
+    background-color: rgb(169, 169, 169);
 }
 
 .input-field {

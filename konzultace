@@ -1,4 +1,8 @@
+chatbot bude ok?
+
 router - dvojí věc
 mouseout ani mouseleave se netrigrují, když odscrollím
 filename nemůže být dir name capitalized
 renderování on hover???
+admin config loggedinstatus == "true"
+message for missing required input
