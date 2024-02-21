@@ -84,7 +84,7 @@
 }
 
 .is-dragging {
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.1s;
 }
 
 ul {

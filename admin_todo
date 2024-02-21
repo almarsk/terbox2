@@ -1,5 +1,9 @@
-clean up Flows and BotBrick and other Admin stuff, put button up
+clean up Flows
 look through endpoints, fix and polish, unify db op endpoint
+unite editing endpoints
+    - rename - name
+    - move - project_id
+
 
 
 edit interface

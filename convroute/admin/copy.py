@@ -18,10 +18,16 @@ def copy_flow():
         new_name = source_flow.flow_name
         new_flow = source_flow.flow
         new_project_id = source_flow.project_id
+
+        try:
+            index = int(name.split("_")[1])
+        except:
+            index = 1
+
         index = 1
         while Flow.query.filter_by(flow_name=new_name).first():
             index += 1
-            new_name = f"{name}{str(index)}"
+            new_name = f"{name.split('_')[0]}_{str(index)}"
 
         item = Flow(
             flow_name=new_name,

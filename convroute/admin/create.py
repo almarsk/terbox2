@@ -32,17 +32,9 @@ def create():
         db.session.add(item)
         db.session.commit()
 
-
-
     return jsonify({}), 200
 
 
-
-"""
- item = Flow(flow_name="test_flow", flow={})
- db.add(item)
- db.commit()
-"""
 
 def default_item(item_type):
     return {"name": "yuh"}

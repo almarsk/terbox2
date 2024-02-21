@@ -14,6 +14,6 @@ def export_flow():
 
     source_flow = Flow.query.filter_by(flow_name=name).first()
     if not source_flow:
-        return jsonify({"success": False, "message": "there is a flow of that name already"})
+        return jsonify({"success": False, "message": "there is no such flow"})
 
     return jsonify({"success": True, "flow": source_flow.flow}), 200

@@ -6,3 +6,4 @@ filename nemůže být dir name capitalized
 renderování on hover???
 admin config loggedinstatus == "true"
 message for missing required input
+dragování není úplně smooth

@@ -7,6 +7,7 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
   const [originalPosition, setOriginalPosition] = useState({ x: 0, y: 0 });
   const [dropPosition, setDropPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
+  const [hit, setHit] = useState(false);
 
   const handleDrag = (e, ui) => {
     const { x, y } = position;
@@ -22,7 +23,7 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
     setDropPosition({ x: absoluteX, y: absoluteY });
   };
 
-  const onStart = (e, ui) => {
+  const onStart = () => {
     const { x, y } = position;
     setOriginalPosition({ x, y });
     setIsDragging(true);
@@ -31,6 +32,7 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
   const findElementUnderTopmost = (element, selector) => {
     while (element) {
       if (element.classList.contains(selector)) {
+        setHit(true);
         return element;
       }
       element = element.parentElement;
@@ -42,17 +44,11 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
     if (dropPosition.x == 0 && dropPosition.y == 0) {
       return;
     }
-
     let droppedOnDiv = document.elementFromPoint(
       dropPosition.x,
       dropPosition.y,
     );
-
-    console.log(droppedOnDiv);
-
     droppedOnDiv = findElementUnderTopmost(droppedOnDiv, "folder-brick");
-
-    console.log(droppedOnDiv);
 
     if (
       droppedOnDiv &&
@@ -64,13 +60,15 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
         item_type: "flow",
         name: bot,
         destination: directoryId,
-      }).then(() => setBotsList());
+      }).then(() => {
+        setHit(false);
+        setBotsList();
+      });
     }
   }, [dropPosition]);
 
   return (
     <Draggable
-      className={`${isDragging ? "is-dragging" : ""}`}
       position={position}
       onStop={handleStop}
       onDrag={handleDrag}
@@ -79,12 +77,14 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
       <div
         onMouseEnter={() => setIssues(`drag to change project`)}
         onMouseLeave={() => setIssues("")}
+        className={isDragging ? "" : "_is-dragging"}
         style={{
           color: statusSuccess ? "black" : "grey",
           height: "25px",
           overflow: isDragging ? "visible" : "auto",
           display: "flex",
           alignItems: "center",
+          opacity: hit ? 0 : 100,
         }}
       >
         <b>{bot}</b>
