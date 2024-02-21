@@ -16,8 +16,6 @@ def copy_flow():
     source_flow = Flow.query.filter_by(flow_name=name).first()
     if source_flow:
         new_name = source_flow.flow_name
-        new_flow = source_flow.flow
-        new_project_id = source_flow.project_id
 
         try:
             index = int(name.split("_")[1])
@@ -31,9 +29,9 @@ def copy_flow():
 
         item = Flow(
             flow_name=new_name,
-            flow=new_flow,
-            project_id=new_project_id,
-            is_archived = 1 if int(new_project_id) == 2 else 0
+            flow=source_flow.flow,
+            project_id=source_flow.project_id,
+            is_archived = 1 if int(source_flow.project_id) == 2 else 0
         )
         db.session.add(item)
         db.session.commit()
