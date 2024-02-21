@@ -26,7 +26,7 @@
 }
 
 .folder-brick {
-    margin: 5px;
+    margin: 0 5px 5px 5px;
     width: 250px;
     height: 30px;
     background-color: rgb(189, 189, 189);
@@ -90,6 +90,7 @@
 ul {
     list-style-type: none;
     padding-left: 0;
+    margin: 0;
 }
 
 .menu {
@@ -113,12 +114,10 @@ ul {
 }
 
 .flow-list {
-    margin: 5px;
     min-width: 628px;
 }
 
 .folder-container {
-    margin: 5px;
 }
 
 .title {
@@ -134,4 +133,9 @@ ul {
     display: "flex";
     flex-direction: "row";
     align-items: "center";
+}
+
+.listing-container {
+    display: flex;
+    flex-direction: "column";
 }

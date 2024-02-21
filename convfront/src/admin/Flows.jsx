@@ -1,40 +1,16 @@
 import { useState, useEffect } from "react";
 import myRequest from "../myRequest";
-import BotBrick from "./BotBrick";
 import MenuButton from "./MenuButton";
+import FlowList from "./FlowList";
+import ProjectList from "./ProjectList";
 
 const Flows = ({ setIssues }) => {
   const [botsList, setBotsList] = useState([]);
   const [projects, setProjectsList] = useState([]);
   const [archived, setArchived] = useState(false);
 
-  const [newProjectValue, setNewProjectValue] = useState("");
-  const [newFlowValue, setNewFlowValue] = useState("");
-
   const [activeProject, setActiveProject] = useState(1);
   const [activeFlows, setActiveFlows] = useState(botsList);
-
-  const handleSubmitProject = async (event) => {
-    event.preventDefault();
-    setNewProjectValue("");
-    await myRequest("/create", {
-      item_type: "project",
-      name: newProjectValue,
-      destination: activeProject,
-    });
-    setProjectsList(await myRequest("/list-projects", {}));
-  };
-
-  const handleSubmitFlow = async (event) => {
-    event.preventDefault();
-    setNewFlowValue("");
-    await myRequest("/create", {
-      item_type: "flow",
-      name: newFlowValue,
-      destination: activeProject,
-    });
-    setBotsList(await myRequest("/list-bots", {}));
-  };
 
   const fetchProjects = async () => {
     try {
@@ -63,110 +39,39 @@ const Flows = ({ setIssues }) => {
     if (activeProject === 3) {
       setActiveFlows(botsList);
     } else {
-      const filteredFlows = botsList.filter((b) => b[3] === activeProject);
+      const filteredFlows = botsList.filter(
+        ([, , , project_id]) => project_id === activeProject,
+      );
       setActiveFlows(filteredFlows);
     }
   }, [activeProject, botsList]);
 
   return (
-    <div className="flow-container">
-      <div className="folder-container">
-        <div>
-          <MenuButton
-            icon={archived ? "📂" : "📁"}
-            click={() => {
-              setArchived((prevArchived) => !prevArchived);
-            }}
-            setIssues={setIssues}
-            hoverText={`${archived ? "hide" : "view"} archived`}
-          />
-        </div>
-        <ul className="folder-list">
-          {projects
-            .filter((p) => (archived ? true : !p[3]))
-            .filter((p) => (archived ? true : p[0] != 2))
-            .map(([id, name, , isArchived]) => {
-              return (
-                <div
-                  project-id={id}
-                  className={`folder-brick ${id == 3 ? "all-flows" : ""}`}
-                  onClick={() => setActiveProject(id)}
-                >
-                  <span
-                    className={`project-name ${activeProject == id ? "bold-text" : ""}`}
-                  >
-                    {name}
-                  </span>
-                  {id > 3 ? (
-                    <MenuButton
-                      icon={isArchived ? "💡" : "💾"}
-                      click={async (e) => {
-                        e.stopPropagation();
-                        await myRequest("/move", {
-                          item_type: "project",
-                          name: name,
-                          destination: isArchived ? 1 : 2,
-                        }).then(() => fetchProjects());
-                      }}
-                      setIssues={setIssues}
-                      hoverText={`${archived ? "unarchive" : "archive"} project ${name}`}
-                    />
-                  ) : (
-                    ""
-                  )}
-                </div>
-              );
-            })}
-          <div>
-            <div>
-              <form
-                className="folder-brick new-project-form"
-                onSubmit={handleSubmitProject}
-              >
-                <input
-                  required
-                  className="new-project"
-                  placeholder="new project"
-                  value={newProjectValue}
-                  onChange={(e) => setNewProjectValue(e.target.value)}
-                  type="text"
-                />
-                <button className="submit admin-button">↵</button>
-              </form>
-            </div>
-          </div>
-        </ul>
+    <div className="listing_container">
+      <MenuButton
+        icon={archived ? "📂" : "📁"}
+        click={() => {
+          setArchived((prevArchived) => !prevArchived);
+        }}
+        setIssues={setIssues}
+        hoverText={`${archived ? "hide" : "view"} archived`}
+      />
+      <div className="flow-container">
+        <ProjectList
+          archived={archived}
+          setProjectsList={setProjectsList}
+          projects={projects}
+          setActiveProject={setActiveProject}
+          activeProject={activeProject}
+          setIssues={setIssues}
+        />
+
+        <FlowList
+          activeFlows={activeFlows}
+          setIssues={setIssues}
+          fetchBots={fetchBots}
+        />
       </div>
-
-      <ul className="flow-list">
-        {activeFlows.map(([b, s, p, project, a]) => {
-          // console.log(b, p, d);
-
-          return (
-            <BotBrick
-              bot={b}
-              status={s}
-              setIssues={setIssues}
-              archived={a}
-              projectId={project}
-              setBotsList={fetchBots}
-            />
-          );
-        })}
-        <div className="bot-brick">
-          <form onSubmit={handleSubmitFlow}>
-            <input
-              required
-              className="bot-name new-flow"
-              placeholder="new flow"
-              value={newFlowValue}
-              onChange={(e) => setNewFlowValue(e.target.value)}
-              type="text"
-            />
-            <button className="submit">↵</button>
-          </form>
-        </div>
-      </ul>
     </div>
   );
 };

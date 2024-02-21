@@ -15,12 +15,13 @@ def copy_flow():
 
     source_flow = Flow.query.filter_by(flow_name=name).first()
     if source_flow:
-        new_name = source_flow.flow_name
-
         try:
-            index = int(name.split("_")[1])
+            split = name.split("_")
+            index = int(split[1])
+            new_name = split[0]
         except:
             index = 1
+            new_name = source_flow.flow_name
 
         index = 1
         while Flow.query.filter_by(flow_name=new_name).first():
