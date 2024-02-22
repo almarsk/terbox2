@@ -26,15 +26,17 @@ const AbstractForm = ({ element, fields }) => {
             </div>
           ))}
         </ul>
-        <MenuButton
-          icon={"📨"}
-          click={() => {
-            console.log(`submit ${element}`);
-            setUnsaved(false);
-          }}
-          setIssues={() => {}}
-          hoverText={"submit {element}"}
-        />
+        <div style={{ display: "flex", justifyContent: "end" }}>
+          <MenuButton
+            icon={"📨"}
+            click={() => {
+              console.log(`submit ${element}`);
+              setUnsaved(false);
+            }}
+            setIssues={() => {}}
+            hoverText={"submit {element}"}
+          />
+        </div>
       </form>
     </>
   );

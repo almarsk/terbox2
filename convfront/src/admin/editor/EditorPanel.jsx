@@ -49,7 +49,9 @@ const EditorPanel = ({ setIssues, initial }) => {
         <AbstractForm element={"Meta"} fields={["persona", "track", "coda"]} />
       )}
 
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div
+        style={{ display: "flex", flexDirection: "row", justifyContent: "end" }}
+      >
         <MenuButton
           icon={"🎯"}
           hoverText={"state"}

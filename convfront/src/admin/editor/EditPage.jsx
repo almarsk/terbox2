@@ -19,7 +19,7 @@ const EditPage = ({ setIssues }) => {
 
   return (
     <div className="editor-container" style={{ textAlign: "center" }}>
-      <h4>Edit {flow}</h4>
+      <h3>Editing {flow}</h3>
       <div
         style={{
           display: "flex",
