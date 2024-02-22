@@ -10,6 +10,7 @@ import "./admin.css";
 
 const AdminConfig = () => {
   const [issues, setIssues] = useState("");
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [unsuccess, setUnsuccess] = useState(false);
 

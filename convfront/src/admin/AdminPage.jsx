@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import MenuButton from "./MenuButton";
@@ -7,7 +7,6 @@ const AdminPage = ({ logOff, setIssues, children }) => {
   const location = useLocation();
 
   useEffect(() => {
-    // Reset state when location changes
     setIssues("");
   }, [location]);
 
@@ -17,7 +16,6 @@ const AdminPage = ({ logOff, setIssues, children }) => {
         <h1>Admin</h1>
       </Link>
       {children}
-
       <div className="log-off">
         <MenuButton
           icon={"👋"}

@@ -18,7 +18,7 @@ const EditPage = ({ setIssues }) => {
   }, []);
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div className="editor-container" style={{ textAlign: "center" }}>
       <h4>Edit {flow}</h4>
       <div
         style={{
@@ -31,22 +31,22 @@ const EditPage = ({ setIssues }) => {
           style={{
             display: "flex",
             flexDirection: "column",
-            width: "430px",
+            maxWidth: "500px",
             justifyContent: "space-between",
             padding: "10px",
             textAlign: "left",
             color: "white",
           }}
         >
-          <ul style={{ height: "93%", overflow: "auto" }}>
-            {proof.split(",").map((message) => (
-              <div style={{ overflow: "auto" }}>{message}</div>
+          <ul style={{ height: "93%", overflowY: "auto" }}>
+            {proof.split("\n").map((message) => (
+              <div>{message}</div>
             ))}
           </ul>
           <div>{lastEvent ? `last event: ${lastEvent}` : ""}</div>
         </div>
-        <EditorPanel setIssues={setIssues} />
-        <EditorPanel setIssues={setIssues} />
+        <EditorPanel setIssues={setIssues} initial="list-bots" />
+        <EditorPanel setIssues={setIssues} initial="state" />
       </div>
     </div>
   );

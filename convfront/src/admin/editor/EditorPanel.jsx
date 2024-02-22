@@ -1,16 +1,14 @@
 import { useState } from "react";
 
-import IntentForm from "./IntentForm";
-import StateForm from "./StateForm";
-import MetaForm from "./MetaForm";
 import MenuButton from "../MenuButton";
+import AbstractForm from "./AbstractForm";
 
-const EditorPanel = ({ setIssues }) => {
-  const [activePanel, setActivePanel] = useState("");
+const EditorPanel = ({ setIssues, initial }) => {
+  const [activePanel, setActivePanel] = useState(initial);
   return (
     <div
       style={{
-        minWidth: "250px",
+        width: "375px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -18,11 +16,37 @@ const EditorPanel = ({ setIssues }) => {
       }}
     >
       {activePanel == "state" ? (
-        <StateForm />
+        <AbstractForm
+          element={"State"}
+          fields={[
+            "name",
+            "intents",
+            "annotation",
+            "say",
+            "response type",
+            "iteration",
+            "prioritize",
+            "initiativity",
+            "context intents",
+            "context states",
+            "iterate states",
+          ]}
+        />
       ) : activePanel == "intent" ? (
-        <IntentForm />
+        <AbstractForm
+          element={"Intent"}
+          fields={[
+            "name",
+            "annotation",
+            "match against",
+            "adjacent",
+            "context intents",
+            "context states",
+            "iterate states",
+          ]}
+        />
       ) : (
-        <MetaForm />
+        <AbstractForm element={"Meta"} fields={["persona", "track", "coda"]} />
       )}
 
       <div style={{ display: "flex", flexDirection: "row" }}>
