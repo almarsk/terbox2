@@ -4,7 +4,7 @@ import LoginPage from "./LoginPage";
 import myRequest from "../myRequest";
 import Flows from "./Flows";
 import { Route, Routes } from "react-router-dom";
-import EditPage from "./EditPage";
+import EditPage from "./editor/EditPage";
 import TestPage from "./TestPage";
 import "./admin.css";
 
@@ -41,8 +41,14 @@ const AdminConfig = () => {
         <AdminPage logOff={logOff} setIssues={setIssues}>
           <Routes>
             <Route index element={<Flows setIssues={setIssues} />} />
-            <Route path="/edit/:flow" element={<EditPage />} />
-            <Route path="/test/:flow" element={<TestPage />} />
+            <Route
+              path="/edit/:flow"
+              element={<EditPage setIssues={setIssues} />}
+            />
+            <Route
+              path="/test/:flow"
+              element={<TestPage setIssues={setIssues} />}
+            />
           </Routes>
         </AdminPage>
       ) : (
