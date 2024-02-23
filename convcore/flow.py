@@ -15,10 +15,15 @@ from .state import State
 from .intent import Intent
 
 class Flow:
-    def __init__(self, path, flow_name):
-        flow = validate_flow(path, flow_name, return_flow=True)
-        self.persona = flow["persona"]
-        self.track = flow["track"]
-        self.coda = flow["coda"]
-        self.states = [State(state) for state in flow["states"]]
-        self.intents = [Intent(intent) for intent in flow["intents"]]
+    def __init__(self, path, flow_name, structure=False):
+        # to display
+        if structure:
+            flow = {}
+        else:
+            flow = validate_flow(path, flow_name, return_flow=True)
+
+        self.persona = flow.get("persona", "")
+        self.track = flow.get("track", "")
+        self.coda = flow.get("coda", "")
+        self.states = [State(state) for state in flow.get("states", [])]
+        self.intents = [Intent(intent) for intent in flow.get("intents", [])]

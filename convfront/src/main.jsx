@@ -8,15 +8,12 @@ import AdminConfig from "./admin/AdminConfig";
 const [bot, phase] = [window.bot, window.phase];
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <Router>
-    <React.StrictMode>
+  <React.StrictMode>
+    <Router>
       <Routes>
-        <Route path="admin" element={<AdminConfig />}>
-          <Route path="edit/:flow" />
-          <Route path="test/:flow" />
-        </Route>
+        <Route path="admin/*" element={<AdminConfig />} />
         <Route path="*" element={<App bot={bot} phase={phase} />} />
       </Routes>
-    </React.StrictMode>
-  </Router>,
+    </Router>
+  </React.StrictMode>,
 );

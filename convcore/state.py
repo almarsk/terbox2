@@ -15,14 +15,14 @@ state
 
 class State:
     def __init__(self, state):
-        self.name = state["name"]
-        self.intents = state["intents"]
-        self.annotation = state["annotation"]
-        self.say = state["say"]
-        self.response_type = state["response_type"]
-        self.iteration = state["iteration"]
-        self.prioritize = state["prioritize"]
-        self.initiativity = state["initiativity"]
-        self.context_intents = state["context_intents"]
-        self.context_states = state["context_states"]
-        self.iterate_states = state["iterate_states"]
+        self.name = state.get("name", "")
+        self.intents = state.get("intents", "")
+        self.annotation = state.get("annotation", "")
+        self.say = state.get("say", "")
+        self.response_type = state.get("response_type", "")
+        self.iteration = state.get("iteration", "")
+        self.prioritize = state.get("prioritize", "")
+        self.initiativity = state.get("initiativity", "")
+        self.context_intents = state.get("context_intents", "")
+        self.context_states = state.get("context_states", "")
+        self.iterate_states = state.get("iterate_states", "")

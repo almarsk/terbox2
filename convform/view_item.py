@@ -1,8 +1,9 @@
 def view_item(args):
-    bot, item_type, name = args.values()
-    # check if item is present, return no, if not present
+    flow = args.get("flow", "")
+    item_type = args.get("item_type", "")
+    name = args.get("name", "")
 
     return {
-         "success": True,
-         "message": f"view {item_type} {name} in {bot}"
-     }
+            "success": True,
+            "message": f"view {item_type} {name} from {flow}"
+        }

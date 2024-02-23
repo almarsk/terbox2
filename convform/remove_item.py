@@ -1,7 +1,9 @@
 def remove_item(args):
-    bot, item_type, name = args.values()
-    # check if item is present, return no, if not present
+    flow = args.get("flow", "")
+    item_type = args.get("item_type", "")
+    name = args.get("name", "")
+
     return {
-        "success": True,
-        "message": f"remove {item_type} {name} in {bot}"
-    }
+            "success": True,
+            "message": f"remove {flow} of type {item_type}"
+        }

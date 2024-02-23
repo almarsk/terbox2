@@ -44,6 +44,7 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
     if (dropPosition.x == 0 && dropPosition.y == 0) {
       return;
     }
+
     let droppedOnDiv = document.elementFromPoint(
       dropPosition.x,
       dropPosition.y,

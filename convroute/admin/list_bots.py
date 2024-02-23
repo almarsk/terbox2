@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, request
+from flask import Blueprint, request, jsonify
 import sqlite3
 import os
 from convproof import validate_flow

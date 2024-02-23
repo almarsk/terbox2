@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import myRequest from "../../myRequest";
 
 import MenuButton from "../MenuButton";
 import AbstractForm from "./AbstractForm";
+import Listing from "./Listing";
 
-const EditorPanel = ({ setIssues, initial }) => {
+const EditorPanel = ({ setIssues, initial, flow }) => {
   const [activePanel, setActivePanel] = useState(initial);
+  const [activeItem, setActiveItem] = useState({});
+  const [structure, setStructure] = useState({});
+
+  useEffect(() => {
+    const fetchStructure = async () => {
+      setStructure(await myRequest("/structure", {}));
+    };
+    fetchStructure();
+  }, []);
+
   return (
     <div
       style={{
@@ -15,38 +27,28 @@ const EditorPanel = ({ setIssues, initial }) => {
         marginLeft: "25px",
       }}
     >
-      {activePanel == "state" ? (
+      {activePanel === "state" ? (
         <AbstractForm
-          element={"State"}
-          fields={[
-            "name",
-            "intents",
-            "annotation",
-            "say",
-            "response type",
-            "iteration",
-            "prioritize",
-            "initiativity",
-            "context intents",
-            "context states",
-            "iterate states",
-          ]}
+          element={"state"}
+          fields={structure.states || []}
+          flow={flow}
         />
-      ) : activePanel == "intent" ? (
+      ) : activePanel === "list-states" ? (
+        <Listing elements={[]} elementType={"state"} flow={flow} />
+      ) : activePanel === "intent" ? (
         <AbstractForm
-          element={"Intent"}
-          fields={[
-            "name",
-            "annotation",
-            "match against",
-            "adjacent",
-            "context intents",
-            "context states",
-            "iterate states",
-          ]}
+          element={"intent"}
+          fields={structure.intents || []}
+          flow={flow}
         />
+      ) : activePanel === "list-intents" ? (
+        <Listing elements={[]} elementType={"intent"} flow={flow} />
       ) : (
-        <AbstractForm element={"Meta"} fields={["persona", "track", "coda"]} />
+        <AbstractForm
+          element={"meta"}
+          fields={structure.flow || []}
+          flow={flow}
+        />
       )}
 
       <div
@@ -61,7 +63,7 @@ const EditorPanel = ({ setIssues, initial }) => {
         <MenuButton
           icon={"🎪"}
           hoverText={"list states"}
-          click={() => setActivePanel("list states")}
+          click={() => setActivePanel("list-states")}
           setIssues={setIssues}
         />
         <MenuButton
@@ -73,7 +75,7 @@ const EditorPanel = ({ setIssues, initial }) => {
         <MenuButton
           icon={"🌧️"}
           hoverText={"list intents"}
-          click={() => setActivePanel("list intents")}
+          click={() => setActivePanel("list-intents")}
           setIssues={setIssues}
         />
         <MenuButton
