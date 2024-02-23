@@ -7,7 +7,6 @@ import Listing from "./Listing";
 
 const EditorPanel = ({ setIssues, initial, flow }) => {
   const [activePanel, setActivePanel] = useState(initial);
-  const [activeItem, setActiveItem] = useState({});
   const [structure, setStructure] = useState({});
 
   useEffect(() => {

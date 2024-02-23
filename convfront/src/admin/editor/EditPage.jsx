@@ -32,13 +32,13 @@ const EditPage = ({ setIssues }) => {
             display: "flex",
             flexDirection: "column",
             maxWidth: "500px",
-            justifyContent: "space-between",
+            justifyContent: "start",
             padding: "10px",
             textAlign: "left",
             color: "white",
           }}
         >
-          <ul style={{ height: "93%", overflowY: "auto" }}>
+          <ul style={{ height: "93%", overflowY: "auto", width: "350px" }}>
             {proof.split("\n").map((message) => (
               <div>{message}</div>
             ))}

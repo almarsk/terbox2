@@ -64,12 +64,15 @@ const Flows = ({ setIssues }) => {
           setActiveProject={setActiveProject}
           activeProject={activeProject}
           setIssues={setIssues}
+          fetchProjects={fetchProjects}
         />
 
         <FlowList
           activeFlows={activeFlows}
           setIssues={setIssues}
           fetchBots={fetchBots}
+          activeProject={activeProject}
+          setBotsList={setBotsList}
         />
       </div>
     </div>

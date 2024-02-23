@@ -18,7 +18,7 @@ def create():
 
         item = Flow(
             flow_name=name,
-            flow=default_item(item_type),
+            flow=default_item(),
             project_id=destination,
             is_archived = 1 if int(destination) == 2 else 0
         )
@@ -36,5 +36,6 @@ def create():
 
 
 
-def default_item(item_type):
-    return {"name": "yuh"}
+def default_item():
+    from convcore import Flow
+    return Flow("","", structure=True).__dict__

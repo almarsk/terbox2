@@ -1,6 +1,7 @@
 import json
 import sqlite3
 from datetime import datetime
+import pprint
 
 def load_json(file_path):
     with open(file_path, 'r') as file:
@@ -19,9 +20,12 @@ def insert_data(cursor, data):
 
 
 
-cursor.execute('''DELETE FROM Flow WHERE flow_name IN ('lol', 'brlb', 'brah');''')
+pprint.pp([q for q in cursor.execute('''SELECT * FROM Flow;''')])
+
+
+print(q for q in cursor.execute('''SELECT * FROM Conversation;'''))
 # Insert JSON data into SQLite database
-insert_data(cursor,("brlb", 1, load_json("bots/brlb.json"), 0, datetime.utcnow()))
+# insert_data(cursor,("brlb", 1, load_json("bots/brlb.json"), 0, datetime.utcnow()))
 
 
 

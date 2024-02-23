@@ -9,6 +9,7 @@ const ProjectList = ({
   setActiveProject,
   activeProject,
   setIssues,
+  fetchProjects,
 }) => {
   const [newProjectValue, setNewProjectValue] = useState("");
 
@@ -31,9 +32,10 @@ const ProjectList = ({
             .filter(([id, , , isArchived]) =>
               archived ? true : !isArchived && id != 2,
             )
-            .map(([id, name, , isArchived]) => {
+            .map(([id, name, , isArchived], i) => {
               return (
                 <div
+                  key={i}
                   project-id={id}
                   className={`folder-brick ${id == 3 ? "all-flows" : ""}`}
                   onClick={() => setActiveProject(id)}

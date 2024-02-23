@@ -10,4 +10,5 @@ def call_convform():
     print("intr", instruction)
 
     success = convform(instruction)
+    print("success", success)
     return jsonify(success)

@@ -12,6 +12,7 @@
     color: white;
     padding: 5px;
     z-index: 9999;
+    max-width: 400px;
 }
 
 .bot-brick {

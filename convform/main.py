@@ -24,4 +24,6 @@ def convform(instruction):
     data = instruction.get('data', "")
 
 
-    return ops[func]({"flow": flow, "item_type": item_type, "name": name, "data": data})
+    success = ops[func]({"flow": flow, "item_type": item_type, "name": name, "data": data})
+    print("success0", success)
+    return success

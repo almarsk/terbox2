@@ -1,7 +1,14 @@
-edit interface
-state, intent, meta structure endpoint
-listing brick
+abstract form
+	- on mount - view item
+	- on click - edit item
 
+listing
+	- on mount - list items
+	- on click
+		- remove item
+		- change to abstract form
+
+listing brick
 
 
 make some flows

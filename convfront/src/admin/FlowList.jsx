@@ -1,7 +1,14 @@
 import { useState } from "react";
 import BotBrick from "./BotBrick";
+import myRequest from "../myRequest";
 
-const FlowList = ({ activeFlows, setIssues, fetchBots }) => {
+const FlowList = ({
+  activeFlows,
+  setIssues,
+  fetchBots,
+  activeProject,
+  setBotsList,
+}) => {
   const [newFlowValue, setNewFlowValue] = useState("");
 
   const handleSubmitFlow = async (event) => {
@@ -17,9 +24,10 @@ const FlowList = ({ activeFlows, setIssues, fetchBots }) => {
 
   return (
     <ul className="flow-list">
-      {activeFlows.map(([b, s, p, project, a]) => {
+      {activeFlows.map(([b, s, p, project, a], i) => {
         return (
           <BotBrick
+            key={i}
             bot={b}
             status={s}
             setIssues={setIssues}
