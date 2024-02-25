@@ -14,6 +14,7 @@ def move():
         project = Project.query.filter_by(project_name=name).first()
         if project.id in [1,2,3] :
             return {"success": False, "message": "workspace, archived and all cant be moved"}
+        # archived projects are found in project id 2
         project.is_archived = 1 if int(destination) == 2 else 0
         db.session.add(project)
         db.session.commit()

@@ -2,30 +2,37 @@ import { useEffect, useState } from "react";
 
 import myRequest from "../../myRequest";
 import PropTypes from "prop-types";
-import processState from "./processState";
 
-const AbstractForm = ({
-  element,
-  fields,
-  elementName,
-  flow,
-  setElementName,
-}) => {
+const AbstractForm = ({ element, fields, flow }) => {
   const [changes, setChanges] = useState(false);
   const [activeItem, setActiveItem] = useState({});
 
-  useEffect(() => {
-    fields.forEach((f) =>
-      setActiveItem((prevActive) => {
-        return { ...prevActive, [f]: "" };
-      }),
-    );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(`submit ${JSON.stringify(activeItem)}`);
+    const edit = async () => {
+      await myRequest("/convform", {
+        flow: flow,
+        func: "edit",
+        item_type: element,
+        name: activeItem.name,
+        data: activeItem,
+      });
+    };
+    edit();
+    setChanges(false);
+  };
 
-    if (elementName) {
-      console.log("todo view item and set active");
-      console.log(elementName);
-    }
-  }, [elementName, fields]);
+  useEffect(() => {
+    console.log("fields", fields);
+
+    if (fields.length)
+      fields.forEach(([fName]) =>
+        setActiveItem((prevActive) => {
+          return { ...prevActive, [fName]: "" };
+        }),
+      );
+  }, [fields]);
 
   useEffect(() => {
     return () => {
@@ -37,47 +44,15 @@ const AbstractForm = ({
   });
 
   return (
-    <>
-      <form
-        className="editor-input"
-        onSubmit={(e) => {
-          e.preventDefault();
-
-          console.log(`submit ${JSON.stringify(activeItem)}`);
-
-          const edit = async () => {
-            await myRequest("/convform", {
-              flow: flow,
-              func: "edit",
-              item_type: element,
-              name: activeItem.name,
-              data: activeItem,
-            });
-
-            const newItem = await myRequest("/convform", {
-              flow: flow,
-              func: "view",
-              item_type: element,
-              name: activeItem.name,
-            });
-
-            if (newItem.success) {
-              setActiveItem(processState(newItem.data));
-            }
-          };
-
-          edit();
-          setChanges(false);
-        }}
-      >
-        <h5>
-          {activeItem.name == "" && element != "meta" ? "new " : ""}
-          {element} {activeItem.name}
-        </h5>
-        <ul>
-          {fields
-            .filter((f) => !elementName || f != "name")
-            .map((f, i) => (
+    <form className="editor-input" onSubmit={handleSubmit}>
+      <h5>
+        {element} {activeItem.name || flow}
+      </h5>
+      <ul>
+        {fields.length &&
+          fields
+            .filter(([f]) => f != "name")
+            .map(([f, fType], i) => (
               <div
                 key={i}
                 style={{
@@ -96,7 +71,7 @@ const AbstractForm = ({
                     textAlign: "right",
                   }}
                 >
-                  {f}:
+                  {f}, {fType}:
                 </div>
                 <input
                   required={f == "name"}
@@ -114,19 +89,17 @@ const AbstractForm = ({
                 />
               </div>
             ))}
-        </ul>
-        <div style={{ display: "flex", justifyContent: "end" }}>
-          <button className="submit admin-button">📨</button>
-        </div>
-      </form>
-    </>
+      </ul>
+      <div style={{ display: "flex", justifyContent: "end" }}>
+        <button className="submit admin-button">📨</button>
+      </div>
+    </form>
   );
 };
 
 AbstractForm.propTypes = {
   element: PropTypes.string.isRequired,
-  fields: PropTypes.array.isRequired,
-  elementName: PropTypes.string.isRequired,
+  fields: PropTypes.object.isRequired,
   flow: PropTypes.string.isRequired,
 };
 

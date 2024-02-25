@@ -1,18 +1,22 @@
 from convcore import Flow, State, Intent
 from flask import Blueprint, jsonify
+import re
+import pprint
 
 structure_bp = Blueprint('structure', __name__)
 
 @structure_bp.route('/structure', methods=['POST'])
 def get_structure():
-    state_keys = list(State({}).__dict__.keys())
-    intent_keys = list(Intent({}).__dict__.keys())
-    flow_keys = [key for key in filter(lambda k: k != "states" and k != "intents", Flow("", "", structure=True).__dict__.keys())]
+    state_anno = {key: re.search(r"'([^']*)'", str(value)).group(1) for key, value in State.__annotations__.items()}
+    intent_anno = { key: re.search(r"'([^']*)'", str(value)).group(1) for key, value in Intent.__annotations__.items()}
+    flow_anno = {key: re.search(r"'([^']*)'", str(value)).group(1) for key, value in Flow.__annotations__.items() if key != "states" and key != "intents"}
 
-    print(state_keys, intent_keys, flow_keys)
+    states_ordered = [[key, state_anno[key]] for key in list(State({}).__dict__.keys()) if key in state_anno]
+    intent_ordered = [[key, intent_anno[key]] for key in list(Intent({}).__dict__.keys()) if key in intent_anno]
+    flow_ordered = [[key, flow_anno[key]] for key in list(Flow("","", structure=True).__dict__.keys()) if key in flow_anno]
 
     return jsonify({
-        "states": state_keys,
-        "intents": intent_keys,
-        "flow": flow_keys
+        "states": states_ordered,
+        "intents": intent_ordered,
+        "flow": flow_ordered
     })

@@ -14,15 +14,26 @@ state
 """
 
 class State:
+    name: str
+    intents: dict
+    annotation: str
+    say: list
+    response_type: str
+    prioritize: bool
+    iteration: int
+    initiativity: int
+    context_intents: list
+    context_states: list
+    iterate_states: list
     def __init__(self, state):
-        self.name = state.get("name", "")
-        self.intents = state.get("intents", "")
-        self.annotation = state.get("annotation", "")
-        self.say = state.get("say", "")
-        self.response_type = state.get("response_type", "")
-        self.iteration = state.get("iteration", "")
-        self.prioritize = state.get("prioritize", "")
-        self.initiativity = state.get("initiativity", "")
-        self.context_intents = state.get("context_intents", "")
-        self.context_states = state.get("context_states", "")
-        self.iterate_states = state.get("iterate_states", "")
+        self.name: str = state.get("name", "")
+        self.intents: dict = state.get("intents", "")
+        self.annotation: str = state.get("annotation", "")
+        self.say: list = state.get("say", "")
+        self.response_type: str = state.get("response_type", "")
+        self.prioritize: bool = state.get("prioritize", "")
+        self.iteration: int = state.get("iteration", "")
+        self.initiativity: int = state.get("initiativity", "")
+        self.context_intents: list = state.get("context_intents", "")
+        self.context_states: list = state.get("context_states", "")
+        self.iterate_states: list = state.get("iterate_states", "")

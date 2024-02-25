@@ -15,12 +15,16 @@ from .state import State
 from .intent import Intent
 
 class Flow:
+    persona: str
+    track: list
+    coda: list
+    states: list
+    intents: list
     def __init__(self, path, flow_name, structure=False):
-        # to display
-        if structure:
-            flow = {}
-        else:
+        if not structure:
             flow = validate_flow(path, flow_name, return_flow=True)
+        else:
+            flow = {}
 
         self.persona = flow.get("persona", "")
         self.track = flow.get("track", [])

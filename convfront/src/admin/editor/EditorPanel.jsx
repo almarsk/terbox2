@@ -10,11 +10,18 @@ const EditorPanel = ({ setIssues, initial, flow }) => {
   const [structure, setStructure] = useState({});
 
   useEffect(() => {
+    console.log("lesgo");
     const fetchStructure = async () => {
-      setStructure(await myRequest("/structure", {}));
+      const structure_all = await myRequest("/structure", {}).then((e) => {
+        console.log(e);
+        return e;
+      });
+      setStructure(structure_all);
     };
     fetchStructure();
   }, []);
+
+  useEffect(() => console.log(structure), [structure]);
 
   return (
     <div
@@ -29,7 +36,7 @@ const EditorPanel = ({ setIssues, initial, flow }) => {
       {activePanel === "state" ? (
         <AbstractForm
           element={"state"}
-          fields={structure.states || []}
+          fields={structure.states || {}}
           flow={flow}
         />
       ) : activePanel === "list-states" ? (
@@ -37,7 +44,7 @@ const EditorPanel = ({ setIssues, initial, flow }) => {
       ) : activePanel === "intent" ? (
         <AbstractForm
           element={"intent"}
-          fields={structure.intents || []}
+          fields={structure.intents || {}}
           flow={flow}
         />
       ) : activePanel === "list-intents" ? (
@@ -45,7 +52,7 @@ const EditorPanel = ({ setIssues, initial, flow }) => {
       ) : (
         <AbstractForm
           element={"meta"}
-          fields={structure.flow || []}
+          fields={structure.flow || {}}
           flow={flow}
         />
       )}
@@ -56,24 +63,12 @@ const EditorPanel = ({ setIssues, initial, flow }) => {
         <MenuButton
           icon={"🎯"}
           hoverText={"state"}
-          click={() => setActivePanel("state")}
-          setIssues={setIssues}
-        />
-        <MenuButton
-          icon={"🎪"}
-          hoverText={"list states"}
           click={() => setActivePanel("list-states")}
           setIssues={setIssues}
         />
         <MenuButton
           icon={"💭"}
           hoverText={"intent"}
-          click={() => setActivePanel("intent")}
-          setIssues={setIssues}
-        />
-        <MenuButton
-          icon={"🌧️"}
-          hoverText={"list intents"}
           click={() => setActivePanel("list-intents")}
           setIssues={setIssues}
         />

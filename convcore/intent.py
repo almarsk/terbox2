@@ -10,6 +10,14 @@
 """
 
 class Intent:
+    name: str
+    annotation: str
+    match_against: list
+    adjacent: list
+    context_intents: list
+    context_states: list
+    iterate_states: list
+
     def __init__(self, intent):
         self.name = intent.get("name", "")
         self.annotation = intent.get("annotation", "")
