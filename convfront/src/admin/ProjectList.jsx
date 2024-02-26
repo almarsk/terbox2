@@ -1,6 +1,6 @@
 import { useState } from "react";
-import MenuButton from "./MenuButton";
 import myRequest from "../myRequest";
+import ProjectBrick from "./ProjectBrick";
 
 const ProjectList = ({
   setProjectsList,
@@ -32,39 +32,33 @@ const ProjectList = ({
             .filter(([id, , , isArchived]) =>
               archived ? true : !isArchived && id != 2,
             )
-            .map(([id, name, , isArchived], i) => {
+            .map(([id, name, , isArchived, isDefault], index) => {
               return (
-                <div
-                  key={i}
-                  project-id={id}
-                  className={`folder-brick ${id == 3 ? "all-flows" : ""}`}
-                  onClick={() => setActiveProject(id)}
-                >
-                  <span
-                    className={`project-name ${activeProject == id ? "bold-text" : ""}`}
-                  >
-                    {name}
-                  </span>
-                  {id > 3 ? (
-                    <MenuButton
-                      icon={isArchived ? "💡" : "💾"}
-                      click={async (e) => {
-                        e.stopPropagation();
-                        await myRequest("/move", {
-                          item_type: "project",
-                          name: name,
-                          destination: isArchived ? 1 : 2,
-                        }).then(() => fetchProjects());
-                      }}
-                      setIssues={setIssues}
-                      hoverText={`${archived ? "unarchive" : "archive"} project ${name}`}
-                    />
-                  ) : (
-                    ""
-                  )}
-                </div>
+                <ProjectBrick
+                  key={index}
+                  name={name}
+                  activeProject={activeProject}
+                  id={id}
+                  setActiveProject={setActiveProject}
+                  isArchived={isArchived}
+                  archived={archived}
+                  setIssues={setIssues}
+                  fetchProjects={fetchProjects}
+                  isDefault={isDefault}
+                />
               );
             })}
+          <ProjectBrick
+            name="all"
+            activeProject={activeProject}
+            id={0}
+            setActiveProject={setActiveProject}
+            isArchived={false}
+            archived={archived}
+            setIssues={setIssues}
+            fetchProjects={fetchProjects}
+            isDefault={true}
+          />
 
           <form
             className="folder-brick new-project-form"

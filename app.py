@@ -82,6 +82,7 @@ class Project(db.Model):
     project_name = db.Column(db.Text, nullable=False)
     created_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     is_archived = db.Column(db.Integer, nullable=False, default=False)
+    default = db.Column(db.Integer, nullable=False, default=False)
     __table_args__ = {'extend_existing': True}
 
 
@@ -89,9 +90,8 @@ if not db_path.is_file():
     with app.app_context():
         db.create_all()
 
-        db.session.add(Project(project_name="workspace"))
-        db.session.add(Project(project_name="archived"))
-        db.session.add(Project(project_name="all"))
+        db.session.add(Project(project_name="workspace", default=True))
+        db.session.add(Project(project_name="archived", default=True))
         db.session.commit()
 
 

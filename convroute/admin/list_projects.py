@@ -16,10 +16,10 @@ def list_projects():
         projects_data = [list(row) for row in projects]
 
         for sublist in projects_data[:]:
-            # project_id = sublist[0]
-            # is_default = sublist[???]
-            #  if is_default and project_id != 1:
-            if sublist[0] == 2 or sublist[0] == 3:
+            project_id = sublist[0]
+            is_default = sublist[4]
+            if is_default and project_id != 1:
+
                 projects_data.pop(projects_data.index(sublist))
                 projects_data.append(sublist)
 

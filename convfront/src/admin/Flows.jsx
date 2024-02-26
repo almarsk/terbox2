@@ -23,7 +23,10 @@ const Flows = ({ setIssues }) => {
 
   const fetchBots = async () => {
     try {
-      const result = await myRequest("/list-bots", {});
+      const result = await myRequest("/list-bots", {}).then((e) => {
+        console.log("new list", e);
+        return e;
+      });
       setBotsList(result);
     } catch (error) {
       console.error("Error fetching bots:", error);
@@ -36,12 +39,13 @@ const Flows = ({ setIssues }) => {
   }, []);
 
   useEffect(() => {
-    if (activeProject === 3) {
+    if (activeProject === 0) {
       setActiveFlows(botsList);
     } else {
-      const filteredFlows = botsList.filter(
-        ([, , , project_id]) => project_id === activeProject,
-      );
+      const filteredFlows = botsList.filter(([, , , project_id]) => {
+        console.log("pid", project_id, "ap", activeProject);
+        return project_id === activeProject;
+      });
       setActiveFlows(filteredFlows);
     }
   }, [activeProject, botsList]);

@@ -51,12 +51,18 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
     );
     droppedOnDiv = findElementUnderTopmost(droppedOnDiv, "folder-brick");
 
+    console.log("dropped on div", droppedOnDiv);
+    console.log("dropped on div id", droppedOnDiv.getAttribute("project-id"));
+
     if (
       droppedOnDiv &&
       !droppedOnDiv.classList.contains("new-project-form") &&
       !droppedOnDiv.classList.contains("all-flows")
     ) {
       const directoryId = droppedOnDiv.getAttribute("project-id");
+
+      console.log("new dirid", directoryId);
+
       myRequest("/move", {
         item_type: "flow",
         name: bot,
