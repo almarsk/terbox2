@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import myRequest from "../../myRequest";
 import PropTypes from "prop-types";
+import EditBrick from "./EditBrick";
 
 const AbstractForm = ({ element, fields, flow }) => {
   const [changes, setChanges] = useState(false);
@@ -24,8 +25,6 @@ const AbstractForm = ({ element, fields, flow }) => {
   };
 
   useEffect(() => {
-    console.log("fields", fields);
-
     if (fields.length)
       fields.forEach(([fName]) =>
         setActiveItem((prevActive) => {
@@ -53,44 +52,17 @@ const AbstractForm = ({ element, fields, flow }) => {
           fields
             .filter(([f]) => f != "name")
             .map(([f, fType], i) => (
-              <div
+              <EditBrick
                 key={i}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  height: "25px",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    width: "40%",
-                    alignItems: "center",
-                    justifyContent: "end",
-                    textAlign: "right",
-                  }}
-                >
-                  {f}, {fType}:
-                </div>
-                <input
-                  required={f == "name"}
-                  style={{ margin: "2px", width: "40%" }}
-                  className="input-field"
-                  name={f}
-                  placeholder={f}
-                  value={activeItem[f]}
-                  onChange={(e) => {
-                    setChanges(true);
-                    setActiveItem((prevActive) => {
-                      return { ...prevActive, [f]: e.target.value };
-                    });
-                  }}
-                />
-              </div>
+                label={f}
+                type={fType}
+                setChanges={setChanges}
+                setActiveItem={setActiveItem}
+                activeItem={activeItem}
+              />
             ))}
       </ul>
-      <div style={{ display: "flex", justifyContent: "end" }}>
+      <div className="editor-submit">
         <button className="submit admin-button">📨</button>
       </div>
     </form>

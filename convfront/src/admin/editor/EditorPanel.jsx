@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import myRequest from "../../myRequest";
+import "./editor.css";
 
 import MenuButton from "../MenuButton";
 import AbstractForm from "./AbstractForm";
@@ -24,15 +25,7 @@ const EditorPanel = ({ setIssues, initial, flow }) => {
   useEffect(() => console.log(structure), [structure]);
 
   return (
-    <div
-      style={{
-        width: "375px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        marginLeft: "25px",
-      }}
-    >
+    <div className="panel">
       {activePanel === "state" ? (
         <AbstractForm
           element={"state"}
@@ -57,9 +50,7 @@ const EditorPanel = ({ setIssues, initial, flow }) => {
         />
       )}
 
-      <div
-        style={{ display: "flex", flexDirection: "row", justifyContent: "end" }}
-      >
+      <div className="editor-menu">
         <MenuButton
           icon={"🎯"}
           hoverText={"state"}

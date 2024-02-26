@@ -45,8 +45,8 @@ const EditPage = ({ setIssues }) => {
           </ul>
           <div>{lastEvent ? `last event: ${lastEvent}` : ""}</div>
         </div>
-        <EditorPanel setIssues={setIssues} initial="list-bots" flow={flow} />
-        <EditorPanel setIssues={setIssues} initial="state" flow={flow} />
+        <EditorPanel setIssues={setIssues} initial="list-states" flow={flow} />
+        <EditorPanel setIssues={setIssues} initial="list-intents" flow={flow} />
       </div>
     </div>
   );

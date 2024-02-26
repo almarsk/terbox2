@@ -1,0 +1,34 @@
+.panel {
+    width: 375px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 25px;
+}
+
+.editor-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 0 10% 0 40%;
+}
+
+.editor-submit {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.editor-label {
+    display: flex;
+    width: 40%;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.editor-brick {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    height: 25px;
+}
