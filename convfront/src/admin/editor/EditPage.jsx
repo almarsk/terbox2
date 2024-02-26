@@ -39,11 +39,11 @@ const EditPage = ({ setIssues }) => {
           }}
         >
           <ul style={{ height: "93%", overflowY: "auto", width: "350px" }}>
-            {proof.split("\n").map((message) => (
-              <div>{message}</div>
-            ))}
+            {proof && proof.split("\n").map((message) => <div>{message}</div>)}
           </ul>
-          <div>{lastEvent ? `last event: ${lastEvent}` : ""}</div>
+          <div>
+            <b>{lastEvent ? `last event: ${lastEvent}` : ""}</b>
+          </div>
         </div>
         <EditorPanel setIssues={setIssues} initial="list-states" flow={flow} />
         <EditorPanel setIssues={setIssues} initial="list-intents" flow={flow} />

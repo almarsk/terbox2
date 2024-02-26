@@ -37,7 +37,10 @@ def edit_item(args):
 
         updated = False
         for item in items_list:
-            if item.get("name", "") == name and isNotBrandNew(data):
+            print(f"\n\n\n{item.get('name', '').strip()}\n{name.strip()}")
+            if item.get("name", "").strip() == name.strip():
+                if isNotBrandNew(data) and not isNotBrandNew(item):
+                    pass
                 item.update(data)
                 updated = True
         if not updated:

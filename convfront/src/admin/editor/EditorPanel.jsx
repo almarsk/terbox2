@@ -9,9 +9,9 @@ import Listing from "./Listing";
 const EditorPanel = ({ setIssues, initial, flow }) => {
   const [activePanel, setActivePanel] = useState(initial);
   const [structure, setStructure] = useState({});
+  const [activeElement, setActiveElement] = useState({});
 
   useEffect(() => {
-    console.log("lesgo");
     const fetchStructure = async () => {
       const structure_all = await myRequest("/structure", {}).then((e) => {
         console.log(e);
@@ -31,6 +31,7 @@ const EditorPanel = ({ setIssues, initial, flow }) => {
           element={"state"}
           fields={structure.states || {}}
           flow={flow}
+          elementData={activeElement}
         />
       ) : activePanel === "list-states" ? (
         <Listing
@@ -38,12 +39,15 @@ const EditorPanel = ({ setIssues, initial, flow }) => {
           elementType={"state"}
           fields={structure.states || {}}
           flow={flow}
+          setActivePanel={setActivePanel}
+          setActiveElement={setActiveElement}
         />
       ) : activePanel === "intent" ? (
         <AbstractForm
           element={"intent"}
           fields={structure.intents || {}}
           flow={flow}
+          elementData={activeElement}
         />
       ) : activePanel === "list-intents" ? (
         <Listing
@@ -51,12 +55,15 @@ const EditorPanel = ({ setIssues, initial, flow }) => {
           elementType={"intent"}
           fields={structure.intents || {}}
           flow={flow}
+          setActivePanel={setActivePanel}
+          setActiveElement={setActiveElement}
         />
       ) : (
         <AbstractForm
           element={"meta"}
           fields={structure.flow || {}}
           flow={flow}
+          elementData={activeElement}
         />
       )}
 

@@ -3,20 +3,27 @@ import MenuButton from "../MenuButton";
 import { useEffect, useState } from "react";
 import myRequest from "../../myRequest";
 
-const Listing = ({ elementType, flow, fields }) => {
+const Listing = ({
+  elementType,
+  flow,
+  fields,
+  setActivePanel,
+  setActiveElement,
+}) => {
   const [elements, setElements] = useState([]);
   const [newItemValue, setNewItemValue] = useState("");
 
-  useEffect(() => {
-    const fetchItems = async () => {
-      const sending = {
-        flow: flow,
-        func: "list",
-        item_type: elementType,
-      };
-
-      console.log(await myRequest("/convform", sending));
+  const fetchItems = async () => {
+    const sending = {
+      flow: flow,
+      func: "list",
+      item_type: elementType,
     };
+
+    myRequest("/convform", sending).then((e) => e.data && setElements(e.data));
+  };
+
+  useEffect(() => {
     fetchItems();
   }, [elementType, flow]);
 
@@ -43,26 +50,43 @@ const Listing = ({ elementType, flow, fields }) => {
         item_type: elementType,
         name: newItemValue,
         data: data,
-      });
+      }).then(fetchItems);
     };
     edit();
+    setNewItemValue("");
+  };
+
+  const removeButton = (e) => {
+    e.stopPropagation();
+    console.log("delete button");
+  };
+
+  const handleClick = (element) => {
+    console.log("changing to editor of", element);
+
+    setActivePanel(elementType);
+    setActiveElement(element);
   };
 
   return (
-    <>
+    <div>
       <h5>{elementType}s</h5>
       <ul>
         {elements.map((f, i) => (
-          <div
-            key={i}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              flexDirection: "row",
-              height: "25px",
-            }}
-          >
-            {elementType} {f}
+          <div onClick={() => handleClick(f)} className="folder-brick" key={i}>
+            <p className="project-name">{f.name}</p>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <button onClick={removeButton} className="submit admin-button">
+                ❌️
+              </button>
+            </div>
           </div>
         ))}
         <form
@@ -80,7 +104,7 @@ const Listing = ({ elementType, flow, fields }) => {
           <button className="submit admin-button">↵</button>
         </form>
       </ul>
-    </>
+    </div>
   );
 };
 

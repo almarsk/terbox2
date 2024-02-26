@@ -4,7 +4,7 @@ import myRequest from "../../myRequest";
 import PropTypes from "prop-types";
 import EditBrick from "./EditBrick";
 
-const AbstractForm = ({ element, fields, flow }) => {
+const AbstractForm = ({ element, elementData, fields, flow }) => {
   const [changes, setChanges] = useState(false);
   const [activeItem, setActiveItem] = useState({});
 
@@ -28,7 +28,7 @@ const AbstractForm = ({ element, fields, flow }) => {
     if (fields.length)
       fields.forEach(([fName]) =>
         setActiveItem((prevActive) => {
-          return { ...prevActive, [fName]: "" };
+          return { ...prevActive, [fName]: elementData[fName] };
         }),
       );
   }, [fields]);
