@@ -1,18 +1,19 @@
-abstract form
-	- on mount - view item
-	- on click - edit item
+editor
 
-listing
-	- on mount - list items
-	- on click
-		- remove item
-		- change to abstract form
-
-listing brick
-
+edit meta
+last event
+input types
+hook to convert data between form and class
+polish validation text
 
 make some flows
 cstatus pipe line (as already done)
-convpeek (cstatus interface dependency
-(cstatus interface)     test bot - cstatus jsonscheme
+
+convread - nice flexible exporting
+convpeek (cstatus interface dependency)
+testing interface - list convos and within convos list cstatuses
+
 add user directions to flow
+add pictures
+    - upload button
+    - state has

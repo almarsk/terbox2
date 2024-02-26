@@ -56,9 +56,17 @@ const Listing = ({
     setNewItemValue("");
   };
 
-  const removeButton = (e) => {
+  const removeButton = (e, elementName) => {
     e.stopPropagation();
-    console.log("delete button");
+
+    console.log(flow, elementType, elementName);
+
+    myRequest("/convform", {
+      flow: flow,
+      func: "remove",
+      item_type: elementType,
+      name: elementName,
+    }).then((e) => fetchItems());
   };
 
   const handleClick = (element) => {
@@ -83,7 +91,10 @@ const Listing = ({
                 alignItems: "center",
               }}
             >
-              <button onClick={removeButton} className="submit admin-button">
+              <button
+                onClick={(e) => removeButton(e, f.name)}
+                className="submit admin-button"
+              >
                 ❌️
               </button>
             </div>

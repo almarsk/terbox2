@@ -9,16 +9,12 @@ def edit_item(args):
     name = args.get("name", "")
     data = args.get("data", "")
 
-    print("\n\n\n\ndata", data)
-
     conn = sqlite3.connect("chatbot.db")
     cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM flow WHERE flow_name = ?", (flow,))
 
     existing_record = cursor.fetchone()
-
-    print("\n\n\ndb time\n\n\n")
 
     if existing_record :
         flow_data = json.loads(existing_record[3])
