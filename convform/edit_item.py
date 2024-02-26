@@ -24,12 +24,9 @@ def edit_item(args):
         flow_data = json.loads(existing_record[3])
 
         items_list = None
-        processed_data = dict()
         if item_type == "intent":
             items_list = flow_data.get("intents", [])
         elif item_type == "state":
-
-            processed_data = modify_data_state(data)
 
             items_list = flow_data.get("states", [])
         if items_list is None:
@@ -40,7 +37,7 @@ def edit_item(args):
 
         updated = False
         for item in items_list:
-            if item.get("name", "") == name:
+            if item.get("name", "") == name and isNotBrandNew(data):
                 item.update(data)
                 updated = True
         if not updated:
@@ -69,36 +66,11 @@ def edit_item(args):
             "message": f"Can't edit nonexistent flow {flow}"
         }
 
-
-def modify_data_state(data):
-    #data["intents"] = {i[0]: i[1:] for i in data["intents"].split("|")} if "|" in data["intents"] else {}
-
-    intents = dict()
-    for intent in data["intents"].split("|"):
-        intent_adjacent = [i for i in intent.strip().split(" ") if i.strip()]
-        if len(intent_adjacent):
-            intents[intent_adjacent[0]] = [i.strip() for i in intent_adjacent[1:]]
-
-    data["intents"] = intents
-
-
-
-    data["say"] = data["say"].split("|")
-
-    try:
-        data["iteration"] = int(data["iteration"])
-    except ValueError:
-        data["iteration"] = ""
-
-    data["prioritize"] = data["prioritize"]
-
-    try:
-        data["initiativity"] = int(data["iteration"])
-    except ValueError:
-        data["initiativity"] = ""
-
-    data["context_intents"] = data["context_intents"].split("|")
-    data["context_states"] = data["context_states"].split("|")
-    data["iterate_states"] = data["iterate_states"].split("|")
-
-    return data
+def isNotBrandNew(data):
+    updatedData = False
+    for key, value in data.items():
+        if key == "name":
+            pass
+        elif value:
+            updatedData = True
+    return updatedData

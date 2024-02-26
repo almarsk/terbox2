@@ -1,10 +1,29 @@
+import sqlite3
+import json
+
 def list_items(args):
 
-    print(args)
     flow = args.get("flow", "")
     item_type = args.get("item_type", "")
 
+    conn = sqlite3.connect("chatbot.db")
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM flow WHERE flow_name = ?", (flow,))
+
+    existing_record = cursor.fetchone()
+
+    if not existing_record:
+        return {
+                "success": False,
+                "message": f"flow {flow} doesnt exist"
+            }
+
+
+    conn.commit()
+    conn.close()
+
     return {
-            "success": True,
-            "message": f"list of {item_type}s in {flow}"
+        "success": True,
+        "data": json.loads(existing_record[3])[f"{item_type}s"]
         }

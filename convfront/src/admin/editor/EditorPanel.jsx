@@ -33,7 +33,12 @@ const EditorPanel = ({ setIssues, initial, flow }) => {
           flow={flow}
         />
       ) : activePanel === "list-states" ? (
-        <Listing elements={[]} elementType={"state"} flow={flow} />
+        <Listing
+          elements={[]}
+          elementType={"state"}
+          fields={structure.states || {}}
+          flow={flow}
+        />
       ) : activePanel === "intent" ? (
         <AbstractForm
           element={"intent"}
@@ -41,7 +46,12 @@ const EditorPanel = ({ setIssues, initial, flow }) => {
           flow={flow}
         />
       ) : activePanel === "list-intents" ? (
-        <Listing elements={[]} elementType={"intent"} flow={flow} />
+        <Listing
+          elements={[]}
+          elementType={"intent"}
+          fields={structure.intents || {}}
+          flow={flow}
+        />
       ) : (
         <AbstractForm
           element={"meta"}
