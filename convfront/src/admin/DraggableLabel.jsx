@@ -18,6 +18,7 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
     const rect = e.target.getBoundingClientRect();
     const absoluteX = rect.left + window.pageXOffset;
     const absoluteY = rect.top + window.pageYOffset;
+    setHit(true);
     setIsDragging(false);
     setPosition(originalPosition);
     setDropPosition({ x: absoluteX, y: absoluteY });
@@ -32,7 +33,6 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
   const findElementUnderTopmost = (element, selector) => {
     while (element) {
       if (element.classList.contains(selector)) {
-        setHit(true);
         return element;
       }
       element = element.parentElement;
@@ -65,9 +65,11 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
         destination: directoryId,
       }).then(() => {
         setBotsList();
+        setHit(false);
       });
+    } else {
+      setHit(false);
     }
-    setHit(false);
   }, [dropPosition]);
 
   return (
