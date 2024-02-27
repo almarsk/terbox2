@@ -3,6 +3,8 @@ input types
 hook to convert data between form and class
 polish validation text
 
+refactor editor, editpage should keep single state and distribute and update it across panels, forms and listings
+
 make some flows
 cstatus pipe line (as already done)
 
