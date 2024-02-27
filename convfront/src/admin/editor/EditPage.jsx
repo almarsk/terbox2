@@ -7,14 +7,28 @@ const EditPage = ({ setIssues }) => {
   const { flow } = useParams();
   const [proof, setProof] = useState("");
   const [lastEvent, setLastEvent] = useState(`opened ${flow} editor`);
+  const [flowData, setFlowData] = useState({});
 
   const fetchProof = async () => {
     const currentProof = await myRequest("/proof", { flow: flow });
     setProof(currentProof.message);
   };
 
+  const fetchItems = async (elementType) => {
+    const sending = {
+      flow: flow,
+      func: "list",
+      item_type: elementType,
+    };
+
+    myRequest("/convform", sending).then((e) => {
+      e.data && setFlowData(e.data);
+    });
+  };
+
   useEffect(() => {
     fetchProof();
+    fetchItems();
   }, []);
 
   return (
@@ -51,6 +65,8 @@ const EditPage = ({ setIssues }) => {
           flow={flow}
           setLastEvent={setLastEvent}
           fetchProof={fetchProof}
+          flowData={flowData}
+          fetchItems={fetchItems}
         />
         <EditorPanel
           setIssues={setIssues}
@@ -58,6 +74,8 @@ const EditPage = ({ setIssues }) => {
           flow={flow}
           setLastEvent={setLastEvent}
           fetchProof={fetchProof}
+          flowData={flowData}
+          fetchItems={fetchItems}
         />
       </div>
     </div>

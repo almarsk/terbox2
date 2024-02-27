@@ -24,11 +24,9 @@ def list_items(args):
     conn.close()
 
     full_data = json.loads(existing_record[3])
-    return_data = full_data[f"{item_type}s"] if item_type != "meta" else full_data
 
-    print("\n\n\nreturn\n", return_data, "\n\n\n")
 
     return {
         "success": True,
-        "data": return_data
+        "data": full_data
         }

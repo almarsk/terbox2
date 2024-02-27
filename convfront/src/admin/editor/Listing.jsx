@@ -33,7 +33,7 @@ const Listing = ({
         item_type: elementType,
         name: newItemValue,
         data: data,
-      }).then(() => fetchItems(elementType));
+      }).then(() => fetchItems());
     };
     edit();
     setNewItemValue("");
@@ -48,7 +48,7 @@ const Listing = ({
       item_type: elementType,
       name: elementName,
     }).then(() => {
-      fetchItems(elementType);
+      fetchItems();
     });
   };
 
@@ -63,7 +63,7 @@ const Listing = ({
       <ul>
         {elements.map((f, i) => (
           <div onClick={() => handleClick(f)} className="folder-brick" key={i}>
-            <p className="project-name">{f.name}</p>
+            <p className="project-name">{f}</p>
             <div
               style={{
                 display: "flex",
@@ -74,8 +74,8 @@ const Listing = ({
             >
               <button
                 onClick={(e) => {
-                  removeButton(e, f.name);
-                  setLastEvent(`removed ${elementType} ${f.name}`);
+                  removeButton(e, f);
+                  setLastEvent(`removed ${elementType} ${f}`);
                 }}
                 className="submit admin-button"
               >

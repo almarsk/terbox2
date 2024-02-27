@@ -12,21 +12,12 @@ const EditorPanel = ({
   flow,
   setLastEvent,
   fetchProof,
+  flowData,
+  fetchItems,
 }) => {
   const [activePanel, setActivePanel] = useState(initial);
   const [structure, setStructure] = useState({});
   const [activeElement, setActiveElement] = useState({});
-  const [elements, setElements] = useState([]);
-
-  const fetchItems = async (elementType) => {
-    const sending = {
-      flow: flow,
-      func: "list",
-      item_type: elementType,
-    };
-
-    myRequest("/convform", sending).then((e) => e.data && setElements(e.data));
-  };
 
   useEffect(() => {
     const fetchStructure = async () => {
@@ -36,11 +27,11 @@ const EditorPanel = ({
       setStructure(structure_all);
     };
     fetchStructure();
-  }, []);
+  }, [flowData]);
 
   useEffect(() => {
     fetchProof();
-  }, [activeElement, elements, fetchProof]);
+  }, [activeElement, fetchProof]);
 
   return (
     <div className="panel">
@@ -61,7 +52,11 @@ const EditorPanel = ({
           setActivePanel={setActivePanel}
           setActiveElement={setActiveElement}
           fetchItems={fetchItems}
-          elements={elements}
+          elements={
+            flowData && flowData.states
+              ? flowData.states.map((s) => s.name)
+              : []
+          }
           setLastEvent={setLastEvent}
         />
       ) : activePanel === "intent" ? (
@@ -81,7 +76,11 @@ const EditorPanel = ({
           setActivePanel={setActivePanel}
           setActiveElement={setActiveElement}
           fetchItems={fetchItems}
-          elements={elements}
+          elements={
+            flowData && flowData.intents
+              ? flowData.intents.map((s) => s.name)
+              : []
+          }
           setLastEvent={setLastEvent}
         />
       ) : (
@@ -99,7 +98,9 @@ const EditorPanel = ({
         <MenuButton
           icon={"🎯"}
           hoverText={"state"}
-          click={() => setActivePanel("list-states")}
+          click={() => {
+            setActivePanel("list-states");
+          }}
           setIssues={setIssues}
         />
         <MenuButton
@@ -112,16 +113,12 @@ const EditorPanel = ({
           icon={"🌎"}
           hoverText={"meta"}
           click={() => {
-            const listMeta = async () => {
-              const meta = await myRequest("/convform", {
-                flow: flow,
-                func: "list",
-                item_type: "meta",
-              });
-              setActiveElement(meta.data);
-              setActivePanel("meta");
-            };
-            listMeta();
+            setActiveElement(
+              Object.entries(flowData).filter(
+                (k) => k != "intents" && k != "states",
+              ),
+            );
+            setActivePanel("meta");
           }}
           setIssues={setIssues}
         />
