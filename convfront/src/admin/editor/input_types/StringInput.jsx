@@ -1,7 +1,6 @@
 const StringInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (
-    <input
-      style={{ margin: "2px", width: "40%" }}
+    <textarea
       className="input-field"
       name={label}
       placeholder={label}

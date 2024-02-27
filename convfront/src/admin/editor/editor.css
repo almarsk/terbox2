@@ -21,15 +21,34 @@
 
 .editor-label {
     display: flex;
-    width: 40%;
     align-items: center;
-    justify-content: flex-end;
-    text-align: right;
+    text-align: left;
+    width: 30%;
+    font-size: 14px;
 }
 
 .editor-brick {
     display: flex;
-    justify-content: space-between;
     flex-direction: row;
+    justify-content: space-between;
+}
+
+.left-pad {
+    padding: 0;
+}
+
+.editor-field {
+    display: flex;
+    justify-content: space-between;
+    margin: 2px;
+}
+
+.small {
+    width: 25px;
     height: 25px;
+    font-size: 6px;
+}
+
+.list-input:focus {
+    outline: none;
 }

@@ -26,6 +26,7 @@
 }
 
 .input-field {
+    width: 250px;
     padding-left: 8px;
     border-radius: 8px;
     border: 0;

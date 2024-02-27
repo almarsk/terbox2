@@ -1,7 +1,7 @@
 editor
 
-edit page keeps flowdata, listing works, make forms work and make proof update
-input types
+input types - dict
+
 hook to convert data between form and class
 polish validation text
 

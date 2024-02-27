@@ -33,11 +33,16 @@ const Listing = ({
         item_type: elementType,
         name: newItemValue,
         data: data,
-      }).then(() => fetchItems());
+      }).then((e) => {
+        console.log(e);
+        fetchItems();
+        e.success
+          ? setLastEvent(`created ${elementType} ${newItemValue}`)
+          : setLastEvent(`couldn't create ${elementType} ${newItemValue}`);
+      });
     };
     edit();
     setNewItemValue("");
-    setLastEvent(`created ${elementType} ${newItemValue}`);
   };
 
   const removeButton = (e, elementName) => {

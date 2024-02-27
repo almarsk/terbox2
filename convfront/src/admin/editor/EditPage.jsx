@@ -38,7 +38,7 @@ const EditPage = ({ setIssues }) => {
         style={{
           display: "flex",
           flexDirection: "row",
-          height: "60vh",
+          height: "65vh",
         }}
       >
         <div
@@ -52,7 +52,7 @@ const EditPage = ({ setIssues }) => {
             color: "white",
           }}
         >
-          <ul style={{ height: "93%", overflowY: "auto", width: "350px" }}>
+          <ul style={{ height: "93%", overflowY: "auto" }}>
             {proof && proof.split("\n").map((message) => <div>{message}</div>)}
           </ul>
           <div>

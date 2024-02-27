@@ -11,6 +11,7 @@ const AbstractForm = ({
   flow,
   setLastEvent,
   fetchProof,
+  fetchItems,
 }) => {
   const [changes, setChanges] = useState(false);
   const [activeItem, setActiveItem] = useState({});
@@ -25,11 +26,16 @@ const AbstractForm = ({
         item_type: element,
         name: activeItem.name,
         data: activeItem,
-      }).then(() => fetchProof());
+      }).then((e) => {
+        fetchProof();
+        fetchItems();
+        e.success
+          ? setLastEvent(`edited ${element} ${activeItem.name || ""}`)
+          : setLastEvent(`couldn't edit ${element} ${activeItem.name || ""}`);
+      });
     };
     edit();
     setChanges(false);
-    setLastEvent(`edited ${element} ${activeItem.name || ""}`);
   };
 
   useEffect(() => {

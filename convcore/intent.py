@@ -12,7 +12,7 @@
 class Intent:
     name: str
     annotation: str
-    match_against: list
+    match_against: dict
     adjacent: list
     context_intents: list
     context_states: list

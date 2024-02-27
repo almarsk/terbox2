@@ -40,9 +40,13 @@ const EditorPanel = ({
           element={"state"}
           fields={structure.states || {}}
           flow={flow}
-          elementData={activeElement}
+          elementData={
+            flowData &&
+            flowData.states.filter((f) => (f.name = activeElement))[0]
+          }
           setLastEvent={setLastEvent}
           fetchProof={fetchProof}
+          fetchItems={fetchItems}
         />
       ) : activePanel === "list-states" ? (
         <Listing
@@ -64,9 +68,13 @@ const EditorPanel = ({
           element={"intent"}
           fields={structure.intents || {}}
           flow={flow}
-          elementData={activeElement}
+          elementData={
+            flowData &&
+            flowData.intents.filter((f) => (f.name = activeElement))[0]
+          }
           setLastEvent={setLastEvent}
           fetchProof={fetchProof}
+          fetchItems={fetchItems}
         />
       ) : activePanel === "list-intents" ? (
         <Listing
@@ -88,9 +96,17 @@ const EditorPanel = ({
           element={"meta"}
           fields={structure.flow || {}}
           flow={flow}
-          elementData={activeElement}
+          elementData={
+            flowData &&
+            Object.fromEntries(
+              Object.entries(flowData).filter(
+                (k) => !["states", "intents"].includes(k),
+              ),
+            )
+          }
           setLastEvent={setLastEvent}
           fetchProof={fetchProof}
+          fetchItems={fetchItems}
         />
       )}
 
