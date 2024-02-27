@@ -41,7 +41,6 @@ const Chat = () => {
         <UserInput submit={handleSubmit} loading={loading} />
         <button
           onClick={async () => {
-            console.log("aborting");
             await myRequest("/abort", {}).then(
               () => (window.location.href = "/"),
             );

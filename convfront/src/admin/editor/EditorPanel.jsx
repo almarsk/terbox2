@@ -14,15 +14,12 @@ const EditorPanel = ({ setIssues, initial, flow }) => {
   useEffect(() => {
     const fetchStructure = async () => {
       const structure_all = await myRequest("/structure", {}).then((e) => {
-        console.log(e);
         return e;
       });
       setStructure(structure_all);
     };
     fetchStructure();
   }, []);
-
-  useEffect(() => console.log(structure), [structure]);
 
   return (
     <div className="panel">

@@ -33,7 +33,10 @@ const ProjectBrick = ({
               item_type: "project",
               name: name,
               destination: isArchived ? 1 : 2,
-            }).then(() => fetchProjects());
+            }).then(() => {
+              console.log("yay");
+              fetchProjects();
+            });
           }}
           setIssues={setIssues}
           hoverText={`${archived ? "unarchive" : "archive"} project ${name}`}

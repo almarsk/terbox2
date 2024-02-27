@@ -42,7 +42,6 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
           icon={"🚀"}
           hoverText={`redirect to ${bot}`}
           click={() => {
-            console.log(`todo - redirect to ${bot}`);
             status.success ? (window.location = `/?flow=${bot}`) : ``;
           }}
           setIssues={setIssues}
@@ -55,7 +54,6 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
         click={() => {
           const flow_url = `${new URL(window.location.href).origin}/?flow=${bot.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}`;
           navigator.clipboard.writeText(flow_url);
-          console.log(`${bot} url copied to clipboard`);
         }}
         setIssues={setIssues}
       />
@@ -73,7 +71,6 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
       <MenuButton
         icon={"🔍"}
         hoverText={`test ${bot}`}
-        click={() => console.log(`todo - cstatus interface for ${bot}`)}
         setIssues={setIssues}
         where={`/admin/test/${bot}`}
       />
@@ -81,7 +78,6 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
       <MenuButton
         icon={status.success ? "🏗️" : "🛠️"}
         hoverText={status.message}
-        click={() => console.log(`todo - edit interface for ${bot}`)}
         setIssues={setIssues}
         where={`/admin/edit/${bot}`}
       />
@@ -89,9 +85,13 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
       <MenuButton
         icon={"👥"}
         hoverText={`create copy of ${bot}`}
-        click={async () =>
-          await myRequest("/copy_flow", { name: bot }).then(() => setBotsList())
-        }
+        click={async () => {
+          const really = window.confirm(`copy flow ${bot}?`);
+          really &&
+            (await myRequest("/copy_flow", { name: bot }).then(() =>
+              setBotsList(),
+            ));
+        }}
         setIssues={setIssues}
       />
 

@@ -25,8 +25,6 @@ const FlowList = ({
   return (
     <ul className="flow-list">
       {activeFlows.map(([botName, status, date, project, a], i) => {
-        console.log(botName, status, date, project, a, i);
-
         return (
           <BotBrick
             key={i}

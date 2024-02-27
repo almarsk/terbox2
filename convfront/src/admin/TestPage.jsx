@@ -14,10 +14,8 @@ const TestPage = () => {
 
   useEffect(() => {
     myRequest("/proof", { flow: flow }).then((e) => {
-      console.log(e);
       if (e.message === "invalid path") {
         setValid(2);
-        console.log("yeet");
       } else if (!e.success) {
         setValid(1);
       }

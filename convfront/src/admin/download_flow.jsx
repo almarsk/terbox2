@@ -3,7 +3,6 @@ import myRequest from "../myRequest";
 const download_flow = async (bot) => {
   try {
     const response = await myRequest("/export_flow", { name: bot });
-    console.log(response.flow);
 
     // Check if the response contains the 'flow' object
     if (response.flow) {

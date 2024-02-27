@@ -11,7 +11,7 @@ const EditPage = ({ setIssues }) => {
   useEffect(() => {
     const fetchProof = async () => {
       const currentProof = await myRequest("/proof", { flow: flow });
-      console.log(currentProof);
+
       setProof(currentProof.message);
     };
     fetchProof();

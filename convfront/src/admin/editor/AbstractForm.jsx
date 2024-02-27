@@ -10,7 +10,7 @@ const AbstractForm = ({ element, elementData, fields, flow }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`submit ${JSON.stringify(activeItem)}`);
+
     const edit = async () => {
       await myRequest("/convform", {
         flow: flow,

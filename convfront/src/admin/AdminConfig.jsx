@@ -22,7 +22,6 @@ const AdminConfig = () => {
 
   const handleLogin = async (nick, pass) => {
     myRequest("/login", [nick, pass]).then((e) => {
-      console.log(e.success);
       localStorage.setItem("isLoggedIn", e.success);
       setIsLoggedIn(e.success);
       setUnsuccess(!e.success);

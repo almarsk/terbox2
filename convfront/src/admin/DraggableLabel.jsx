@@ -18,8 +18,8 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
     const rect = e.target.getBoundingClientRect();
     const absoluteX = rect.left + window.pageXOffset;
     const absoluteY = rect.top + window.pageYOffset;
-    setPosition(originalPosition);
     setIsDragging(false);
+    setPosition(originalPosition);
     setDropPosition({ x: absoluteX, y: absoluteY });
   };
 
@@ -51,27 +51,23 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
     );
     droppedOnDiv = findElementUnderTopmost(droppedOnDiv, "folder-brick");
 
-    console.log("dropped on div", droppedOnDiv);
-    console.log("dropped on div id", droppedOnDiv.getAttribute("project-id"));
-
     if (
       droppedOnDiv &&
+      droppedOnDiv.classList.contains("folder-brick") &&
       !droppedOnDiv.classList.contains("new-project-form") &&
       !droppedOnDiv.classList.contains("all-flows")
     ) {
       const directoryId = droppedOnDiv.getAttribute("project-id");
-
-      console.log("new dirid", directoryId);
 
       myRequest("/move", {
         item_type: "flow",
         name: bot,
         destination: directoryId,
       }).then(() => {
-        setHit(false);
         setBotsList();
       });
     }
+    setHit(false);
   }, [dropPosition]);
 
   return (

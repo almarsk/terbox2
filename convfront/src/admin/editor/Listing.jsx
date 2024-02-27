@@ -27,22 +27,14 @@ const Listing = ({
     fetchItems();
   }, [elementType, flow]);
 
-  useEffect(() => {
-    console.log("elements", elements);
-  }, [elements]);
-
   const handleSubmitItem = (e) => {
     e.preventDefault();
     const edit = async () => {
       const data = {};
 
-      console.log("fields", fields);
       fields.forEach(([key]) => {
-        console.log(key);
         data[key] = key == "name" ? newItemValue : "";
       });
-
-      console.log("DATA", data);
 
       await myRequest("/convform", {
         flow: flow,
@@ -59,8 +51,6 @@ const Listing = ({
   const removeButton = (e, elementName) => {
     e.stopPropagation();
 
-    console.log(flow, elementType, elementName);
-
     myRequest("/convform", {
       flow: flow,
       func: "remove",
@@ -70,8 +60,6 @@ const Listing = ({
   };
 
   const handleClick = (element) => {
-    console.log("changing to editor of", element);
-
     setActivePanel(elementType);
     setActiveElement(element);
   };

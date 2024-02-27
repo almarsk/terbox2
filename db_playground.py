@@ -23,9 +23,9 @@ def insert_data(cursor, data):
 #pprint.pp([q for q in cursor.execute('''SELECT * FROM Flow;''')])
 
 
-print([q for q in cursor.execute('''SELECT * FROM flow;''')])
+print([q for q in cursor.execute('''SELECT * FROM project;''')])
 # Insert JSON data into SQLite database
-# insert_data(cursor,("brlb", 1, load_json("bots/brlb.json"), 0, datetime.utcnow()))
+#insert_data(cursor,("brlb", 1, load_json("bots/brlb.json"), 0, datetime.utcnow()))
 
 
 

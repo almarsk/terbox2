@@ -2,9 +2,7 @@ import { useEffect } from "react";
 import StringInput from "./input_types/StringInput";
 
 const EditBrick = ({ label, type, activeItem, setChanges, setActiveItem }) => {
-  useEffect(() => {
-    console.log(label, type);
-  }, [label, type]);
+  useEffect(() => {}, [label, type]);
 
   return (
     <div className="editor-brick">
