@@ -34,7 +34,6 @@ const ProjectBrick = ({
               name: name,
               destination: isArchived ? 1 : 2,
             }).then(() => {
-              console.log("yay");
               fetchProjects();
             });
           }}

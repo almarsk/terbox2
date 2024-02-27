@@ -19,33 +19,44 @@ def edit_item(args):
     if existing_record :
         flow_data = json.loads(existing_record[3])
 
-        items_list = None
-        if item_type == "intent":
-            items_list = flow_data.get("intents", [])
-        elif item_type == "state":
+        if item_type == "meta":
+            for k,v in data.items():
+                if k != "states" and k != "intents":
+                    print(k, v)
+                    flow_data[k] = v
 
-            items_list = flow_data.get("states", [])
-        if items_list is None:
-            return {
-                "success": False,
-                "message": f"Invalid item type {item_type}"
-            }
+            print("\n\n\n", flow_data)
 
-        updated = False
-        for item in items_list:
-            print(f"\n\n\n{item.get('name', '').strip()}\n{name.strip()}")
-            if item.get("name", "").strip() == name.strip():
-                if isNotBrandNew(data) and not isNotBrandNew(item):
-                    pass
-                item.update(data)
-                updated = True
-        if not updated:
-            items_list.append(data)
+        else:
+            items_list = None
+            if item_type == "intent":
+                items_list = flow_data.get("intents", [])
+            elif item_type == "state":
+                items_list = flow_data.get("states", [])
 
-        if item_type == "intent":
-            flow_data["intents"] = items_list
-        elif item_type == "state":
-            flow_data["states"] = items_list
+            if items_list is None:
+                return {
+                    "success": False,
+                    "message": f"Invalid item type {item_type}"
+                }
+
+            updated = False
+
+            for item in items_list:
+                if item.get("name", "").strip() == name.strip():
+                    if isNotBrandNew(data) and not isNotBrandNew(item):
+                        pass
+                    item.update(data)
+                    updated = True
+            if not updated:
+                items_list.append(data)
+
+
+
+            if item_type == "intent":
+                flow_data["intents"] = items_list
+            elif item_type == "state":
+                flow_data["states"] = items_list
 
         cursor.execute('''UPDATE flow SET flow = ? WHERE flow_name = ?''',
             (json.dumps(flow_data), flow))

@@ -8,12 +8,12 @@ const EditPage = ({ setIssues }) => {
   const [proof, setProof] = useState("");
   const [lastEvent, setLastEvent] = useState(`opened ${flow} editor`);
 
-  useEffect(() => {
-    const fetchProof = async () => {
-      const currentProof = await myRequest("/proof", { flow: flow });
+  const fetchProof = async () => {
+    const currentProof = await myRequest("/proof", { flow: flow });
+    setProof(currentProof.message);
+  };
 
-      setProof(currentProof.message);
-    };
+  useEffect(() => {
     fetchProof();
   }, []);
 
@@ -45,8 +45,20 @@ const EditPage = ({ setIssues }) => {
             <b>{lastEvent ? `last event: ${lastEvent}` : ""}</b>
           </div>
         </div>
-        <EditorPanel setIssues={setIssues} initial="list-states" flow={flow} />
-        <EditorPanel setIssues={setIssues} initial="list-intents" flow={flow} />
+        <EditorPanel
+          setIssues={setIssues}
+          initial="list-states"
+          flow={flow}
+          setLastEvent={setLastEvent}
+          fetchProof={fetchProof}
+        />
+        <EditorPanel
+          setIssues={setIssues}
+          initial="list-intents"
+          flow={flow}
+          setLastEvent={setLastEvent}
+          fetchProof={fetchProof}
+        />
       </div>
     </div>
   );

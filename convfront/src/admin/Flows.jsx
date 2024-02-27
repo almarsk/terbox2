@@ -15,7 +15,7 @@ const Flows = ({ setIssues }) => {
   const fetchProjects = async () => {
     try {
       const result = await myRequest("/list-projects", {});
-      console.log(result);
+
       setProjectsList(result);
     } catch (error) {
       console.error("Error fetching projects:", error);

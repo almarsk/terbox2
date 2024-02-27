@@ -1,5 +1,3 @@
-import MenuButton from "../MenuButton";
-
 import { useEffect, useState } from "react";
 import myRequest from "../../myRequest";
 
@@ -9,23 +7,16 @@ const Listing = ({
   fields,
   setActivePanel,
   setActiveElement,
+  elements,
+  fetchItems,
+  setLastEvent,
 }) => {
-  const [elements, setElements] = useState([]);
   const [newItemValue, setNewItemValue] = useState("");
 
-  const fetchItems = async () => {
-    const sending = {
-      flow: flow,
-      func: "list",
-      item_type: elementType,
-    };
-
-    myRequest("/convform", sending).then((e) => e.data && setElements(e.data));
-  };
-
   useEffect(() => {
-    fetchItems();
-  }, [elementType, flow]);
+    console.log(elementType);
+    fetchItems(elementType);
+  }, [elementType]);
 
   const handleSubmitItem = (e) => {
     e.preventDefault();
@@ -42,21 +33,23 @@ const Listing = ({
         item_type: elementType,
         name: newItemValue,
         data: data,
-      }).then(fetchItems);
+      }).then(() => fetchItems(elementType));
     };
     edit();
     setNewItemValue("");
+    setLastEvent(`created ${elementType} ${newItemValue}`);
   };
 
   const removeButton = (e, elementName) => {
     e.stopPropagation();
-
     myRequest("/convform", {
       flow: flow,
       func: "remove",
       item_type: elementType,
       name: elementName,
-    }).then((e) => fetchItems());
+    }).then(() => {
+      fetchItems(elementType);
+    });
   };
 
   const handleClick = (element) => {
@@ -80,7 +73,10 @@ const Listing = ({
               }}
             >
               <button
-                onClick={(e) => removeButton(e, f.name)}
+                onClick={(e) => {
+                  removeButton(e, f.name);
+                  setLastEvent(`removed ${elementType} ${f.name}`);
+                }}
                 className="submit admin-button"
               >
                 ❌️

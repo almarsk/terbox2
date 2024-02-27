@@ -4,7 +4,14 @@ import myRequest from "../../myRequest";
 import PropTypes from "prop-types";
 import EditBrick from "./EditBrick";
 
-const AbstractForm = ({ element, elementData, fields, flow }) => {
+const AbstractForm = ({
+  element,
+  elementData,
+  fields,
+  flow,
+  setLastEvent,
+  fetchProof,
+}) => {
   const [changes, setChanges] = useState(false);
   const [activeItem, setActiveItem] = useState({});
 
@@ -18,20 +25,22 @@ const AbstractForm = ({ element, elementData, fields, flow }) => {
         item_type: element,
         name: activeItem.name,
         data: activeItem,
-      });
+      }).then(() => fetchProof());
     };
     edit();
     setChanges(false);
+    setLastEvent(`edited ${element} ${activeItem.name || ""}`);
   };
 
   useEffect(() => {
-    if (fields.length)
+    if (fields.length && elementData) {
       fields.forEach(([fName]) =>
         setActiveItem((prevActive) => {
           return { ...prevActive, [fName]: elementData[fName] };
         }),
       );
-  }, [fields]);
+    }
+  }, [fields, element, elementData]);
 
   useEffect(() => {
     return () => {
@@ -59,6 +68,7 @@ const AbstractForm = ({ element, elementData, fields, flow }) => {
                 setChanges={setChanges}
                 setActiveItem={setActiveItem}
                 activeItem={activeItem}
+                setLastEvent={setLastEvent}
               />
             ))}
       </ul>
@@ -72,6 +82,7 @@ const AbstractForm = ({ element, elementData, fields, flow }) => {
 AbstractForm.propTypes = {
   element: PropTypes.string.isRequired,
   fields: PropTypes.object.isRequired,
+  elementData: PropTypes.object.isRequired,
   flow: PropTypes.string.isRequired,
 };
 
