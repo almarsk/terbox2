@@ -5,6 +5,7 @@ import BoolInput from "./input_types/BoolInput";
 import ListInput from "./input_types/ListInput";
 import ResponseTypeInput from "./input_types/ResponseTypeInput";
 import DictInput from "./input_types/DictInput";
+import Say from "./input_types/Say";
 
 const EditBrick = ({ label, type, activeItem, setChanges, setActiveItem }) => {
   useEffect(() => {}, [label, type]);
@@ -40,6 +41,8 @@ const EditBrick = ({ label, type, activeItem, setChanges, setActiveItem }) => {
           <ResponseTypeInput />
         ) : type == "dict" ? (
           <DictInput />
+        ) : type.trim() == "list[tuple[convcore.say.Say, str]]" ? (
+          <Say />
         ) : (
           `${type}`
         )}

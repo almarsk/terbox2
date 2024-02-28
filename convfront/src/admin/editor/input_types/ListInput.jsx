@@ -13,11 +13,13 @@ const ListInput = ({ label }) => {
         justifyContent: "space-between",
       }}
     >
-      <NewItem
-        label={label}
-        addTag={(item) => setTags([...tags, item])}
-        tags={tags}
-      />
+      <div className="input-field">
+        <NewItem
+          label={label}
+          addTag={(item) => setTags([...tags, item])}
+          tags={tags}
+        />
+      </div>
       <ListItems editTags={setTags} tags={tags} />
     </div>
   );

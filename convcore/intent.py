@@ -9,10 +9,12 @@
         iterate states: [str]
 """
 
+from .say import Say
+
 class Intent:
     name: str
     annotation: str
-    match_against: dict
+    match_against: list[tuple[Say,str]]
     adjacent: list
     context_intents: list
     context_states: list

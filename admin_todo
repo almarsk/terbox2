@@ -1,7 +1,5 @@
 editor
 
-input types - dict - component new item, component list tags
-
 hook to convert data between form and class
 polish validation text
 

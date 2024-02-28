@@ -69,6 +69,20 @@ const Listing = ({
   return (
     <div>
       <h5>{elementType}s</h5>
+      <form
+        className="folder-brick new-project-form"
+        onSubmit={handleSubmitItem}
+      >
+        <input
+          required
+          className="new-project"
+          placeholder={`new ${elementType}`}
+          value={newItemValue}
+          onChange={(e) => setNewItemValue(e.target.value)}
+          type="text"
+        />
+        <button className="submit admin-button">↵</button>
+      </form>
       <ul style={{ height: "70vh", overflow: "auto" }}>
         {elements.map((f, i) => {
           console.log("\nF", f);
@@ -101,20 +115,6 @@ const Listing = ({
           );
         })}
       </ul>
-      <form
-        className="folder-brick new-project-form"
-        onSubmit={handleSubmitItem}
-      >
-        <input
-          required
-          className="new-project"
-          placeholder={`new ${elementType}`}
-          value={newItemValue}
-          onChange={(e) => setNewItemValue(e.target.value)}
-          type="text"
-        />
-        <button className="submit admin-button">↵</button>
-      </form>
     </div>
   );
 };

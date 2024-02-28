@@ -55,12 +55,12 @@ const EditPage = ({ setIssues }) => {
             color: "white",
           }}
         >
-          <ul style={{ height: "93%", overflowY: "auto" }}>
-            {proof && proof.split("\n").map((message) => <div>{message}</div>)}
-          </ul>
           <div>
             <b>{lastEvent ? `last event: ${lastEvent}` : ""}</b>
           </div>
+          <ul style={{ height: "93%", overflowY: "auto" }}>
+            {proof && proof.split("\n").map((message) => <div>{message}</div>)}
+          </ul>
         </div>
         <EditorPanel
           setIssues={setIssues}

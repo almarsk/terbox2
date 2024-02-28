@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-const NewItem = ({ addTag, label }) => {
+const NewItem = ({ addTag, label, area }) => {
   const [newValue, setNewValue] = useState("");
 
   useEffect(() => {
@@ -15,23 +15,61 @@ const NewItem = ({ addTag, label }) => {
         newValue && addTag(newValue);
         setNewValue("");
       }}
-      className="input-field list-field"
+      className="list-field"
       style={{
         display: "flex",
         flexDirection: "row",
       }}
     >
-      <input
-        className="list-input"
-        style={{
-          backgroundColor: "transparent",
-          fontSize: "18px",
-          border: "none",
-        }}
-        onChange={(e) => setNewValue(e.target.value)}
-        value={newValue}
-        placeholder={label}
-      />
+      {!area ? (
+        <input
+          className="list-input"
+          style={{
+            backgroundColor: "transparent",
+            fontSize: "18px",
+            border: "none",
+          }}
+          onChange={(e) => setNewValue(e.target.value)}
+          value={newValue}
+          placeholder={label}
+        />
+      ) : (
+        <div>
+          <textarea
+            className="list-input"
+            style={{
+              backgroundColor: "transparent",
+              fontSize: "18px",
+              border: "none",
+              resize: "vertical",
+              mozResize: "vertical",
+              webkitResize: "vertical",
+              minHeight: "138px",
+              width: "13vw",
+            }}
+            onChange={(e) => setNewValue(e.target.value)}
+            value={newValue}
+            placeholder={label}
+          />
+          <button
+            className="prompt-button"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "13vw",
+            }}
+          >
+            <div
+              style={{
+                textAlign: "center",
+              }}
+            >
+              ↵
+            </div>
+          </button>
+        </div>
+      )}
     </form>
   );
 };

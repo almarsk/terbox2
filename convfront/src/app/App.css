@@ -34,9 +34,9 @@
     font-size: 18px;
     line-height: 1.5;
     text-align: left;
-    resize: none;
-    -moz-resize: none;
-    -webkit-resize: none;
+    resize: vertical;
+    -moz-resize: vertical;
+    -webkit-resize: vertical;
     outline: none;
     caret-color: rgb(129, 129, 129);
     flex-grow: 1;

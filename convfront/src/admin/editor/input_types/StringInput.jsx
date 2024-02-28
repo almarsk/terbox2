@@ -5,6 +5,7 @@ const StringInput = ({ label, activeItem, setChanges, setActiveItem }) => {
       name={label}
       placeholder={label}
       value={activeItem[label]}
+      style={{ minHeight: "30px" }}
       onChange={(e) => {
         setChanges(true);
         setActiveItem((prevActive) => {

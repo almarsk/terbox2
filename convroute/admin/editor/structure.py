@@ -7,9 +7,12 @@ structure_bp = Blueprint('structure', __name__)
 
 @structure_bp.route('/structure', methods=['POST'])
 def get_structure():
-    state_anno = {key: re.search(r"'([^']*)'", str(value)).group(1) for key, value in State.__annotations__.items()}
-    intent_anno = { key: re.search(r"'([^']*)'", str(value)).group(1) for key, value in Intent.__annotations__.items()}
-    flow_anno = {key: re.search(r"'([^']*)'", str(value)).group(1) for key, value in Flow.__annotations__.items() if key != "states" and key != "intents"}
+
+    print(State.__annotations__)
+
+    state_anno = {key: get_quoted_value_or_full_string(value) for key, value in State.__annotations__.items()}
+    intent_anno = { key: get_quoted_value_or_full_string(value) for key, value in Intent.__annotations__.items()}
+    flow_anno = {key: get_quoted_value_or_full_string(value) for key, value in Flow.__annotations__.items() if key != "states" and key != "intents"}
 
     states_ordered = [[key, state_anno[key]] for key in list(State({}).__dict__.keys()) if key in state_anno]
     intent_ordered = [[key, intent_anno[key]] for key in list(Intent({}).__dict__.keys()) if key in intent_anno]
@@ -20,3 +23,11 @@ def get_structure():
         "intents": intent_ordered,
         "flow": flow_ordered
     })
+
+
+def get_quoted_value_or_full_string(value):
+    match = re.search(r"'([^']*)'", str(value))
+    if match:
+        return match.group(1)
+    else:
+        return str(value)

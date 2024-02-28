@@ -4,7 +4,6 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-
 }
 
 .editor-menu {
@@ -57,7 +56,7 @@
 }
 
 .list-submit {
-    posi width: 18px;
+    width: 18px;
     height: 18px;
     font-size: 14px;
     margin: 0;
@@ -81,4 +80,15 @@
 .list-field {
     display: flex;
     align-items: center;
+}
+
+.prompt-button {
+    font-size: 10px;
+    background-color: rgb(190, 190, 190);
+    border: none;
+    border-radius: 5px;
+}
+
+.prompt-button:hover {
+    background-color: rgb(150, 150, 150);
 }

@@ -12,8 +12,8 @@ state
     context states: [str]
     iterate states: [str]
 """
-
 from enum import Enum
+from .say import Say
 
 class ResponseType(Enum):
     INITIATIVE = 'Initiative'
@@ -21,11 +21,14 @@ class ResponseType(Enum):
     FLEXIBLE = 'Flexible'
     CONNECTIVE = 'Connective'
 
+
+
+
 class State:
     name: str
     intents: dict
     annotation: str
-    say: dict
+    say: list[tuple[Say,str]]
     response_type: ResponseType
     prioritize: bool
     iteration: int
@@ -34,14 +37,14 @@ class State:
     context_states: list
     iterate_states: list
     def __init__(self, state):
-        self.name: str = state.get("name", "")
-        self.intents: dict = state.get("intents", "")
-        self.annotation: str = state.get("annotation", "")
-        self.say: dict = state.get("say", "")
-        self.response_type: ResponseType = state.get("response_type", "")
-        self.prioritize: bool = state.get("prioritize", "")
-        self.iteration: int = state.get("iteration", "")
-        self.initiativity: int = state.get("initiativity", "")
-        self.context_intents: list = state.get("context_intents", "")
-        self.context_states: list = state.get("context_states", "")
-        self.iterate_states: list = state.get("iterate_states", "")
+        self.name = state.get("name", "")
+        self.intents = state.get("intents", "")
+        self.annotation = state.get("annotation", "")
+        self.say = state.get("say", "")
+        self.response_type = state.get("response_type", "")
+        self.prioritize = state.get("prioritize", "")
+        self.iteration = state.get("iteration", "")
+        self.initiativity = state.get("initiativity", "")
+        self.context_intents = state.get("context_intents", "")
+        self.context_states = state.get("context_states", "")
+        self.iterate_states = state.get("iterate_states", "")

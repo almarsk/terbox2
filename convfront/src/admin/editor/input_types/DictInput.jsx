@@ -7,15 +7,17 @@ const DictInput = ({ label, activeItem, setChanges, setActiveItem }) => {
 
   return (
     <div>
-      <NewItem
-        label={label}
-        addTag={(newItem) =>
-          setDict((prev) => {
-            return { ...prev, [newItem]: [] };
-          })
-        }
-        tags={dict}
-      />
+      <div className="input-field">
+        <NewItem
+          label={label}
+          addTag={(newItem) =>
+            setDict((prev) => {
+              return { ...prev, [newItem]: [] };
+            })
+          }
+          tags={dict}
+        />
+      </div>
       <hr />
 
       <ul>
