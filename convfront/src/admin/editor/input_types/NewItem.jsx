@@ -4,8 +4,6 @@ import { useState } from "react";
 const NewItem = ({ addTag, label, area }) => {
   const [newValue, setNewValue] = useState("");
 
-  useEffect(() => {}, []);
-
   return (
     <form
       onSubmit={(e) => {

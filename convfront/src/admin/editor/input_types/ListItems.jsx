@@ -1,4 +1,13 @@
+import PropTypes from "prop-types";
+import { useEffect } from "react";
+
 const ListItems = ({ tags, editTags, vertical }) => {
+  useEffect(() => {
+    console.log(tags);
+  }, [tags]);
+
+  console.log("tags", tags);
+
   return (
     <ul
       style={{
@@ -8,30 +17,39 @@ const ListItems = ({ tags, editTags, vertical }) => {
         overflow: "auto",
       }}
     >
-      {tags.map((t, i) => (
-        <div
-          style={{
-            cursor: "pointer",
-            backgroundColor: "rgb(189,189,189)",
-            borderRadius: "10px",
-            padding: "1px 5px",
-            margin: "2px",
-            display: "flex",
-            alignItems: "center",
-            minHeight: "25px",
-          }}
-          onClick={() => {
-            const newTags = [...tags];
-            newTags.splice(i, 1);
-            editTags(newTags);
-          }}
-          key={i}
-        >
-          {`${t}`}
-        </div>
-      ))}
+      {tags.length
+        ? tags.map((t, i) => (
+            <div
+              style={{
+                cursor: "pointer",
+                backgroundColor: "rgb(189,189,189)",
+                borderRadius: "10px",
+                padding: "1px 5px",
+                margin: "2px",
+                display: "flex",
+                alignItems: "center",
+                minHeight: "25px",
+              }}
+              onClick={() => {
+                const newTags = [...tags];
+                newTags.splice(i, 1);
+                editTags(newTags);
+              }}
+              key={i}
+            >
+              {`${t}`}
+            </div>
+          ))
+        : ""}
     </ul>
   );
+};
+
+// PropType validations
+ListItems.propTypes = {
+  tags: PropTypes.array.isRequired,
+  editTags: PropTypes.func.isRequired,
+  vertical: PropTypes.bool,
 };
 
 export default ListItems;

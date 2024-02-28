@@ -1,10 +1,8 @@
-import { useState } from "react";
 import NewItem from "./NewItem";
 import ListItems from "./ListItems";
+import { useEffect } from "react";
 
-const ListInput = ({ label }) => {
-  const [tags, setTags] = useState([]);
-
+const ListInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (
     <div
       style={{
@@ -16,11 +14,24 @@ const ListInput = ({ label }) => {
       <div className="input-field">
         <NewItem
           label={label}
-          addTag={(item) => setTags([...tags, item])}
-          tags={tags}
+          addTag={(newValue) => {
+            setChanges(true);
+            setActiveItem((prev) => {
+              return { ...prev, [label]: [...prev[label], newValue] };
+            });
+          }}
+          tags={Object.entries(activeItem).length ? activeItem[label] : []}
         />
       </div>
-      <ListItems editTags={setTags} tags={tags} />
+      <ListItems
+        editTags={(newValue) => {
+          setChanges(true);
+          setActiveItem((prev) => {
+            return { ...prev, [label]: newValue };
+          });
+        }}
+        tags={Object.entries(activeItem).length ? activeItem[label] : []}
+      />
     </div>
   );
 };

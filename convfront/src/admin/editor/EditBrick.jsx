@@ -36,7 +36,12 @@ const EditBrick = ({ label, type, activeItem, setChanges, setActiveItem }) => {
             setChanges={setChanges}
           />
         ) : type == "list" ? (
-          <ListInput label={label} />
+          <ListInput
+            activeItem={activeItem}
+            label={label}
+            setActiveItem={setActiveItem}
+            setChanges={setChanges}
+          />
         ) : type == "ResponseType" ? (
           <ResponseTypeInput />
         ) : type == "dict" ? (
