@@ -10,7 +10,7 @@ const EditBrick = ({ label, type, activeItem, setChanges, setActiveItem }) => {
 
   return (
     <div className="editor-brick">
-      <div className="editor-label">{label}:</div>
+      <div className="editor-label">{label.replace(/_/, " ")}</div>
       <div className="editor-field">
         {type == "str" ? (
           <StringInput

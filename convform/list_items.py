@@ -25,6 +25,8 @@ def list_items(args):
 
     full_data = json.loads(existing_record[3])
 
+    print(f"\n\n\n {full_data} \n\n\n")
+
 
     return {
         "success": True,

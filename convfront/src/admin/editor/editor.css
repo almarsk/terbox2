@@ -22,9 +22,7 @@
 .editor-label {
     display: flex;
     align-items: center;
-    text-align: left;
-    width: 30%;
-    font-size: 14px;
+    text-align: right;
 }
 
 .editor-brick {
@@ -51,4 +49,31 @@
 
 .list-input:focus {
     outline: none;
+}
+
+.list-submit {
+    width: 18px;
+    height: 18px;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    border-radius: 3px;
+    background-color: rgb(189, 189, 189);
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+    border: none;
+}
+
+.list-submit:hover {
+    background-color: rgb(160, 160, 160);
+    cursor: pointer;
+}
+
+.list-field {
+    display: flex;
+    align-items: center;
 }

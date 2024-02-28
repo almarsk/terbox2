@@ -45,9 +45,10 @@ def edit_item(args):
             for item in items_list:
                 if item.get("name", "").strip() == name.strip():
                     # ??
-                    if isNotBrandNew(data) and not isNotBrandNew(item):
-                        pass
-                    elif not isNotBrandNew(data):
+                    if isEdited(data) and not isEdited(item):
+                        print("that weird thing\n\n\n")
+
+                    elif not isEdited(data):
                         return {
                             "success": False,
                             "message": f"{item_type} {name} already in {flow}"
@@ -82,7 +83,7 @@ def edit_item(args):
             "message": f"Can't edit nonexistent flow {flow}"
         }
 
-def isNotBrandNew(data):
+def isEdited(data):
     updatedData = False
     for key, value in data.items():
         if key == "name":

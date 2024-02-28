@@ -15,8 +15,11 @@ const Listing = ({
 
   useEffect(() => {
     console.log(elementType);
-    fetchItems(elementType);
   }, [elementType]);
+
+  useEffect(() => {
+    console.log("ELEMENTS", elements);
+  }, [elements]);
 
   const handleSubmitItem = (e) => {
     e.preventDefault();
@@ -58,6 +61,7 @@ const Listing = ({
   };
 
   const handleClick = (element) => {
+    console.log("setting", elementType, element);
     setActivePanel(elementType);
     setActiveElement(element);
   };
@@ -66,29 +70,36 @@ const Listing = ({
     <div>
       <h5>{elementType}s</h5>
       <ul>
-        {elements.map((f, i) => (
-          <div onClick={() => handleClick(f)} className="folder-brick" key={i}>
-            <p className="project-name">{f}</p>
+        {elements.map((f, i) => {
+          console.log("\nF", f);
+          return (
             <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                flexDirection: "row",
-                alignItems: "center",
-              }}
+              onClick={() => handleClick(f)}
+              className="folder-brick"
+              key={i}
             >
-              <button
-                onClick={(e) => {
-                  removeButton(e, f);
-                  setLastEvent(`removed ${elementType} ${f}`);
+              <p className="project-name"> {f}</p>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
-                className="submit admin-button"
               >
-                ❌️
-              </button>
+                <button
+                  onClick={(e) => {
+                    removeButton(e, f);
+                    setLastEvent(`removed ${elementType} ${f}`);
+                  }}
+                  className="submit admin-button"
+                >
+                  ❌️
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
         <form
           className="folder-brick new-project-form"
           onSubmit={handleSubmitItem}

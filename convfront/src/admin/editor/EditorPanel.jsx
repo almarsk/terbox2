@@ -42,7 +42,7 @@ const EditorPanel = ({
           flow={flow}
           elementData={
             flowData &&
-            flowData.states.filter((f) => (f.name = activeElement))[0]
+            flowData.states.filter((f) => f.name == activeElement)[0]
           }
           setLastEvent={setLastEvent}
           fetchProof={fetchProof}
@@ -58,7 +58,10 @@ const EditorPanel = ({
           fetchItems={fetchItems}
           elements={
             flowData && flowData.states
-              ? flowData.states.map((s) => s.name)
+              ? flowData.states.map((s) => {
+                  console.log("single", JSON.stringify(s));
+                  return s.name;
+                })
               : []
           }
           setLastEvent={setLastEvent}

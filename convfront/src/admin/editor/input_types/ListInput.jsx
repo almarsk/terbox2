@@ -31,7 +31,7 @@ const ListInput = ({ label }) => {
           placeholder={label}
         />
         <button
-          className="submit admin-button small"
+          className="list-submit"
           onClick={(e) => {
             e.preventDefault();
             newValue && setTags([...tags, newValue]);

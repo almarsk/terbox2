@@ -1,6 +1,7 @@
 const IntInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (
     <input
+      min={0}
       type="number"
       className="input-field"
       name={label}
