@@ -1,7 +1,6 @@
 #main {
     color: black;
-
-    height: 350px;
+    height: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,7 +25,7 @@
 }
 
 .input-field {
-    width: 250px;
+    width: 20vw;
     padding-left: 8px;
     border-radius: 8px;
     border: 0;

@@ -1,10 +1,10 @@
 .panel {
-    width: 375px;
+    width: 33vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-left: 25px;
+
 }
 
 .editor-menu {
@@ -26,6 +26,11 @@
 }
 
 .editor-brick {
+    width: 100%;
+    background-color: rgb(180, 180, 180);
+    border-radius: 8px;
+    margin: 4px;
+    padding: 4px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -37,7 +42,7 @@
 
 .editor-field {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     margin: 2px;
 }
 
@@ -52,7 +57,7 @@
 }
 
 .list-submit {
-    width: 18px;
+    posi width: 18px;
     height: 18px;
     font-size: 14px;
     margin: 0;

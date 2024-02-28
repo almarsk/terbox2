@@ -58,11 +58,11 @@ const AbstractForm = ({
   });
 
   return (
-    <form className="editor-input" onSubmit={handleSubmit}>
+    <div style={{ width: "90%" }}>
       <h5>
         {element} {activeItem.name || flow}
       </h5>
-      <ul>
+      <ul style={{ width: "100%" }}>
         {fields.length &&
           fields
             .filter(([f]) => f != "name")
@@ -78,10 +78,12 @@ const AbstractForm = ({
               />
             ))}
       </ul>
-      <div className="editor-submit">
-        <button className="submit admin-button">📨</button>
-      </div>
-    </form>
+      <form className="editor-input" onSubmit={handleSubmit}>
+        <div className="editor-submit">
+          <button className="submit admin-button">📨</button>
+        </div>
+      </form>
+    </div>
   );
 };
 

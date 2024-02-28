@@ -1,10 +1,11 @@
 editor
 
-input types - dict
+input types - dict - component new item, component list tags
 
 hook to convert data between form and class
 polish validation text
 
+styles - from scratch
 
 make some flows
 cstatus pipe line (as already done)

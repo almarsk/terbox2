@@ -33,20 +33,22 @@ const EditPage = ({ setIssues }) => {
   }, []);
 
   return (
-    <div className="editor-container" style={{ textAlign: "center" }}>
-      <h3>Editing {flow}</h3>
+    <div className="editor-container" style={{ width: "100%" }}>
+      <h3 style={{ margin: 0 }}>Editing {flow}</h3>
       <div
         style={{
           display: "flex",
           flexDirection: "row",
-          height: "65vh",
+          width: "100%",
         }}
       >
         <div
           style={{
+            height: "85vh",
+            width: "33vh",
             display: "flex",
             flexDirection: "column",
-            maxWidth: "500px",
+
             justifyContent: "start",
             padding: "10px",
             textAlign: "left",

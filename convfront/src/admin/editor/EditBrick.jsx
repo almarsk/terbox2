@@ -4,6 +4,7 @@ import IntInput from "./input_types/IntInput";
 import BoolInput from "./input_types/BoolInput";
 import ListInput from "./input_types/ListInput";
 import ResponseTypeInput from "./input_types/ResponseTypeInput";
+import DictInput from "./input_types/DictInput";
 
 const EditBrick = ({ label, type, activeItem, setChanges, setActiveItem }) => {
   useEffect(() => {}, [label, type]);
@@ -37,6 +38,8 @@ const EditBrick = ({ label, type, activeItem, setChanges, setActiveItem }) => {
           <ListInput label={label} />
         ) : type == "ResponseType" ? (
           <ResponseTypeInput />
+        ) : type == "dict" ? (
+          <DictInput />
         ) : (
           `${type}`
         )}
