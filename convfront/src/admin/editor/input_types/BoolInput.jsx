@@ -7,11 +7,11 @@ const BoolInput = ({ label, activeItem, setChanges, setActiveItem }) => {
         type="checkbox"
         name={label}
         placeholder={label}
-        value={activeItem[label]}
+        checked={activeItem[label]}
         onChange={(e) => {
           setChanges(true);
           setActiveItem((prevActive) => {
-            return { ...prevActive, [label]: e.target.value };
+            return { ...prevActive, [label]: e.target.checked };
           });
         }}
       />
