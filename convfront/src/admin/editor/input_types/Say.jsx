@@ -67,6 +67,7 @@ const Say = () => {
                 )
               : []
           }
+          editTags={setSays}
         />
       </div>
     </>
