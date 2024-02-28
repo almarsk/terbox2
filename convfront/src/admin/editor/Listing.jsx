@@ -13,14 +13,6 @@ const Listing = ({
 }) => {
   const [newItemValue, setNewItemValue] = useState("");
 
-  useEffect(() => {
-    console.log(elementType);
-  }, [elementType]);
-
-  useEffect(() => {
-    console.log("ELEMENTS", elements);
-  }, [elements]);
-
   const handleSubmitItem = (e) => {
     e.preventDefault();
     const edit = async () => {
@@ -61,7 +53,6 @@ const Listing = ({
   };
 
   const handleClick = (element) => {
-    console.log("setting", elementType, element);
     setActivePanel(elementType);
     setActiveElement(element);
   };
@@ -85,7 +76,6 @@ const Listing = ({
       </form>
       <ul style={{ height: "70vh", overflow: "auto" }}>
         {elements.map((f, i) => {
-          console.log("\nF", f);
           return (
             <div
               onClick={() => handleClick(f)}

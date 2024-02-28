@@ -7,10 +7,6 @@ const Say = () => {
   const [says, setSays] = useState([]);
   const [isPrompt, setIsPrompt] = useState(false);
 
-  useEffect(() => {
-    console.log(says);
-  }, [says]);
-
   return (
     <>
       <div
@@ -48,10 +44,6 @@ const Say = () => {
             area={true}
             addTag={(item) =>
               setSays((prev) => {
-                console.log("debg");
-                console.log(prev);
-                console.log(isPrompt);
-                console.log(item);
                 return [...prev, { prompt: isPrompt, text: item }];
               })
             }

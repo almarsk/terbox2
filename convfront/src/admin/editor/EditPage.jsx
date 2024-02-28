@@ -22,7 +22,6 @@ const EditPage = ({ setIssues }) => {
     };
 
     myRequest("/convform", sending).then((e) => {
-      console.log("setting data", e.data);
       e.data && setFlowData(e.data);
     });
   };

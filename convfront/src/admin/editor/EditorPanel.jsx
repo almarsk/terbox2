@@ -59,7 +59,6 @@ const EditorPanel = ({
           elements={
             flowData && flowData.states
               ? flowData.states.map((s) => {
-                  console.log("single", JSON.stringify(s));
                   return s.name;
                 })
               : []

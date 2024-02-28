@@ -4,15 +4,13 @@ import { useState } from "react";
 const NewItem = ({ addTag, label, area }) => {
   const [newValue, setNewValue] = useState("");
 
-  useEffect(() => {
-    console.log("label", label);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(newValue);
+
         newValue && addTag(newValue);
         setNewValue("");
       }}

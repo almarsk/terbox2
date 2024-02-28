@@ -21,7 +21,6 @@ const ListItems = ({ tags, editTags, vertical }) => {
             minHeight: "25px",
           }}
           onClick={() => {
-            console.log(tags);
             const newTags = [...tags];
             newTags.splice(i, 1);
             editTags(newTags);
