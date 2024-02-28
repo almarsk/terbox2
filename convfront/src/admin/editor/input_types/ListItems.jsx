@@ -1,9 +1,9 @@
-const ListItems = ({ tags, editTags }) => {
+const ListItems = ({ tags, editTags, vertical }) => {
   return (
     <ul
       style={{
         display: "flex",
-        flexDirection: "row",
+        flexDirection: vertical ? "column" : "row",
         width: "20vw",
         overflow: "auto",
       }}
@@ -18,7 +18,7 @@ const ListItems = ({ tags, editTags }) => {
             margin: "2px",
             display: "flex",
             alignItems: "center",
-            height: "25px",
+            minHeight: "25px",
           }}
           onClick={() => {
             console.log(tags);

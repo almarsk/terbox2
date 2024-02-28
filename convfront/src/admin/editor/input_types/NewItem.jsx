@@ -12,6 +12,7 @@ const NewItem = ({ addTag, label, area }) => {
     <form
       onSubmit={(e) => {
         e.preventDefault();
+        console.log(newValue);
         newValue && addTag(newValue);
         setNewValue("");
       }}
@@ -45,7 +46,6 @@ const NewItem = ({ addTag, label, area }) => {
               mozResize: "vertical",
               webkitResize: "vertical",
               minHeight: "138px",
-              width: "13vw",
             }}
             onChange={(e) => setNewValue(e.target.value)}
             value={newValue}
@@ -57,16 +57,10 @@ const NewItem = ({ addTag, label, area }) => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: "13vw",
+              width: "15vw",
             }}
           >
-            <div
-              style={{
-                textAlign: "center",
-              }}
-            >
-              ↵
-            </div>
+            <div>↵</div>
           </button>
         </div>
       )}

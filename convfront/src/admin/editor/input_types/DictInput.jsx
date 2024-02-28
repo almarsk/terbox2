@@ -36,15 +36,17 @@ const DictInput = ({ label, activeItem, setChanges, setActiveItem }) => {
               >
                 {k}
               </div>
-              <NewItem
-                label={label}
-                addTag={(item) =>
-                  setDict((prev) => {
-                    return { ...prev, [k]: [...prev[k], item] };
-                  })
-                }
-                tags={dict}
-              />
+              <div className="input-field">
+                <NewItem
+                  label={label}
+                  addTag={(item) =>
+                    setDict((prev) => {
+                      return { ...prev, [k]: [...prev[k], item] };
+                    })
+                  }
+                  tags={dict}
+                />
+              </div>
               <ListItems
                 editTags={(newTags) => {
                   setDict((prev) => {

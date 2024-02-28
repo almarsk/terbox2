@@ -1,10 +1,15 @@
 import { useState } from "react";
 import ListItems from "./ListItems";
 import NewItem from "./NewItem";
+import { useEffect } from "react";
 
 const Say = () => {
   const [says, setSays] = useState([]);
   const [isPrompt, setIsPrompt] = useState(false);
+
+  useEffect(() => {
+    console.log(says);
+  }, [says]);
 
   return (
     <>
@@ -42,17 +47,23 @@ const Say = () => {
           <NewItem
             area={true}
             addTag={(item) =>
-              setSays((prev) => [...prev, { prompt: isPrompt, text: item }])
+              setSays((prev) => {
+                console.log("debg");
+                console.log(prev);
+                console.log(isPrompt);
+                console.log(item);
+                return [...prev, { prompt: isPrompt, text: item }];
+              })
             }
           />
         </div>
 
         <ListItems
+          vertical={true}
           tags={
             says.length
               ? says.map(
-                  ({ isPrompt, say }) =>
-                    `${isPrompt ? "prompt" : "say"}-${say}`,
+                  ({ prompt, text }) => `${prompt ? "prompt" : "say"}-${text}`,
                 )
               : []
           }
