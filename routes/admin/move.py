@@ -12,19 +12,15 @@ def move():
     if item_type.strip() == "project":
         project = Project.query.filter_by(project_name=name).first()
         if project.id in [1,2] :
-            return {"success": False, "message": "workspace, archived and all cant be moved"}
+            return {"success": False, "message": "workspace and archived cant be moved"}
         # archived projects are found in project id 2
         project.is_archived = 1 if int(destination) == 2 else 0
-
-        print(project.project_name, project.is_archived)
 
         db.session.add(project)
         db.session.commit()
 
-
     elif item_type == "flow":
         flow = Flow.query.filter_by(flow_name=name).first()
-
 
         if destination is not None:
             flow.project_id = destination
@@ -33,4 +29,4 @@ def move():
         db.session.add(flow)
         db.session.commit()
 
-    return jsonify({"success": True, "message": f"{name} moved"})
+    return jsonify({"success": True, "message": f"{item_type} {name} moved"})

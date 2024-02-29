@@ -1,16 +1,40 @@
-polish validation text
-styles - from scratch
+cleanup
+    clean up inline code
+    clean up styles
+    further componentize
+    use context
+    warn about unsaved changes before leaving a component
+    classes in convform
+    tryout sqalchemy instead of sqlite3
+    usereducer instead of complicated usestate logic
 
-make some flows
+fix and polish convproof
+
 cstatus pipe line (as already done)
 
-finish convproof
+make some flows
 
-convread - nice flexible exporting
-convpeek (cstatus interface dependency)
-testing interface - list convos and within convos list cstatuses
+write replys in db
+convread - nice flexible exporting (cstatus interface dependency)
+cstatus interface - list convos and within convos list cstatuses
 
 add user directions to flow
 add pictures
     - upload button
     - state has
+
+jwt in admin
+
+message for missing required input -
+
+<input type="text" required
+			oninput="this.setCustomValidity('')"
+			oninvalid="this.setCustomValidity('sdjalksjdalkj')"
+		/>
+
+self fix
+clean unused
+autocomplete
+
+list all possible paths to state
+show network

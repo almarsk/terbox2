@@ -8,7 +8,6 @@ from flask import (
     url_for,
     jsonify
 )
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import JSON
 
 import os
@@ -20,7 +19,6 @@ import json
 from convproof import validate_flow
 from convcore import reply, Flow
 from convform import convform
-
 
 app = Flask(__name__, static_url_path='/assets', static_folder='static/assets')
 
@@ -140,16 +138,14 @@ blueprint_paths = [
     "admin.copy.copy_flow_bp",
     "admin.export.export_flow_bp",
     "admin.rename.rename_bp",
-    "admin.editor.structure.structure_bp"
+    "admin.structure.structure_bp"
 ]
 
 for path in blueprint_paths:
     module_name, blueprint_name = path.rsplit('.', 1)
-    module = __import__(f"convroute.{module_name}", fromlist=[blueprint_name])
+    module = __import__(f"routes.{module_name}", fromlist=[blueprint_name])
     blueprint = getattr(module, blueprint_name)
     app.register_blueprint(blueprint)
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)

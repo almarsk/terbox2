@@ -8,8 +8,6 @@ structure_bp = Blueprint('structure', __name__)
 @structure_bp.route('/structure', methods=['POST'])
 def get_structure():
 
-    print(State.__annotations__)
-
     state_anno = {key: get_quoted_value_or_full_string(value) for key, value in State.__annotations__.items()}
     intent_anno = { key: get_quoted_value_or_full_string(value) for key, value in Intent.__annotations__.items()}
     flow_anno = {key: get_quoted_value_or_full_string(value) for key, value in Flow.__annotations__.items() if key != "states" and key != "intents"}

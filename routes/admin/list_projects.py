@@ -19,7 +19,6 @@ def list_projects():
             project_id = sublist[0]
             is_default = sublist[4]
             if is_default and project_id != 1:
-
                 projects_data.pop(projects_data.index(sublist))
                 projects_data.append(sublist)
 

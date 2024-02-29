@@ -35,7 +35,6 @@ def create():
     return jsonify({}), 200
 
 
-
 def default_item():
     from convcore import Flow
     return Flow("","", structure=True).__dict__

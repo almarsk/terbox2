@@ -1,13 +1,3 @@
-"""
-    Flow {
-        persona: str
-        the track: [str]
-        coda: [str]
-        states: {str: State}
-        intents: {str: Intent}
-    }
-"""
-
 import json
 import os
 from convproof import validate_flow
@@ -25,7 +15,6 @@ class Flow:
             flow = validate_flow(path, flow_name, return_flow=True)
         else:
             flow = {}
-
         self.persona = flow.get("persona", "")
         self.track = flow.get("track", [])
         self.coda = flow.get("coda", [])

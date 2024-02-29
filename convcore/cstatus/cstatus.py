@@ -165,10 +165,3 @@ class ConversationStatus:
     def assemble_reply(self):
         # TODO
         return "blolzp"
-
-
-    #_______ conditional _______
-
-    def initiate_conversation(self, flow):
-        # TODO
-        return "greetns"

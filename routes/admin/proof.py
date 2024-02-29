@@ -12,7 +12,5 @@ def proof():
 
     try:
         return jsonify(validate_flow(app.config['BOTS_PATH'], flow))
-
     except Exception as e:
-        print(f"db issues: {e}")
         return jsonify({})

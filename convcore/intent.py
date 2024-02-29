@@ -1,14 +1,3 @@
-"""
-    intent
-        name: str,
-        annotation: str
-        match against: [str] || str
-        adjacent: [str]
-        context intents: [str]
-        context states: [str]
-        iterate states: [str]
-"""
-
 from .say import Say
 
 class Intent:

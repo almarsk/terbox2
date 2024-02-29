@@ -1,17 +1,3 @@
-"""
-state
-    name: str
-    intents {name: [str]}
-    annotation: str
-    say: [str] || prompt
-    type: Type
-    iteration: int
-    prioritize: bool
-    initiativity: int || None
-    context intents: [str]
-    context states: [str]
-    iterate states: [str]
-"""
 from enum import Enum
 from .say import Say
 
