@@ -45,9 +45,19 @@ const EditBrick = ({ label, type, activeItem, setChanges, setActiveItem }) => {
         ) : type == "ResponseType" ? (
           <ResponseTypeInput />
         ) : type == "dict" ? (
-          <DictInput />
+          <DictInput
+            activeItem={activeItem}
+            label={label}
+            setActiveItem={setActiveItem}
+            setChanges={setChanges}
+          />
         ) : type.trim() == "list[tuple[convcore.say.Say, str]]" ? (
-          <Say />
+          <Say
+            activeItem={activeItem}
+            label={label}
+            setActiveItem={setActiveItem}
+            setChanges={setChanges}
+          />
         ) : (
           `${type}`
         )}

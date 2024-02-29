@@ -1,13 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 
-const ListItems = ({ tags, editTags, vertical }) => {
-  useEffect(() => {
-    console.log(tags);
-  }, [tags]);
-
-  console.log("tags", tags);
-
+const ListItems = ({ tags, editTags, vertical, meta }) => {
   return (
     <ul
       style={{
@@ -37,7 +31,7 @@ const ListItems = ({ tags, editTags, vertical }) => {
               }}
               key={i}
             >
-              {`${t}`}
+              {`${meta == "say" ? `${t.prompt ? "prompt" : "say"} - ${t.text}` : t}`}
             </div>
           ))
         : ""}

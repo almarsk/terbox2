@@ -3,8 +3,7 @@ import ListItems from "./ListItems";
 import NewItem from "./NewItem";
 import { useEffect } from "react";
 
-const Say = () => {
-  const [says, setSays] = useState([]);
+const Say = ({ label, activeItem, setChanges, setActiveItem }) => {
   const [isPrompt, setIsPrompt] = useState(false);
 
   return (
@@ -28,38 +27,43 @@ const Say = () => {
         >
           <button
             className="prompt-button"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              border: isPrompt ? "3px solid green" : "3px solid transparent",
-              height: "30px",
-              marginRight: "5px",
-            }}
             onClick={() => setIsPrompt((prev) => !prev)}
           >
-            prompt
+            {isPrompt ? "prompt" : "say"}
           </button>
 
           <NewItem
+            label={isPrompt ? "prompt" : label}
             area={true}
-            addTag={(item) =>
-              setSays((prev) => {
-                return [...prev, { prompt: isPrompt, text: item }];
-              })
-            }
+            addTag={(newValue) => {
+              setChanges(true);
+              setActiveItem((prev) => {
+                return {
+                  ...prev,
+                  [label]: [
+                    ...prev[label],
+                    { text: newValue, prompt: isPrompt },
+                  ],
+                };
+              });
+            }}
           />
         </div>
 
         <ListItems
+          meta={"say"}
           vertical={true}
+          editTags={(newValue) => {
+            setChanges(true);
+            setActiveItem((prev) => {
+              return { ...prev, [label]: newValue };
+            });
+          }}
           tags={
-            says.length
-              ? says.map(
-                  ({ prompt, text }) => `${prompt ? "prompt" : "say"}-${text}`,
-                )
+            Object.entries(activeItem).length && activeItem[label].length
+              ? activeItem[label]
               : []
           }
-          editTags={setSays}
         />
       </div>
     </>

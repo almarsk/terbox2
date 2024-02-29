@@ -83,12 +83,14 @@
 }
 
 .prompt-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    margin-right: 5px;
+    width: 45px;
     font-size: 10px;
     background-color: rgb(190, 190, 190);
     border: none;
     border-radius: 5px;
-}
-
-.prompt-button:hover {
-    background-color: rgb(150, 150, 150);
 }
