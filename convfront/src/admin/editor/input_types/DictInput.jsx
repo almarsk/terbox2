@@ -1,9 +1,26 @@
 import { useState } from "react";
 import NewItem from "./NewItem";
 import ListItems from "./ListItems";
+import { useEffect } from "react";
 
 const DictInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   const [dict, setDict] = useState({});
+  const [init, setInit] = useState(true);
+
+  useEffect(() => {
+    if (activeItem && activeItem[label]) {
+      setDict(activeItem[label]);
+      setInit(false);
+    }
+  }, [activeItem, label]);
+
+  useEffect(() => {
+    if (!init) {
+      setActiveItem((prev) => {
+        return { ...prev, [label]: dict };
+      });
+    }
+  }, [dict]);
 
   return (
     <div>
@@ -41,7 +58,9 @@ const DictInput = ({ label, activeItem, setChanges, setActiveItem }) => {
                   label={label}
                   addTag={(item) =>
                     setDict((prev) => {
-                      return { ...prev, [k]: [...prev[k], item] };
+                      const added = { ...prev, [k]: [...prev[k], item] };
+                      console.log("added", added);
+                      return added;
                     })
                   }
                   tags={dict}
