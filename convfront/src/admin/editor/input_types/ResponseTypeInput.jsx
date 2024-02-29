@@ -1,14 +1,31 @@
-const ResponseTypeInput = () => {
+const ResponseTypeInput = ({
+  activeItem,
+  setActiveItem,
+  setChanges,
+  label,
+}) => {
+  const handleSelect = (e) => {
+    setChanges();
+    setActiveItem((prev) => {
+      return { ...prev, [label]: e.target.value };
+    });
+  };
+
+  console.log(activeItem[label]);
+
   return (
     <div
       style={{ display: "flex", alignItems: "center", justifyContent: "start" }}
     >
-      <select className="input-field" id="qualities">
+      <select
+        value={activeItem[label]}
+        className="input-field"
+        id="qualities"
+        onChange={handleSelect}
+      >
         <option value="initiative">Initiative</option>
         <option value="responsive">Responsive</option>
-        <option value="flexible" selected>
-          Flexible
-        </option>
+        <option value="flexible">Flexible</option>
         <option value="connective">Connective</option>
       </select>
     </div>

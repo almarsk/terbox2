@@ -16,13 +16,10 @@ from enum import Enum
 from .say import Say
 
 class ResponseType(Enum):
-    INITIATIVE = 'Initiative'
-    RESPONSIVE = 'Responsive'
-    FLEXIBLE = 'Flexible'
-    CONNECTIVE = 'Connective'
-
-
-
+    INITIATIVE = 'initiative'
+    RESPONSIVE = 'responsive'
+    FLEXIBLE = 'flexible'
+    CONNECTIVE = 'connective'
 
 class State:
     name: str
@@ -38,13 +35,13 @@ class State:
     iterate_states: list
     def __init__(self, state):
         self.name = state.get("name", "")
-        self.intents = state.get("intents", "")
+        self.intents = state.get("intents", {})
         self.annotation = state.get("annotation", "")
-        self.say = state.get("say", "")
-        self.response_type = state.get("response_type", "")
-        self.prioritize = state.get("prioritize", "")
-        self.iteration = state.get("iteration", "")
-        self.initiativity = state.get("initiativity", "")
-        self.context_intents = state.get("context_intents", "")
-        self.context_states = state.get("context_states", "")
-        self.iterate_states = state.get("iterate_states", "")
+        self.say = state.get("say", [])
+        self.response_type = state.get("response_type", ResponseType.FLEXIBLE)
+        self.prioritize = state.get("prioritize", False)
+        self.iteration = state.get("iteration", 1)
+        self.initiativity = state.get("initiativity", 1)
+        self.context_intents = state.get("context_intents", [])
+        self.context_states = state.get("context_states", [])
+        self.iterate_states = state.get("iterate_states", [])

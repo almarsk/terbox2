@@ -18,8 +18,10 @@ const Listing = ({
     const edit = async () => {
       const data = {};
 
-      fields.forEach(([key]) => {
-        data[key] = key == "name" ? newItemValue : "";
+      console.log(fields);
+
+      fields.forEach(([key, type]) => {
+        data[key] = key == "name" ? newItemValue : determineDefault(type);
       });
 
       await myRequest("/convform", {
@@ -110,3 +112,17 @@ const Listing = ({
 };
 
 export default Listing;
+
+const determineDefault = (type) => {
+  return type.includes("list")
+    ? []
+    : type.includes("dict")
+      ? {}
+      : type.includes("bool")
+        ? false
+        : type.includes("int")
+          ? 1
+          : type == "ResponseType"
+            ? "flexible"
+            : "";
+};
