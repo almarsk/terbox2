@@ -16,7 +16,7 @@ const FlowList = ({
     setNewFlowValue("");
     await myRequest("/create", {
       item_type: "flow",
-      name: newFlowValue,
+      name: newFlowValue.replace(/ /, "_"),
       destination: activeProject,
     });
     setBotsList(await myRequest("/list-bots", {}));
