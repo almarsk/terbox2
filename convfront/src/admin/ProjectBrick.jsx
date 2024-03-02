@@ -8,7 +8,6 @@ const ProjectBrick = ({
   setActiveProject,
   isArchived,
   archived,
-  index,
   setIssues,
   fetchProjects,
   isDefault,
@@ -16,7 +15,7 @@ const ProjectBrick = ({
   return (
     <div
       project-id={id}
-      className={`folder-brick ${id == 0 ? "all-flows" : ""}`}
+      className={`project-brick ${id == 0 ? "all-flows" : ""}`}
       onClick={() => setActiveProject(id)}
     >
       <span

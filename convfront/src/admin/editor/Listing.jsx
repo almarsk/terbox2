@@ -18,8 +18,6 @@ const Listing = ({
     const edit = async () => {
       const data = {};
 
-      console.log("fields", fields);
-
       fields.forEach(([key, type]) => {
         data[key] = key == "name" ? newItemValue : determineDefault(type);
       });
@@ -63,7 +61,7 @@ const Listing = ({
     <div>
       <h5>{elementType}s</h5>
       <form
-        className="folder-brick new-project-form"
+        className="project-brick new-project-form"
         onSubmit={handleSubmitItem}
       >
         <input
@@ -81,7 +79,7 @@ const Listing = ({
           return (
             <div
               onClick={() => handleClick(f)}
-              className="folder-brick"
+              className="project-brick"
               key={i}
             >
               <p className="project-name"> {f}</p>

@@ -29,7 +29,7 @@
     border-radius: 10px;
 }
 
-.folder-brick {
+.project-brick {
     margin: 0 5px 5px 5px;
 
     height: 30px;
@@ -42,12 +42,12 @@
     border-radius: 10px;
 }
 
-.folder-brick:hover {
+.project-brick:hover {
     cursor: pointer;
     font-size: 18px;
 }
 
-.folder-brick:active {
+.project-brick:active {
     background-color: rgb(200, 200, 200);
 }
 
@@ -121,7 +121,7 @@ ul {
     min-width: 628px;
 }
 
-.folder-container {
+.project-container {
 }
 
 .title {

@@ -26,8 +26,8 @@ const ProjectList = ({
 
   return (
     <>
-      <div className="folder-container">
-        <ul className="folder-list">
+      <div className="project-container">
+        <ul className="project-list">
           {projects
             .filter(([id, , , isArchived]) =>
               archived ? true : !isArchived && id != 2,
@@ -61,7 +61,7 @@ const ProjectList = ({
           />
 
           <form
-            className="folder-brick new-project-form"
+            className="project-brick new-project-form"
             onSubmit={handleSubmitProject}
           >
             <input

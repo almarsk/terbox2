@@ -1,14 +1,17 @@
 cleanup
-    clean up inline code
-    clean up styles
-    further componentize
-    use context
+    clean up styles - 26 places
+    add the prop checks, clean up the prop checks
+    further componentize - button menus
+    use context - input types, setissues, flow (bot), setBotsList
     warn about unsaved changes before leaving a component
-    classes in convform
-    tryout sqalchemy instead of sqlite3
     usereducer instead of complicated usestate logic
 
+    all flow no bot,
+
+
 fix and polish convproof
+
+unit tests
 
 cstatus pipe line (as already done)
 

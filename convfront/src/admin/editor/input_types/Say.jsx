@@ -1,7 +1,6 @@
 import { useState } from "react";
 import ListItems from "./ListItems";
 import NewItem from "./NewItem";
-import { useEffect } from "react";
 
 const Say = ({ label, activeItem, setChanges, setActiveItem }) => {
   const [isPrompt, setIsPrompt] = useState(false);

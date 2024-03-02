@@ -27,11 +27,12 @@ const DictInput = ({ label, activeItem, setChanges, setActiveItem }) => {
       <div className="input-field">
         <NewItem
           label={label}
-          addTag={(newItem) =>
+          addTag={(newItem) => {
+            setChanges(true);
             setDict((prev) => {
               return { ...prev, [newItem]: [] };
-            })
-          }
+            });
+          }}
           tags={dict}
         />
       </div>
@@ -46,6 +47,7 @@ const DictInput = ({ label, activeItem, setChanges, setActiveItem }) => {
                   cursor: "pointer",
                 }}
                 onClick={() => {
+                  setChanges(true);
                   const newDict = Object.entries({ ...dict });
                   newDict.splice(i, 1);
                   setDict(Object.fromEntries(newDict));
@@ -56,18 +58,19 @@ const DictInput = ({ label, activeItem, setChanges, setActiveItem }) => {
               <div className="input-field">
                 <NewItem
                   label={label}
-                  addTag={(item) =>
+                  addTag={(item) => {
+                    setChanges(true);
                     setDict((prev) => {
                       const added = { ...prev, [k]: [...prev[k], item] };
-                      console.log("added", added);
                       return added;
-                    })
-                  }
+                    });
+                  }}
                   tags={dict}
                 />
               </div>
               <ListItems
                 editTags={(newTags) => {
+                  setChanges(true);
                   setDict((prev) => {
                     return { ...prev, [k]: newTags };
                   });

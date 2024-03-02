@@ -8,7 +8,6 @@ const NewItem = ({ addTag, label, area }) => {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-
         newValue && addTag(newValue);
         setNewValue("");
       }}

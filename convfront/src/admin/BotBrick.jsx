@@ -1,7 +1,7 @@
 import React from "react";
 import MenuButton from "./MenuButton";
 import myRequest from "../myRequest";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import DraggableLabel from "./DraggableLabel";
 import RenameFlowForm from "./RenameFlowForm";
 import download_flow from "./download_flow";

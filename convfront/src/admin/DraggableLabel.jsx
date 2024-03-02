@@ -49,11 +49,11 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
       dropPosition.x,
       dropPosition.y,
     );
-    droppedOnDiv = findElementUnderTopmost(droppedOnDiv, "folder-brick");
+    droppedOnDiv = findElementUnderTopmost(droppedOnDiv, "project-brick");
 
     if (
       droppedOnDiv &&
-      droppedOnDiv.classList.contains("folder-brick") &&
+      droppedOnDiv.classList.contains("project-brick") &&
       !droppedOnDiv.classList.contains("new-project-form") &&
       !droppedOnDiv.classList.contains("all-flows")
     ) {

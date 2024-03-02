@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import StringInput from "./input_types/StringInput";
 import IntInput from "./input_types/IntInput";
 import BoolInput from "./input_types/BoolInput";
