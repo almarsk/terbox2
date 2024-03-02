@@ -1,13 +1,17 @@
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { InputContext } from "../InputContext";
 
-const BoolInput = ({ label, activeItem, setChanges, setActiveItem }) => {
+const BoolInput = ({ label }) => {
+  const { inputUtils } = useContext(InputContext);
+  const { activeItem, setChanges, setActiveItem } = inputUtils;
   return (
     <div className="bool-input">
       <input
         type="checkbox"
         name={label}
         placeholder={label}
-        checked={activeItem[label]}
+        checked={activeItem && activeItem[label]}
         onChange={(e) => {
           setChanges(true);
           setActiveItem((prevActive) => {
@@ -21,9 +25,6 @@ const BoolInput = ({ label, activeItem, setChanges, setActiveItem }) => {
 
 BoolInput.propTypes = {
   label: PropTypes.string.isRequired,
-  activeItem: PropTypes.object.isRequired,
-  setChanges: PropTypes.func.isRequired,
-  setActiveItem: PropTypes.func.isRequired,
 };
 
 export default BoolInput;

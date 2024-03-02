@@ -3,8 +3,12 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import ListItems from "./ListItems";
 import NewItem from "./NewItem";
+import { useContext } from "react";
+import { InputContext } from "../InputContext";
 
-const Say = ({ label, activeItem, setChanges, setActiveItem }) => {
+const Say = ({ label }) => {
+  const { inputUtils } = useContext(InputContext);
+  const { activeItem, setChanges, setActiveItem } = inputUtils;
   const [isPrompt, setIsPrompt] = useState(false);
 
   return (
@@ -46,7 +50,7 @@ const Say = ({ label, activeItem, setChanges, setActiveItem }) => {
             });
           }}
           tags={
-            Object.entries(activeItem).length && activeItem[label]
+            activeItem && Object.entries(activeItem).length && activeItem[label]
               ? activeItem[label]
               : []
           }
@@ -58,9 +62,6 @@ const Say = ({ label, activeItem, setChanges, setActiveItem }) => {
 
 Say.propTypes = {
   label: PropTypes.string.isRequired,
-  activeItem: PropTypes.object.isRequired,
-  setChanges: PropTypes.func.isRequired,
-  setActiveItem: PropTypes.func.isRequired,
 };
 
 export default Say;

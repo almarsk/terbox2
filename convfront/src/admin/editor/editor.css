@@ -103,16 +103,13 @@
     width: 15vw;
 }
 
-.form-container {
-    width: 90%;
-}
-
 .edit-bricks-listing {
     width: 100%;
 }
 
 .subheader {
     margin: 0;
+    padding-left: 10px;
 }
 
 .proof-list {
@@ -203,10 +200,16 @@
     background-color: transparent;
     font-size: 18px;
     border: none;
-    resize: vertical;
-    moz-resize: vertical;
-    webkit-resize: vertical;
     min-height: 100px;
+    padding-left: 8px;
+    border-radius: 8px;
+    line-height: 1.5;
+    text-align: left;
+    resize: vertical;
+    -moz-resize: vertical;
+    -webkit-resize: vertical;
+    outline: none;
+    caret-color: rgb(129, 129, 129);
 }
 
 .say-container {
@@ -221,4 +224,8 @@
     flex-direction: row;
     padding: 3px;
     align-items: bottom;
+}
+
+.form-container {
+    width: 90%;
 }

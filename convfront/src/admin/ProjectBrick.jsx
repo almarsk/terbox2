@@ -9,7 +9,7 @@ const ProjectBrick = ({
   setActiveProject,
   isArchived,
   archived,
-  setIssues,
+
   fetchProjects,
   isDefault,
 }) => {

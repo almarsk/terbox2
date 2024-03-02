@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { InputContext } from "../InputContext";
 
-const ResponseTypeInput = ({
-  activeItem,
-  setActiveItem,
-  setChanges,
-  label,
-}) => {
+const ResponseTypeInput = ({ label }) => {
+  const { inputUtils } = useContext(InputContext);
+  const { activeItem, setChanges, setActiveItem } = inputUtils;
+
   const handleSelect = (e) => {
     setChanges(true);
     setActiveItem((prev) => {
@@ -16,7 +16,7 @@ const ResponseTypeInput = ({
   return (
     <div className="response-type-input">
       <select
-        value={activeItem[label]}
+        value={activeItem && activeItem[label]}
         className="input-field"
         id="qualities"
         onChange={handleSelect}
@@ -31,9 +31,6 @@ const ResponseTypeInput = ({
 };
 
 ResponseTypeInput.propTypes = {
-  activeItem: PropTypes.object.isRequired,
-  setActiveItem: PropTypes.func.isRequired,
-  setChanges: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
 };
 

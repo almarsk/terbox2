@@ -23,7 +23,7 @@ const NewItem = ({ addTag, label, area }) => {
       ) : (
         <div>
           <textarea
-            className="list-input area-input"
+            className="area-input"
             onChange={(e) => setNewValue(e.target.value)}
             value={newValue}
             placeholder={label}

@@ -1,6 +1,10 @@
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { InputContext } from "../InputContext";
 
-const IntInput = ({ label, activeItem, setChanges, setActiveItem }) => {
+const IntInput = ({ label }) => {
+  const { inputUtils } = useContext(InputContext);
+  const { activeItem, setChanges, setActiveItem } = inputUtils;
   return (
     <input
       min={0}
@@ -8,7 +12,7 @@ const IntInput = ({ label, activeItem, setChanges, setActiveItem }) => {
       className="input-field"
       name={label}
       placeholder={label}
-      value={activeItem[label]}
+      value={activeItem && activeItem[label]}
       onChange={(e) => {
         setChanges(true);
         setActiveItem((prevActive) => {

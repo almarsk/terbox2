@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import EditBrick from "./EditBrick";
 import { useContext } from "react";
 import { InputContext } from "./InputContext";
+import { useLocation } from "react-router-dom";
 
 const AbstractForm = ({
   element,
@@ -25,6 +26,7 @@ const AbstractForm = ({
       setActiveItem,
       activeItem,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -64,13 +66,12 @@ const AbstractForm = ({
   }, [fields, element, elementData]);
 
   useEffect(() => {
-    return () => {
-      if (changes) {
-        console.log("unsaved changes");
-        window.confirm("Unsaved changes. Do you want to proceed?");
-      }
-    };
-  });
+    if (changes) {
+      console.log("unsaved changes");
+      window.confirm("Unsaved changes. Do you want to proceed?");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
 
   return (
     <div className="form-container">

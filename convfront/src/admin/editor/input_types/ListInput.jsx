@@ -45,9 +45,6 @@ const ListInput = ({ label }) => {
 
 ListInput.propTypes = {
   label: PropTypes.string.isRequired,
-  activeItem: PropTypes.object.isRequired,
-  setChanges: PropTypes.func.isRequired,
-  setActiveItem: PropTypes.func.isRequired,
 };
 
 export default ListInput;

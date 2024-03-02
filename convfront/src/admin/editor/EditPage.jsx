@@ -1,11 +1,9 @@
-import PropTypes from "prop-types";
-
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import myRequest from "../../myRequest";
 import EditorPanel from "./EditorPanel";
 
-const EditPage = ({ setIssues }) => {
+const EditPage = () => {
   const { flow } = useParams();
   const [proof, setProof] = useState("");
   const [lastEvent, setLastEvent] = useState(`opened ${flow} editor`);
