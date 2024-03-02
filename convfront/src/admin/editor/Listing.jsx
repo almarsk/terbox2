@@ -18,7 +18,7 @@ const Listing = ({
     const edit = async () => {
       const data = {};
 
-      console.log(fields);
+      console.log("fields", fields);
 
       fields.forEach(([key, type]) => {
         data[key] = key == "name" ? newItemValue : determineDefault(type);

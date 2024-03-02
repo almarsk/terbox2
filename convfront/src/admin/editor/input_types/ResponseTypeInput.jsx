@@ -11,8 +11,6 @@ const ResponseTypeInput = ({
     });
   };
 
-  console.log(activeItem[label]);
-
   return (
     <div
       style={{ display: "flex", alignItems: "center", justifyContent: "start" }}

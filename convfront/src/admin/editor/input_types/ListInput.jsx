@@ -1,6 +1,5 @@
 import NewItem from "./NewItem";
 import ListItems from "./ListItems";
-import { useEffect } from "react";
 
 const ListInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (

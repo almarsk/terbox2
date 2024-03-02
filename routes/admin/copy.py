@@ -24,7 +24,7 @@ def copy_flow():
         index = 1
         while Flow.query.filter_by(flow_name=new_name).first():
             index += 1
-            new_name = f"{split.split('_')[0]}_{str(index)}"
+            new_name = f"{split[0]}_{str(index)}"
 
         item = Flow(
             flow_name=new_name,

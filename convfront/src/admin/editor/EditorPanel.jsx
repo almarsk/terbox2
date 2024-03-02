@@ -35,6 +35,30 @@ const EditorPanel = ({
 
   return (
     <div className="panel">
+      <div className="editor-menu">
+        <MenuButton
+          icon={"🎯"}
+          hoverText={"state"}
+          click={() => {
+            setActivePanel("list-states");
+          }}
+          setIssues={setIssues}
+        />
+        <MenuButton
+          icon={"💭"}
+          hoverText={"intent"}
+          click={() => setActivePanel("list-intents")}
+          setIssues={setIssues}
+        />
+        <MenuButton
+          icon={"🌎"}
+          hoverText={"meta"}
+          click={() => {
+            setActivePanel("meta");
+          }}
+          setIssues={setIssues}
+        />
+      </div>
       {activePanel === "state" ? (
         <AbstractForm
           element={"state"}
@@ -72,7 +96,7 @@ const EditorPanel = ({
           flow={flow}
           elementData={
             flowData &&
-            flowData.intents.filter((f) => (f.name = activeElement))[0]
+            flowData.intents.filter((f) => f.name == activeElement)[0]
           }
           setLastEvent={setLastEvent}
           fetchProof={fetchProof}
@@ -102,7 +126,7 @@ const EditorPanel = ({
             flowData &&
             Object.fromEntries(
               Object.entries(flowData).filter(
-                (k) => !["states", "intents"].includes(k),
+                ([k]) => !["states", "intents"].includes(k),
               ),
             )
           }
@@ -111,36 +135,6 @@ const EditorPanel = ({
           fetchItems={fetchItems}
         />
       )}
-
-      <div className="editor-menu">
-        <MenuButton
-          icon={"🎯"}
-          hoverText={"state"}
-          click={() => {
-            setActivePanel("list-states");
-          }}
-          setIssues={setIssues}
-        />
-        <MenuButton
-          icon={"💭"}
-          hoverText={"intent"}
-          click={() => setActivePanel("list-intents")}
-          setIssues={setIssues}
-        />
-        <MenuButton
-          icon={"🌎"}
-          hoverText={"meta"}
-          click={() => {
-            setActiveElement(
-              Object.entries(flowData).filter(
-                (k) => k != "intents" && k != "states",
-              ),
-            );
-            setActivePanel("meta");
-          }}
-          setIssues={setIssues}
-        />
-      </div>
     </div>
   );
 };

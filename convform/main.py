@@ -1,6 +1,5 @@
 import json
 
-from .view_item import view_item
 from .list_items import list_items
 from .edit_item import edit_item
 from .remove_item import remove_item

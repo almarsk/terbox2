@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useEffect } from "react";
 
 const ListItems = ({ tags, editTags, vertical, meta }) => {
   return (
@@ -11,7 +10,7 @@ const ListItems = ({ tags, editTags, vertical, meta }) => {
         overflow: "auto",
       }}
     >
-      {tags.length
+      {tags
         ? tags.map((t, i) => (
             <div
               style={{

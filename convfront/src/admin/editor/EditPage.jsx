@@ -14,13 +14,11 @@ const EditPage = ({ setIssues }) => {
     setProof(currentProof.message);
   };
 
-  const fetchItems = async (elementType) => {
+  const fetchItems = async () => {
     const sending = {
       flow: flow,
       func: "list",
-      item_type: elementType,
     };
-
     myRequest("/convform", sending).then((e) => {
       e.data && setFlowData(e.data);
     });
@@ -57,7 +55,7 @@ const EditPage = ({ setIssues }) => {
           <div>
             <b>{lastEvent ? `last event: ${lastEvent}` : ""}</b>
           </div>
-          <ul style={{ height: "93%", overflowY: "auto" }}>
+          <ul style={{ height: "93%", overflowY: "auto", marginTop: "20px" }}>
             {proof && proof.split("\n").map((message) => <div>{message}</div>)}
           </ul>
         </div>

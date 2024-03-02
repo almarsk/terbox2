@@ -60,7 +60,7 @@ const Say = ({ label, activeItem, setChanges, setActiveItem }) => {
             });
           }}
           tags={
-            Object.entries(activeItem).length && activeItem[label].length
+            Object.entries(activeItem).length && activeItem[label]
               ? activeItem[label]
               : []
           }

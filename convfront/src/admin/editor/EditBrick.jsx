@@ -8,8 +8,6 @@ import DictInput from "./input_types/DictInput";
 import Say from "./input_types/Say";
 
 const EditBrick = ({ label, type, activeItem, setChanges, setActiveItem }) => {
-  useEffect(() => {}, [label, type]);
-
   return (
     <div className="editor-brick">
       <div className="editor-label">{label.replace(/_/, " ")}</div>
