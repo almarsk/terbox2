@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const MenuButton = ({ icon, click, hoverText, setIssues, where }) => {
@@ -15,6 +16,14 @@ const MenuButton = ({ icon, click, hoverText, setIssues, where }) => {
       {icon}️
     </Link>
   );
+};
+
+MenuButton.propTypes = {
+  icon: PropTypes.node.isRequired,
+  click: PropTypes.func.isRequired,
+  hoverText: PropTypes.string.isRequired,
+  setIssues: PropTypes.func.isRequired,
+  where: PropTypes.string.isRequired,
 };
 
 export default MenuButton;

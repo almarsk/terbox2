@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const LoginPage = ({ onLogin, unsuccess }) => {
   const handleSubmit = async (e) => {
     const login_attempt = new FormData(e.target);
@@ -38,6 +40,11 @@ const LoginPage = ({ onLogin, unsuccess }) => {
       </form>
     </>
   );
+};
+
+LoginPage.propTypes = {
+  onLogin: PropTypes.func.isRequired,
+  unsuccess: PropTypes.bool,
 };
 
 export default LoginPage;

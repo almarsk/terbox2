@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const IntInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (
     <input
@@ -15,6 +17,13 @@ const IntInput = ({ label, activeItem, setChanges, setActiveItem }) => {
       }}
     />
   );
+};
+
+IntInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  activeItem: PropTypes.object.isRequired,
+  setChanges: PropTypes.func.isRequired,
+  setActiveItem: PropTypes.func.isRequired,
 };
 
 export default IntInput;

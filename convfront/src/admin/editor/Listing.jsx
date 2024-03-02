@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import myRequest from "../../myRequest";
 
@@ -100,6 +101,17 @@ const Listing = ({
       </ul>
     </div>
   );
+};
+
+Listing.propTypes = {
+  elementType: PropTypes.string.isRequired,
+  flow: PropTypes.string.isRequired,
+  fields: PropTypes.array.isRequired,
+  setActivePanel: PropTypes.func.isRequired,
+  setActiveElement: PropTypes.func.isRequired,
+  elements: PropTypes.array.isRequired,
+  fetchItems: PropTypes.func.isRequired,
+  setLastEvent: PropTypes.func.isRequired,
 };
 
 export default Listing;

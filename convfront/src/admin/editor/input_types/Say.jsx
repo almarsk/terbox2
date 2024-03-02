@@ -9,23 +9,8 @@ const Say = ({ label, activeItem, setChanges, setActiveItem }) => {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          padding: "3px",
-          alignItems: "bottom",
-        }}
-      >
-        <div
-          className="input-field"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            padding: "3px",
-            alignItems: "bottom",
-          }}
-        >
+      <div className="say-container">
+        <div className="input-field say-input">
           <button
             className="prompt-button"
             onClick={() => setIsPrompt((prev) => !prev)}

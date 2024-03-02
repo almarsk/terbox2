@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const ResponseTypeInput = ({
   activeItem,
   setActiveItem,
@@ -5,16 +7,14 @@ const ResponseTypeInput = ({
   label,
 }) => {
   const handleSelect = (e) => {
-    setChanges();
+    setChanges(true);
     setActiveItem((prev) => {
       return { ...prev, [label]: e.target.value };
     });
   };
 
   return (
-    <div
-      style={{ display: "flex", alignItems: "center", justifyContent: "start" }}
-    >
+    <div className="response-type-input">
       <select
         value={activeItem[label]}
         className="input-field"
@@ -28,6 +28,13 @@ const ResponseTypeInput = ({
       </select>
     </div>
   );
+};
+
+ResponseTypeInput.propTypes = {
+  activeItem: PropTypes.object.isRequired,
+  setActiveItem: PropTypes.func.isRequired,
+  setChanges: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 export default ResponseTypeInput;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import NewItem from "./NewItem";
 import ListItems from "./ListItems";
 
@@ -27,6 +28,13 @@ const ListInput = ({ label, activeItem, setChanges, setActiveItem }) => {
       />
     </div>
   );
+};
+
+ListInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  activeItem: PropTypes.object.isRequired,
+  setChanges: PropTypes.func.isRequired,
+  setActiveItem: PropTypes.func.isRequired,
 };
 
 export default ListInput;

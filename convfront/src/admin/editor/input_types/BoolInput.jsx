@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const BoolInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (
     <div className="bool-input">
@@ -15,6 +17,13 @@ const BoolInput = ({ label, activeItem, setChanges, setActiveItem }) => {
       />
     </div>
   );
+};
+
+BoolInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  activeItem: PropTypes.object.isRequired,
+  setChanges: PropTypes.func.isRequired,
+  setActiveItem: PropTypes.func.isRequired,
 };
 
 export default BoolInput;

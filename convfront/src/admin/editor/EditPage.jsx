@@ -29,6 +29,7 @@ const EditPage = ({ setIssues }) => {
   useEffect(() => {
     fetchProof();
     fetchItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import StringInput from "./input_types/StringInput";
 import IntInput from "./input_types/IntInput";
 import BoolInput from "./input_types/BoolInput";
@@ -11,49 +12,49 @@ const EditBrick = ({ label, type, activeItem, setChanges, setActiveItem }) => {
     <div className="editor-brick">
       <div className="editor-label">{label.replace(/_/, " ")}</div>
       <div className="editor-field">
-        {type == "str" ? (
+        {type === "str" ? (
           <StringInput
             activeItem={activeItem}
             label={label}
             setActiveItem={setActiveItem}
             setChanges={setChanges}
           />
-        ) : type == "int" ? (
+        ) : type === "int" ? (
           <IntInput
             activeItem={activeItem}
             label={label}
             setActiveItem={setActiveItem}
             setChanges={setChanges}
           />
-        ) : type == "bool" ? (
+        ) : type === "bool" ? (
           <BoolInput
             activeItem={activeItem}
             label={label}
             setActiveItem={setActiveItem}
             setChanges={setChanges}
           />
-        ) : type == "list" ? (
+        ) : type === "list" ? (
           <ListInput
             activeItem={activeItem}
             label={label}
             setActiveItem={setActiveItem}
             setChanges={setChanges}
           />
-        ) : type == "ResponseType" ? (
+        ) : type === "ResponseType" ? (
           <ResponseTypeInput
             activeItem={activeItem}
             setActiveItem={setActiveItem}
             setChanges={setChanges}
             label={label}
           />
-        ) : type == "dict" ? (
+        ) : type === "dict" ? (
           <DictInput
             activeItem={activeItem}
             label={label}
             setActiveItem={setActiveItem}
             setChanges={setChanges}
           />
-        ) : type.trim() == "list[tuple[convcore.say.Say, str]]" ? (
+        ) : type.trim() === "list[tuple[convcore.say.Say, str]]" ? (
           <Say
             activeItem={activeItem}
             label={label}
@@ -66,6 +67,14 @@ const EditBrick = ({ label, type, activeItem, setChanges, setActiveItem }) => {
       </div>
     </div>
   );
+};
+
+EditBrick.propTypes = {
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  activeItem: PropTypes.object.isRequired,
+  setChanges: PropTypes.func.isRequired,
+  setActiveItem: PropTypes.func.isRequired,
 };
 
 export default EditBrick;

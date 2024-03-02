@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import MenuButton from "./MenuButton";
 import myRequest from "../myRequest";
 
@@ -14,6 +15,7 @@ const ProjectBrick = ({
 }) => {
   return (
     <div
+      /* eslint-disable-next-line react/no-unknown-property */
       project-id={id}
       className={`project-brick ${id == 0 ? "all-flows" : ""}`}
       onClick={() => setActiveProject(id)}
@@ -44,6 +46,18 @@ const ProjectBrick = ({
       )}
     </div>
   );
+};
+
+ProjectBrick.propTypes = {
+  name: PropTypes.string.isRequired,
+  activeProject: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
+  setActiveProject: PropTypes.func.isRequired,
+  isArchived: PropTypes.bool.isRequired,
+  archived: PropTypes.bool.isRequired,
+  setIssues: PropTypes.func.isRequired,
+  fetchProjects: PropTypes.func.isRequired,
+  isDefault: PropTypes.bool.isRequired,
 };
 
 export default ProjectBrick;

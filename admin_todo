@@ -1,5 +1,4 @@
 cleanup
-    clean up styles - 26 places
     further componentize - button menus
     proptypes
     use context - input types, setissues, flow (bot), setBotsList

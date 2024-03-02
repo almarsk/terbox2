@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 const NewItem = ({ addTag, label, area }) => {
   const [newValue, setNewValue] = useState("");
@@ -22,35 +23,24 @@ const NewItem = ({ addTag, label, area }) => {
       ) : (
         <div>
           <textarea
-            className="list-input"
-            style={{
-              backgroundColor: "transparent",
-              fontSize: "18px",
-              border: "none",
-              resize: "vertical",
-              mozResize: "vertical",
-              webkitResize: "vertical",
-              minHeight: "100px",
-            }}
+            className="list-input area-input"
             onChange={(e) => setNewValue(e.target.value)}
             value={newValue}
             placeholder={label}
           />
-          <button
-            className="prompt-button"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "15vw",
-            }}
-          >
+          <button className="prompt-button prompt-submit">
             <div>↵</div>
           </button>
         </div>
       )}
     </form>
   );
+};
+
+NewItem.propTypes = {
+  addTag: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  area: PropTypes.bool,
 };
 
 export default NewItem;

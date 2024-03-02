@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import myRequest from "../myRequest";
 import ProjectBrick from "./ProjectBrick";
 
@@ -78,6 +79,20 @@ const ProjectList = ({
       </div>
     </>
   );
+};
+
+ProjectList.propTypes = {
+  setProjectsList: PropTypes.func.isRequired,
+  archived: PropTypes.bool.isRequired,
+  projects: PropTypes.arrayOf(
+    PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    ),
+  ).isRequired,
+  setActiveProject: PropTypes.func.isRequired,
+  activeProject: PropTypes.number.isRequired,
+  setIssues: PropTypes.func.isRequired,
+  fetchProjects: PropTypes.func.isRequired,
 };
 
 export default ProjectList;

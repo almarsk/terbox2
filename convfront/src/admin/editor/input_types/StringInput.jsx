@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const StringInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (
     <textarea
@@ -13,6 +15,13 @@ const StringInput = ({ label, activeItem, setChanges, setActiveItem }) => {
       }}
     />
   );
+};
+
+StringInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  activeItem: PropTypes.object.isRequired,
+  setChanges: PropTypes.func.isRequired,
+  setActiveItem: PropTypes.func.isRequired,
 };
 
 export default StringInput;

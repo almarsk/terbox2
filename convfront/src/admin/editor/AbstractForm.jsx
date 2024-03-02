@@ -92,6 +92,9 @@ AbstractForm.propTypes = {
   fields: PropTypes.object.isRequired,
   elementData: PropTypes.object.isRequired,
   flow: PropTypes.string.isRequired,
+  setLastEvent: PropTypes.func.isRequired,
+  fetchProof: PropTypes.func.isRequired,
+  fetchItems: PropTypes.func.isRequired,
 };
 
 export default AbstractForm;

@@ -32,6 +32,7 @@ ListItems.propTypes = {
   tags: PropTypes.array.isRequired,
   editTags: PropTypes.func.isRequired,
   vertical: PropTypes.bool,
+  meta: PropTypes.bool,
 };
 
 export default ListItems;

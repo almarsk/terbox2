@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import NewItem from "./NewItem";
 import ListItems from "./ListItems";
-import { useEffect } from "react";
 
 const DictInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   const [dict, setDict] = useState({});
@@ -20,6 +20,7 @@ const DictInput = ({ label, activeItem, setChanges, setActiveItem }) => {
         return { ...prev, [label]: dict };
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dict]);
 
   return (
@@ -81,6 +82,13 @@ const DictInput = ({ label, activeItem, setChanges, setActiveItem }) => {
       </ul>
     </div>
   );
+};
+
+DictInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  activeItem: PropTypes.object.isRequired,
+  setChanges: PropTypes.func.isRequired,
+  setActiveItem: PropTypes.func.isRequired,
 };
 
 export default DictInput;

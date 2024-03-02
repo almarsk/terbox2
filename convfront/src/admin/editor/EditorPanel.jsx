@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import myRequest from "../../myRequest";
 import "./editor.css";
 
-import MenuButton from "../MenuButton";
 import AbstractForm from "./AbstractForm";
 import Listing from "./Listing";
+import EditorButtons from "./EditorButtons";
 
 const EditorPanel = ({
   setIssues,
@@ -35,30 +36,7 @@ const EditorPanel = ({
 
   return (
     <div className="panel">
-      <div className="editor-menu">
-        <MenuButton
-          icon={"🎯"}
-          hoverText={"state"}
-          click={() => {
-            setActivePanel("list-states");
-          }}
-          setIssues={setIssues}
-        />
-        <MenuButton
-          icon={"💭"}
-          hoverText={"intent"}
-          click={() => setActivePanel("list-intents")}
-          setIssues={setIssues}
-        />
-        <MenuButton
-          icon={"🌎"}
-          hoverText={"meta"}
-          click={() => {
-            setActivePanel("meta");
-          }}
-          setIssues={setIssues}
-        />
-      </div>
+      <EditorButtons setIssues={setIssues} setActivePanel={setActivePanel} />
       {activePanel === "state" ? (
         <AbstractForm
           element={"state"}
@@ -66,7 +44,7 @@ const EditorPanel = ({
           flow={flow}
           elementData={
             flowData &&
-            flowData.states.filter((f) => f.name == activeElement)[0]
+            flowData.states.filter((f) => f.name === activeElement)[0]
           }
           setLastEvent={setLastEvent}
           fetchProof={fetchProof}
@@ -82,9 +60,7 @@ const EditorPanel = ({
           fetchItems={fetchItems}
           elements={
             flowData && flowData.states
-              ? flowData.states.map((s) => {
-                  return s.name;
-                })
+              ? flowData.states.map((s) => s.name)
               : []
           }
           setLastEvent={setLastEvent}
@@ -96,7 +72,7 @@ const EditorPanel = ({
           flow={flow}
           elementData={
             flowData &&
-            flowData.intents.filter((f) => f.name == activeElement)[0]
+            flowData.intents.filter((f) => f.name === activeElement)[0]
           }
           setLastEvent={setLastEvent}
           fetchProof={fetchProof}
@@ -137,6 +113,16 @@ const EditorPanel = ({
       )}
     </div>
   );
+};
+
+EditorPanel.propTypes = {
+  setIssues: PropTypes.func.isRequired,
+  initial: PropTypes.string.isRequired,
+  flow: PropTypes.string.isRequired,
+  setLastEvent: PropTypes.func.isRequired,
+  fetchProof: PropTypes.func.isRequired,
+  flowData: PropTypes.object.isRequired,
+  fetchItems: PropTypes.func.isRequired,
 };
 
 export default EditorPanel;
