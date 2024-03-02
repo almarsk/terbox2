@@ -7,6 +7,17 @@
     padding: 15px;
 }
 
+.admin-header {
+    margin: 3px 0;
+    text-align: center;
+}
+
+.flow-label {
+    height: 25px;
+    display: flex;
+    align-items: center;
+}
+
 .issues-summary {
     position: fixed;
     left: 10px;
@@ -73,6 +84,7 @@
 .new-flow:focus {
     outline: none;
 }
+
 .new-project:focus {
     outline: none;
 }

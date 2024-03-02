@@ -44,6 +44,10 @@
     margin: 2px;
 }
 
+.editor-container {
+    width: 100%;
+}
+
 .small {
     width: 25px;
     height: 25px;
@@ -79,6 +83,7 @@
 .list-field {
     display: flex;
     align-items: center;
+    flexdirection: row;
 }
 
 .prompt-button {
@@ -92,4 +97,94 @@
     background-color: rgb(190, 190, 190);
     border: none;
     border-radius: 5px;
+}
+
+.form-container {
+    width: 90%;
+}
+
+.edit-bricks-listing {
+    width: 100%;
+}
+
+.subheader {
+    margin: 0;
+}
+
+.proof-list {
+    height: 93%;
+    overflowy: auto;
+    margintop: 20px;
+}
+
+.side-panel {
+    height: 85vh;
+    width: 33vh;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    padding: 10px;
+    text-align: left;
+    color: white;
+}
+
+.panel-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.items-list {
+    height: 70vh;
+    overflow: auto;
+}
+
+.string-input {
+    min-height: 30px;
+}
+
+.bool-input {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.dict-item {
+    cursor: pointer;
+}
+
+.list-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.editor-items-list {
+    display: flex;
+    width: 20vw;
+    overflow: auto;
+}
+
+.editor-tag {
+    cursor: pointer;
+    background-color: rgb(189, 189, 189);
+    border-radius: 10px;
+    padding: 1px 5px;
+    margin: 2px;
+    display: flex;
+    align-items: center;
+    min-height: 25px;
+}
+
+.single-line {
+    background-color: transparent;
+    font-size: 18px;
+    border: none;
 }

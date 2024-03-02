@@ -1,8 +1,6 @@
 const BoolInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (
-    <div
-      style={{ display: "flex", alignItems: "center", justifyContent: "start" }}
-    >
+    <div className="bool-input">
       <input
         type="checkbox"
         name={label}

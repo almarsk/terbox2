@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useState } from "react";
 
 const NewItem = ({ addTag, label, area }) => {
@@ -12,19 +11,10 @@ const NewItem = ({ addTag, label, area }) => {
         setNewValue("");
       }}
       className="list-field"
-      style={{
-        display: "flex",
-        flexDirection: "row",
-      }}
     >
       {!area ? (
         <input
-          className="list-input"
-          style={{
-            backgroundColor: "transparent",
-            fontSize: "18px",
-            border: "none",
-          }}
+          className="list-input single-line"
           onChange={(e) => setNewValue(e.target.value)}
           value={newValue}
           placeholder={label}
@@ -40,7 +30,7 @@ const NewItem = ({ addTag, label, area }) => {
               resize: "vertical",
               mozResize: "vertical",
               webkitResize: "vertical",
-              minHeight: "138px",
+              minHeight: "100px",
             }}
             onChange={(e) => setNewValue(e.target.value)}
             value={newValue}

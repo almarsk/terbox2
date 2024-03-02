@@ -84,13 +84,10 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
       <div
         onMouseEnter={() => setIssues(`drag to change project`)}
         onMouseLeave={() => setIssues("")}
-        className={isDragging ? "" : "_is-dragging"}
+        className={`flow-label ${isDragging ? "" : "_is-dragging"}`}
         style={{
           color: statusSuccess ? "black" : "grey",
-          height: "25px",
           overflow: isDragging ? "visible" : "auto",
-          display: "flex",
-          alignItems: "center",
           opacity: hit ? 0 : 100,
         }}
       >

@@ -3,13 +3,7 @@ import ListItems from "./ListItems";
 
 const ListInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-    >
+    <div className="list-input">
       <div className="input-field">
         <NewItem
           label={label}

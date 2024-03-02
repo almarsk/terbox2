@@ -43,9 +43,7 @@ const DictInput = ({ label, activeItem, setChanges, setActiveItem }) => {
           return (
             <div key={i}>
               <div
-                style={{
-                  cursor: "pointer",
-                }}
+                className="dict-item"
                 onClick={() => {
                   setChanges(true);
                   const newDict = Object.entries({ ...dict });

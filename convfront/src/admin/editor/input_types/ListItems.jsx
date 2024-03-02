@@ -3,26 +3,15 @@ import PropTypes from "prop-types";
 const ListItems = ({ tags, editTags, vertical, meta }) => {
   return (
     <ul
+      className="editor-items-list"
       style={{
-        display: "flex",
         flexDirection: vertical ? "column" : "row",
-        width: "20vw",
-        overflow: "auto",
       }}
     >
       {tags
         ? tags.map((t, i) => (
             <div
-              style={{
-                cursor: "pointer",
-                backgroundColor: "rgb(189,189,189)",
-                borderRadius: "10px",
-                padding: "1px 5px",
-                margin: "2px",
-                display: "flex",
-                alignItems: "center",
-                minHeight: "25px",
-              }}
+              className="editor-tag"
               onClick={() => {
                 const newTags = [...tags];
                 newTags.splice(i, 1);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import myRequest from "../../myRequest";
 
 const Listing = ({
@@ -74,7 +74,7 @@ const Listing = ({
         />
         <button className="submit admin-button">↵</button>
       </form>
-      <ul style={{ height: "70vh", overflow: "auto" }}>
+      <ul className="items-list">
         {elements.map((f, i) => {
           return (
             <div
@@ -83,14 +83,7 @@ const Listing = ({
               key={i}
             >
               <p className="project-name"> {f}</p>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
+              <div className="button-container">
                 <button
                   onClick={(e) => {
                     removeButton(e, f);

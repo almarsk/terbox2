@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import myRequest from "../../myRequest";
@@ -30,33 +32,18 @@ const EditPage = ({ setIssues }) => {
   }, []);
 
   return (
-    <div className="editor-container" style={{ width: "100%" }}>
-      <h3 style={{ margin: 0 }}>Editing {flow}</h3>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          width: "100%",
-        }}
-      >
-        <div
-          style={{
-            height: "85vh",
-            width: "33vh",
-            display: "flex",
-            flexDirection: "column",
-
-            justifyContent: "start",
-            padding: "10px",
-            textAlign: "left",
-            color: "white",
-          }}
-        >
+    <div className="editor-container">
+      <h3 className="subheader">Editing {flow}</h3>
+      <div className="panel-container">
+        <div className="side-panel">
           <div>
             <b>{lastEvent ? `last event: ${lastEvent}` : ""}</b>
           </div>
-          <ul style={{ height: "93%", overflowY: "auto", marginTop: "20px" }}>
-            {proof && proof.split("\n").map((message) => <div>{message}</div>)}
+          <ul className="proof-list">
+            {proof &&
+              proof
+                .split("\n")
+                .map((message, i) => <div key={i}>{message}</div>)}
           </ul>
         </div>
         <EditorPanel
@@ -80,6 +67,10 @@ const EditPage = ({ setIssues }) => {
       </div>
     </div>
   );
+};
+
+EditPage.propTypes = {
+  setIssues: PropTypes.func.isRequired,
 };
 
 export default EditPage;

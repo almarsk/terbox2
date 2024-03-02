@@ -1,11 +1,10 @@
 const StringInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (
     <textarea
-      className="input-field"
+      className="input-field string-input"
       name={label}
       placeholder={label}
       value={activeItem[label]}
-      style={{ minHeight: "30px" }}
       onChange={(e) => {
         setChanges(true);
         setActiveItem((prevActive) => {

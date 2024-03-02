@@ -58,11 +58,11 @@ const AbstractForm = ({
   });
 
   return (
-    <div style={{ width: "90%" }}>
+    <div className="form-container">
       <h5>
         {element} {activeItem.name || flow}
       </h5>
-      <ul style={{ width: "100%" }}>
+      <ul className="edit-bricks-listing">
         {fields.length &&
           fields
             .filter(([f]) => f != "name")
