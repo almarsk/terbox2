@@ -1,10 +1,6 @@
 import PropTypes from "prop-types";
-import { useContext } from "react";
-import { InputContext } from "../InputContext";
 
-const StringInput = ({ label }) => {
-  const { inputUtils } = useContext(InputContext);
-  const { activeItem, setChanges, setActiveItem } = inputUtils;
+const StringInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (
     <textarea
       className="input-field string-input"
@@ -23,6 +19,9 @@ const StringInput = ({ label }) => {
 
 StringInput.propTypes = {
   label: PropTypes.string.isRequired,
+  activeItem: PropTypes.object.isRequired,
+  setChanges: PropTypes.func.isRequired,
+  setActiveItem: PropTypes.func.isRequired,
 };
 
 export default StringInput;

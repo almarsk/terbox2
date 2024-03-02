@@ -1,10 +1,6 @@
 import PropTypes from "prop-types";
-import { useContext } from "react";
-import { InputContext } from "../InputContext";
 
-const IntInput = ({ label }) => {
-  const { inputUtils } = useContext(InputContext);
-  const { activeItem, setChanges, setActiveItem } = inputUtils;
+const IntInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (
     <input
       min={0}

@@ -3,9 +3,6 @@ import { useEffect, useState } from "react";
 import myRequest from "../../myRequest";
 import PropTypes from "prop-types";
 import EditBrick from "./EditBrick";
-import { useContext } from "react";
-import { InputContext } from "./InputContext";
-import { useLocation } from "react-router-dom";
 
 const AbstractForm = ({
   element,
@@ -18,20 +15,6 @@ const AbstractForm = ({
 }) => {
   const [changes, setChanges] = useState(false);
   const [activeItem, setActiveItem] = useState({});
-  const { setInputUtils } = useContext(InputContext);
-
-  useEffect(() => {
-    setInputUtils({
-      setChanges,
-      setActiveItem,
-      activeItem,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    console.log("unsaved changes", changes);
-  }, [changes]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,14 +47,6 @@ const AbstractForm = ({
       );
     }
   }, [fields, element, elementData]);
-
-  useEffect(() => {
-    if (changes) {
-      console.log("unsaved changes");
-      window.confirm("Unsaved changes. Do you want to proceed?");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
 
   return (
     <div className="form-container">

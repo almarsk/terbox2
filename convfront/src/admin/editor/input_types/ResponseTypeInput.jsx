@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import { useContext } from "react";
-import { InputContext } from "../InputContext";
 
-const ResponseTypeInput = ({ label }) => {
-  const { inputUtils } = useContext(InputContext);
-  const { activeItem, setChanges, setActiveItem } = inputUtils;
-
+const ResponseTypeInput = ({
+  label,
+  activeItem,
+  setChanges,
+  setActiveItem,
+}) => {
   const handleSelect = (e) => {
     setChanges(true);
     setActiveItem((prev) => {
@@ -32,6 +32,9 @@ const ResponseTypeInput = ({ label }) => {
 
 ResponseTypeInput.propTypes = {
   label: PropTypes.string.isRequired,
+  activeItem: PropTypes.object.isRequired,
+  setChanges: PropTypes.func.isRequired,
+  setActiveItem: PropTypes.func.isRequired,
 };
 
 export default ResponseTypeInput;

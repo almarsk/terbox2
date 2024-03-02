@@ -1,13 +1,8 @@
 import PropTypes from "prop-types";
 import NewItem from "./NewItem";
 import ListItems from "./ListItems";
-import { useContext } from "react";
-import { InputContext } from "../InputContext";
 
-const ListInput = ({ label }) => {
-  const { inputUtils } = useContext(InputContext);
-  const { activeItem, setChanges, setActiveItem } = inputUtils;
-
+const ListInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (
     <div className="list-input">
       <div className="input-field">
@@ -45,6 +40,9 @@ const ListInput = ({ label }) => {
 
 ListInput.propTypes = {
   label: PropTypes.string.isRequired,
+  activeItem: PropTypes.object.isRequired,
+  setChanges: PropTypes.func.isRequired,
+  setActiveItem: PropTypes.func.isRequired,
 };
 
 export default ListInput;
