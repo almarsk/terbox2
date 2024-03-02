@@ -25,7 +25,6 @@ const App = ({ bot, phase }) => {
             icon={"🏠"}
             hoverText={""}
             click={() => {}}
-            setIssues={() => {}}
             where="/admin"
           />
         </div>

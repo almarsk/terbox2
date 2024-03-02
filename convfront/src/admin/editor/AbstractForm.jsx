@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import myRequest from "../../myRequest";
 import PropTypes from "prop-types";
 import EditBrick from "./EditBrick";
+import { useContext } from "react";
+import { InputContext } from "./InputContext";
 
 const AbstractForm = ({
   element,
@@ -15,6 +17,19 @@ const AbstractForm = ({
 }) => {
   const [changes, setChanges] = useState(false);
   const [activeItem, setActiveItem] = useState({});
+  const { setInputUtils } = useContext(InputContext);
+
+  useEffect(() => {
+    setInputUtils({
+      setChanges,
+      setActiveItem,
+      activeItem,
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log("unsaved changes", changes);
+  }, [changes]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,8 +66,8 @@ const AbstractForm = ({
   useEffect(() => {
     return () => {
       if (changes) {
-        //console.log("unsaved changes");
-        //window.confirm("Unsaved changes. Do you want to proceed?");
+        console.log("unsaved changes");
+        window.confirm("Unsaved changes. Do you want to proceed?");
       }
     };
   });
@@ -66,17 +81,18 @@ const AbstractForm = ({
         {fields.length &&
           fields
             .filter(([f]) => f != "name")
-            .map(([f, fType], i) => (
-              <EditBrick
-                key={i}
-                label={f}
-                type={fType}
-                setChanges={setChanges}
-                setActiveItem={setActiveItem}
-                activeItem={activeItem}
-                setLastEvent={setLastEvent}
-              />
-            ))}
+            .map(([f, fType], i) => {
+              return (
+                <EditBrick
+                  key={i}
+                  label={f}
+                  type={fType}
+                  setChanges={setChanges}
+                  setActiveItem={setActiveItem}
+                  activeItem={activeItem}
+                />
+              );
+            })}
       </ul>
       <form className="editor-input" onSubmit={handleSubmit}>
         <div className="editor-submit">

@@ -2,13 +2,17 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Draggable from "react-draggable";
 import myRequest from "../myRequest";
+import { useContext } from "react";
+import { IssuesContext } from "../IssuesContext";
 
-const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
+const DraggableLabel = ({ bot, statusSuccess, setBotsList }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [originalPosition, setOriginalPosition] = useState({ x: 0, y: 0 });
   const [dropPosition, setDropPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [hit, setHit] = useState(false);
+
+  const { setIssues } = useContext(IssuesContext);
 
   const handleDrag = (e, ui) => {
     const { x, y } = position;
@@ -98,7 +102,6 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
 };
 
 DraggableLabel.propTypes = {
-  setIssues: PropTypes.func.isRequired,
   bot: PropTypes.string.isRequired,
   statusSuccess: PropTypes.bool.isRequired,
   setBotsList: PropTypes.func.isRequired,

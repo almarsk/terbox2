@@ -32,7 +32,6 @@ const FlowList = ({
             key={i}
             bot={botName}
             status={status}
-            setIssues={setIssues}
             archived={a}
             projectId={project}
             setBotsList={fetchBots}
@@ -59,7 +58,7 @@ const FlowList = ({
 
 FlowList.propTypes = {
   activeFlows: PropTypes.arrayOf(PropTypes.array).isRequired,
-  setIssues: PropTypes.func.isRequired,
+
   fetchBots: PropTypes.func.isRequired,
   activeProject: PropTypes.number.isRequired,
   setBotsList: PropTypes.func.isRequired,

@@ -43,7 +43,6 @@ const ProjectList = ({
                   setActiveProject={setActiveProject}
                   isArchived={isArchived}
                   archived={archived}
-                  setIssues={setIssues}
                   fetchProjects={fetchProjects}
                   isDefault={isDefault}
                 />
@@ -56,7 +55,6 @@ const ProjectList = ({
             setActiveProject={setActiveProject}
             isArchived={false}
             archived={archived}
-            setIssues={setIssues}
             fetchProjects={fetchProjects}
             isDefault={true}
           />
@@ -91,7 +89,7 @@ ProjectList.propTypes = {
   ).isRequired,
   setActiveProject: PropTypes.func.isRequired,
   activeProject: PropTypes.number.isRequired,
-  setIssues: PropTypes.func.isRequired,
+
   fetchProjects: PropTypes.func.isRequired,
 };
 

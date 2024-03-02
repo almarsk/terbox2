@@ -38,7 +38,6 @@ const ProjectBrick = ({
               fetchProjects();
             });
           }}
-          setIssues={setIssues}
           hoverText={`${archived ? "unarchive" : "archive"} project ${name}`}
         />
       ) : (
@@ -55,7 +54,7 @@ ProjectBrick.propTypes = {
   setActiveProject: PropTypes.func.isRequired,
   isArchived: PropTypes.bool.isRequired,
   archived: PropTypes.bool.isRequired,
-  setIssues: PropTypes.func.isRequired,
+
   fetchProjects: PropTypes.func.isRequired,
   isDefault: PropTypes.bool.isRequired,
 };

@@ -1,7 +1,11 @@
 import PropTypes from "prop-types";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { IssuesContext } from "../IssuesContext";
 
-const MenuButton = ({ icon, click, hoverText, setIssues, where }) => {
+const MenuButton = ({ icon, click, hoverText, where }) => {
+  const { setIssues } = useContext(IssuesContext);
+
   return (
     <Link
       className="submit admin-button"
@@ -22,7 +26,6 @@ MenuButton.propTypes = {
   icon: PropTypes.node.isRequired,
   click: PropTypes.func.isRequired,
   hoverText: PropTypes.string.isRequired,
-  setIssues: PropTypes.func.isRequired,
   where: PropTypes.string.isRequired,
 };
 

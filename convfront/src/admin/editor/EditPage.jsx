@@ -48,7 +48,6 @@ const EditPage = ({ setIssues }) => {
           </ul>
         </div>
         <EditorPanel
-          setIssues={setIssues}
           initial="list-states"
           flow={flow}
           setLastEvent={setLastEvent}
@@ -57,7 +56,6 @@ const EditPage = ({ setIssues }) => {
           fetchItems={fetchItems}
         />
         <EditorPanel
-          setIssues={setIssues}
           initial="list-intents"
           flow={flow}
           setLastEvent={setLastEvent}
@@ -70,8 +68,6 @@ const EditPage = ({ setIssues }) => {
   );
 };
 
-EditPage.propTypes = {
-  setIssues: PropTypes.func.isRequired,
-};
+EditPage.propTypes = {};
 
 export default EditPage;

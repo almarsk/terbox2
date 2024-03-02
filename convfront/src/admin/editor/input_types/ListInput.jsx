@@ -1,8 +1,13 @@
 import PropTypes from "prop-types";
 import NewItem from "./NewItem";
 import ListItems from "./ListItems";
+import { useContext } from "react";
+import { InputContext } from "../InputContext";
 
-const ListInput = ({ label, activeItem, setChanges, setActiveItem }) => {
+const ListInput = ({ label }) => {
+  const { inputUtils } = useContext(InputContext);
+  const { activeItem, setChanges, setActiveItem } = inputUtils;
+
   return (
     <div className="list-input">
       <div className="input-field">
@@ -14,7 +19,11 @@ const ListInput = ({ label, activeItem, setChanges, setActiveItem }) => {
               return { ...prev, [label]: [...prev[label], newValue] };
             });
           }}
-          tags={Object.entries(activeItem).length ? activeItem[label] : []}
+          tags={
+            activeItem && Object.entries(activeItem).length
+              ? activeItem[label]
+              : []
+          }
         />
       </div>
       <ListItems
@@ -24,7 +33,11 @@ const ListInput = ({ label, activeItem, setChanges, setActiveItem }) => {
             return { ...prev, [label]: newValue };
           });
         }}
-        tags={Object.entries(activeItem).length ? activeItem[label] : []}
+        tags={
+          activeItem && Object.entries(activeItem).length
+            ? activeItem[label]
+            : []
+        }
       />
     </div>
   );

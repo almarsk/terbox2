@@ -58,7 +58,6 @@ const Flows = ({ setIssues }) => {
         click={() => {
           setArchived((prevArchived) => !prevArchived);
         }}
-        setIssues={setIssues}
         hoverText={`${archived ? "hide" : "view"} archived`}
       />
       <div className="flow-container">
@@ -68,13 +67,11 @@ const Flows = ({ setIssues }) => {
           projects={projects}
           setActiveProject={setActiveProject}
           activeProject={activeProject}
-          setIssues={setIssues}
           fetchProjects={fetchProjects}
         />
 
         <FlowList
           activeFlows={activeFlows}
-          setIssues={setIssues}
           fetchBots={fetchBots}
           activeProject={activeProject}
           setBotsList={setBotsList}
@@ -84,8 +81,6 @@ const Flows = ({ setIssues }) => {
   );
 };
 
-Flows.propTypes = {
-  setIssues: PropTypes.func.isRequired,
-};
+Flows.propTypes = {};
 
 export default Flows;

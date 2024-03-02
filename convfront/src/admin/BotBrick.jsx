@@ -16,7 +16,6 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
       <div className="bot-name">
         {!renameMode ? (
           <DraggableLabel
-            setIssues={setIssues}
             bot={bot}
             statusSuccess={status.success}
             setBotsList={setBotsList}
@@ -45,7 +44,6 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
           click={() => {
             status.success ? (window.location = `/?flow=${bot}`) : ``;
           }}
-          setIssues={setIssues}
         />
       </div>
 
@@ -56,7 +54,6 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
           const flow_url = `${new URL(window.location.href).origin}/?flow=${bot.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}`;
           navigator.clipboard.writeText(flow_url);
         }}
-        setIssues={setIssues}
       />
 
       <MenuButton
@@ -66,20 +63,17 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
           setRenameMode((prev) => !prev);
           setNewFlowValue(bot);
         }}
-        setIssues={setIssues}
       />
 
       <MenuButton
         icon={"🔍"}
         hoverText={`test ${bot}`}
-        setIssues={setIssues}
         where={`/admin/test/${bot}`}
       />
 
       <MenuButton
         icon={status.success ? "🏗️" : "🛠️"}
         hoverText={status.message}
-        setIssues={setIssues}
         where={`/admin/edit/${bot}`}
       />
 
@@ -93,14 +87,12 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
               setBotsList(),
             ));
         }}
-        setIssues={setIssues}
       />
 
       <MenuButton
         icon={"📥️"}
         hoverText={`export ${bot} in json`}
         click={() => download_flow(bot)}
-        setIssues={setIssues}
       />
 
       <MenuButton
@@ -113,7 +105,6 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
             destination: archived ? 1 : 2,
           }).then(() => setBotsList());
         }}
-        setIssues={setIssues}
       />
     </div>
   );
@@ -125,7 +116,7 @@ BotBrick.propTypes = {
     success: PropTypes.bool.isRequired,
     message: PropTypes.string.isRequired,
   }).isRequired,
-  setIssues: PropTypes.func.isRequired,
+
   archived: PropTypes.bool.isRequired,
   setBotsList: PropTypes.func.isRequired,
 };

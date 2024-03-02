@@ -3,9 +3,12 @@ import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
 
 import MenuButton from "./MenuButton";
+import { useContext } from "react";
+import { IssuesContext } from "../IssuesContext";
 
-const AdminPage = ({ logOff, setIssues, children, propValue }) => {
+const AdminPage = ({ logOff, children, propValue }) => {
   const location = useLocation();
+  const { setIssues } = useContext(IssuesContext);
 
   useEffect(() => {
     setIssues("");
@@ -19,12 +22,7 @@ const AdminPage = ({ logOff, setIssues, children, propValue }) => {
       </Link>
       {children}
       <div className="log-off">
-        <MenuButton
-          icon={"👋"}
-          hoverText={"log off"}
-          click={logOff}
-          setIssues={setIssues}
-        />
+        <MenuButton icon={"👋"} hoverText={"log off"} click={logOff} />
       </div>
       <div>{propValue}</div>
     </div>
@@ -33,7 +31,6 @@ const AdminPage = ({ logOff, setIssues, children, propValue }) => {
 
 AdminPage.propTypes = {
   logOff: PropTypes.func.isRequired,
-  setIssues: PropTypes.func.isRequired,
   children: PropTypes.node,
   propValue: PropTypes.any.isRequired,
 };

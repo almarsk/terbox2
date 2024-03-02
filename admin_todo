@@ -1,12 +1,7 @@
 cleanup
-    further componentize - button menus
-    proptypes
     use context - input types, setissues, flow (bot), setBotsList
     warn about unsaved changes before leaving a component
     usereducer instead of complicated usestate logic
-
-    all flow no bot,
-
 
 fix and polish convproof
 

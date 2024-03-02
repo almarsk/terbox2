@@ -10,13 +10,11 @@ const EditorButtons = ({ setIssues, setActivePanel }) => {
         click={() => {
           setActivePanel("list-states");
         }}
-        setIssues={setIssues}
       />
       <MenuButton
         icon={"💭"}
         hoverText={"intent"}
         click={() => setActivePanel("list-intents")}
-        setIssues={setIssues}
       />
       <MenuButton
         icon={"🌎"}
@@ -24,14 +22,12 @@ const EditorButtons = ({ setIssues, setActivePanel }) => {
         click={() => {
           setActivePanel("meta");
         }}
-        setIssues={setIssues}
       />
     </div>
   );
 };
 
 EditorButtons.propTypes = {
-  setIssues: PropTypes.func.isRequired,
   setActivePanel: PropTypes.func.isRequired,
 };
 

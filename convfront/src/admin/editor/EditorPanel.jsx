@@ -6,9 +6,9 @@ import "./editor.css";
 import AbstractForm from "./AbstractForm";
 import Listing from "./Listing";
 import EditorButtons from "./EditorButtons";
+import { InputContextProvider } from "./InputContext";
 
 const EditorPanel = ({
-  setIssues,
   initial,
   flow,
   setLastEvent,
@@ -36,20 +36,22 @@ const EditorPanel = ({
 
   return (
     <div className="panel">
-      <EditorButtons setIssues={setIssues} setActivePanel={setActivePanel} />
+      <EditorButtons setActivePanel={setActivePanel} />
       {activePanel === "state" ? (
-        <AbstractForm
-          element={"state"}
-          fields={structure.states || {}}
-          flow={flow}
-          elementData={
-            flowData &&
-            flowData.states.filter((f) => f.name === activeElement)[0]
-          }
-          setLastEvent={setLastEvent}
-          fetchProof={fetchProof}
-          fetchItems={fetchItems}
-        />
+        <InputContextProvider>
+          <AbstractForm
+            element={"state"}
+            fields={structure.states || {}}
+            flow={flow}
+            elementData={
+              flowData &&
+              flowData.states.filter((f) => f.name === activeElement)[0]
+            }
+            setLastEvent={setLastEvent}
+            fetchProof={fetchProof}
+            fetchItems={fetchItems}
+          />
+        </InputContextProvider>
       ) : activePanel === "list-states" ? (
         <Listing
           elementType={"state"}
@@ -66,18 +68,20 @@ const EditorPanel = ({
           setLastEvent={setLastEvent}
         />
       ) : activePanel === "intent" ? (
-        <AbstractForm
-          element={"intent"}
-          fields={structure.intents || {}}
-          flow={flow}
-          elementData={
-            flowData &&
-            flowData.intents.filter((f) => f.name === activeElement)[0]
-          }
-          setLastEvent={setLastEvent}
-          fetchProof={fetchProof}
-          fetchItems={fetchItems}
-        />
+        <InputContextProvider>
+          <AbstractForm
+            element={"intent"}
+            fields={structure.intents || {}}
+            flow={flow}
+            elementData={
+              flowData &&
+              flowData.intents.filter((f) => f.name === activeElement)[0]
+            }
+            setLastEvent={setLastEvent}
+            fetchProof={fetchProof}
+            fetchItems={fetchItems}
+          />
+        </InputContextProvider>
       ) : activePanel === "list-intents" ? (
         <Listing
           elementType={"intent"}
@@ -94,29 +98,30 @@ const EditorPanel = ({
           setLastEvent={setLastEvent}
         />
       ) : (
-        <AbstractForm
-          element={"meta"}
-          fields={structure.flow || {}}
-          flow={flow}
-          elementData={
-            flowData &&
-            Object.fromEntries(
-              Object.entries(flowData).filter(
-                ([k]) => !["states", "intents"].includes(k),
-              ),
-            )
-          }
-          setLastEvent={setLastEvent}
-          fetchProof={fetchProof}
-          fetchItems={fetchItems}
-        />
+        <InputContextProvider>
+          <AbstractForm
+            element={"meta"}
+            fields={structure.flow || {}}
+            flow={flow}
+            elementData={
+              flowData &&
+              Object.fromEntries(
+                Object.entries(flowData).filter(
+                  ([k]) => !["states", "intents"].includes(k),
+                ),
+              )
+            }
+            setLastEvent={setLastEvent}
+            fetchProof={fetchProof}
+            fetchItems={fetchItems}
+          />
+        </InputContextProvider>
       )}
     </div>
   );
 };
 
 EditorPanel.propTypes = {
-  setIssues: PropTypes.func.isRequired,
   initial: PropTypes.string.isRequired,
   flow: PropTypes.string.isRequired,
   setLastEvent: PropTypes.func.isRequired,

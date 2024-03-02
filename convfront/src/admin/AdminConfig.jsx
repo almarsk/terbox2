@@ -7,9 +7,11 @@ import { Route, Routes } from "react-router-dom";
 import EditPage from "./editor/EditPage";
 import TestPage from "./TestPage";
 import "./admin.css";
+import { useContext } from "react";
+import { IssuesContext } from "../IssuesContext";
 
 const AdminConfig = () => {
-  const [issues, setIssues] = useState("");
+  const { issues, setIssues } = useContext(IssuesContext);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [unsuccess, setUnsuccess] = useState(false);
@@ -38,17 +40,11 @@ const AdminConfig = () => {
   return (
     <>
       {isLoggedIn ? (
-        <AdminPage logOff={logOff} setIssues={setIssues}>
+        <AdminPage logOff={logOff}>
           <Routes>
-            <Route index element={<Flows setIssues={setIssues} />} />
-            <Route
-              path="/edit/:flow"
-              element={<EditPage setIssues={setIssues} />}
-            />
-            <Route
-              path="/test/:flow"
-              element={<TestPage setIssues={setIssues} />}
-            />
+            <Route index element={<Flows />} />
+            <Route path="/edit/:flow" element={<EditPage />} />
+            <Route path="/test/:flow" element={<TestPage />} />
           </Routes>
         </AdminPage>
       ) : (
