@@ -1,36 +1,20 @@
-cleanup
-    warn about unsaved changes before leaving a component
-    usereducer instead of complicated usestate logic
-
 fix and polish convproof
-
-unit tests
-
 cstatus pipe line (as already done)
-
-make some flows
 
 write replys in db
 convread - nice flexible exporting (cstatus interface dependency)
 cstatus interface - list convos and within convos list cstatuses
+
+make some flows
 
 add user directions to flow
 add pictures
     - upload button
     - state has
 
-jwt in admin
-
-message for missing required input -
-
-<input type="text" required
-			oninput="this.setCustomValidity('')"
-			oninvalid="this.setCustomValidity('sdjalksjdalkj')"
-		/>
-
+nice to have:
 self fix
 clean unused
 autocomplete
-
 list all possible paths to state
 show network
