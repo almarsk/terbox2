@@ -1,5 +1,6 @@
-import Draggable from "react-draggable";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import Draggable from "react-draggable";
 import myRequest from "../myRequest";
 
 const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
@@ -70,6 +71,7 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
     } else {
       setHit(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dropPosition]);
 
   return (
@@ -96,6 +98,13 @@ const DraggableLabel = ({ setIssues, bot, statusSuccess, setBotsList }) => {
       </div>
     </Draggable>
   );
+};
+
+DraggableLabel.propTypes = {
+  setIssues: PropTypes.func.isRequired,
+  bot: PropTypes.string.isRequired,
+  statusSuccess: PropTypes.bool.isRequired,
+  setBotsList: PropTypes.func.isRequired,
 };
 
 export default DraggableLabel;

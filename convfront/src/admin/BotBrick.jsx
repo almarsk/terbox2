@@ -1,4 +1,5 @@
-import React from "react";
+import PropTypes from "prop-types";
+
 import MenuButton from "./MenuButton";
 import myRequest from "../myRequest";
 import { useState } from "react";
@@ -116,6 +117,17 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
       />
     </div>
   );
+};
+
+BotBrick.propTypes = {
+  bot: PropTypes.string.isRequired,
+  status: PropTypes.shape({
+    success: PropTypes.bool.isRequired,
+    message: PropTypes.string.isRequired,
+  }).isRequired,
+  setIssues: PropTypes.func.isRequired,
+  archived: PropTypes.bool.isRequired,
+  setBotsList: PropTypes.func.isRequired,
 };
 
 export default BotBrick;

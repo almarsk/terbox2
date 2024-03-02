@@ -15,6 +15,7 @@ const BotOutput = ({ botSpeech, loading }) => {
 
 BotOutput.propTypes = {
   botSpeech: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default BotOutput;

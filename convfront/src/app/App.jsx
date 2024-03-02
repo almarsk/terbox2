@@ -33,7 +33,7 @@ const App = ({ bot, phase }) => {
         ""
       )}
 
-      {!!bot ? (
+      {bot ? (
         phase === PHASES.INTRO ? (
           <Intro bot={bot} />
         ) : phase === PHASES.START ? (

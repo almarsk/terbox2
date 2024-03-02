@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { useState } from "react";
 import BotBrick from "./BotBrick";
 import myRequest from "../myRequest";
@@ -24,7 +26,7 @@ const FlowList = ({
 
   return (
     <ul className="flow-list">
-      {activeFlows.map(([botName, status, date, project, a], i) => {
+      {activeFlows.map(([botName, status, , project, a], i) => {
         return (
           <BotBrick
             key={i}
@@ -53,6 +55,14 @@ const FlowList = ({
       </div>
     </ul>
   );
+};
+
+FlowList.propTypes = {
+  activeFlows: PropTypes.arrayOf(PropTypes.array).isRequired,
+  setIssues: PropTypes.func.isRequired,
+  fetchBots: PropTypes.func.isRequired,
+  activeProject: PropTypes.number.isRequired,
+  setBotsList: PropTypes.func.isRequired,
 };
 
 export default FlowList;

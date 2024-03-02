@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { useState, useEffect } from "react";
 import myRequest from "../myRequest";
 import MenuButton from "./MenuButton";
@@ -80,6 +82,10 @@ const Flows = ({ setIssues }) => {
       </div>
     </div>
   );
+};
+
+Flows.propTypes = {
+  setIssues: PropTypes.func.isRequired,
 };
 
 export default Flows;

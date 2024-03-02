@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { useEffect, useRef } from "react";
 import myRequest from "../myRequest";
 
@@ -45,6 +47,15 @@ const RenameFlowForm = ({
       />
     </form>
   );
+};
+
+RenameFlowForm.propTypes = {
+  renameMode: PropTypes.bool.isRequired,
+  setRenameMode: PropTypes.func.isRequired,
+  newFlowValue: PropTypes.string.isRequired,
+  setNewFlowValue: PropTypes.func.isRequired,
+  bot: PropTypes.string.isRequired,
+  setBotsList: PropTypes.func.isRequired,
 };
 
 export default RenameFlowForm;

@@ -18,6 +18,7 @@ const Chat = () => {
     if (cStatus && cStatus.end) {
       window.location.href = "/";
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cStatus, loading]);
 
   const handleSubmit = async (e) => {
