@@ -118,6 +118,10 @@
     margin-top: 20px;
 }
 
+.proof-item {
+    margin-bottom: 6px;
+}
+
 .side-panel {
     height: 85vh;
     width: 33vh;
@@ -228,4 +232,22 @@
 
 .form-container {
     width: 90%;
+}
+
+.input-field {
+    width: 20vw;
+    padding-left: 8px;
+    border-radius: 8px;
+    border: 0;
+    background-color: rgb(213, 213, 213);
+    transition: background-color 0.4s;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: left;
+    resize: vertical;
+    -moz-resize: vertical;
+    -webkit-resize: vertical;
+    outline: none;
+    caret-color: rgb(129, 129, 129);
+    flex-grow: 1;
 }

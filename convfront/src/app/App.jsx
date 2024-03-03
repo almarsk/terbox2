@@ -6,6 +6,7 @@ import Outro from "../convo/Outro";
 import Start from "../convo/Start";
 
 import MenuButton from "../admin/MenuButton.jsx";
+import { Link } from "react-router-dom";
 
 const PHASES = {
   INTRO: 0,
@@ -21,12 +22,9 @@ const App = ({ bot, phase }) => {
     <div id="main">
       {localStorage.getItem("isLoggedIn") == "true" ? (
         <div className="log-off">
-          <MenuButton
-            icon={"🏠"}
-            hoverText={""}
-            click={() => {}}
-            where="/admin"
-          />
+          <Link className="submit admin-button" to="/admin">
+            🏠
+          </Link>
         </div>
       ) : (
         ""

@@ -1,4 +1,5 @@
 def proof_references(bot, issues):
+
     existing_states = [state["name"] for state in bot.get("states", []) if "name" in state]
     existing_intents = [intent["name"] for intent in bot.get("intents", []) if "name" in intent]
 
@@ -15,23 +16,23 @@ def proof_references(bot, issues):
             for substate in state["iterate_states"]:
                 add_or_append(substate, state_refs, f"iterate_states of {substate} in {state['name']}")
             for substate in state["context_states"]:
-                add_or_append(substate, state_refs, f"context_states of {substate} in {state['name']}")
+                add_or_append(substate, state_refs, f"context states of {substate} in {state['name']}")
             for subintent in state["context_intents"]:
-                add_or_append(subintent, intent_refs, f"context_states of {subintent}in {state['name']}")
+                add_or_append(subintent, intent_refs, f"context intents of {subintent}in {state['name']}")
             for intent, adjacent in state["intents"].items():
-                add_or_append(intent, intent_refs, f"intent {intent} in state {state['name']}")
+                add_or_append(intent, intent_refs, f"intents in state {state['name']}")
                 for substate in adjacent:
                     add_or_append(substate, state_refs, f"adjacent {substate} of intent {intent} in state {state['name']}")
 
         for intent in bot ["intents"]:
             for substate in intent["iterate_states"]:
-                add_or_append(substate, state_refs, f"iterate_states of {substate} in {intent['name']}")
+                add_or_append(substate, state_refs, f"iterate states of {substate} in {intent['name']}")
             for substate in intent["context_states"]:
-                add_or_append(substate, state_refs, f"context_states of {substate} in {intent['name']}")
+                add_or_append(substate, state_refs, f"context states of {substate} in {intent['name']}")
             for subintent in intent["context_intents"]:
-                add_or_append(subintent, intent_refs, f"context_states of {subintent} in {intent['name']}")
+                add_or_append(subintent, intent_refs, f"context intents of {subintent} in {intent['name']}")
             for state in intent["adjacent"]:
-                add_or_append(state, state_refs, f"context_states of {state} in {intent['name']}")
+                add_or_append(state, state_refs, f"adjacent in {intent['name']}")
 
     except Exception as e:
         issues.append(e)
@@ -42,11 +43,9 @@ def proof_references(bot, issues):
         if state not in existing_states:
             missing[state] = ["state", ",".join(location)]
     for intent, location in intent_refs.items():
-        if intent not in existing_states:
+        if intent not in existing_intents:
             missing[intent] = ["intent", ",".join(location)]
 
-
-    print("missing",missing)
     for missing_item, [type, location] in missing.items():
         issues.append(f"missing {type} {missing_item} found in {location}")
 

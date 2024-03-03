@@ -7,18 +7,25 @@ def proof_empty(bot, issues):
                 issues.append(f"{key} empty")
 
         for state in bot["states"]:
-            for key, value in state.items():
-                if not value:
-                    issues.append(f"{key} in state {state['name']} empty")
+            if not state["say"]:
+                issues.append(f"say in state {state['name']} empty")
 
             for intent, adjacent in state["intents"].items():
-                if not adjacent:
+                if adjacent or default_adjacent(intent, bot):
+                    pass
+                else:
                     issues.append(f"intent {intent} in state {state['name']} empty")
 
         for intent in bot["intents"]:
-            for key, value in intent.items():
-                if not value:
-                    issues.append(f"{key} in state {intent['name']} empty")
+            if not intent["match_against"]:
+                issues.append(f"match_against in state {intent['name']} empty")
 
     except Exception as e:
         issues.append(e)
+
+def default_adjacent(intent, bot):
+    try:
+        is_adjacent = bool([i for i in bot["intents"] if i["name"] == intent][0]["adjacent"])
+        return is_adjacent
+    except:
+        return False

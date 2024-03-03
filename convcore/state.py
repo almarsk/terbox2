@@ -20,8 +20,8 @@ class State:
     iterate_states: list
     def __init__(self, state):
         self.name = state.get("name", "")
-        self.say = state.get("say", [])
         self.intents = state.get("intents", {})
+        self.say = state.get("say", [])
         self.response_type = state.get("response_type", ResponseType.FLEXIBLE)
         self.prioritize = state.get("prioritize", False)
         self.iteration = state.get("iteration", 1)

@@ -40,9 +40,11 @@ const EditPage = () => {
           </div>
           <ul className="proof-list">
             {proof &&
-              proof
-                .split("\n")
-                .map((message, i) => <div key={i}>{message}</div>)}
+              proof.split("\n").map((message, i) => (
+                <div className="proof-item" key={i}>
+                  {message}
+                </div>
+              ))}
           </ul>
         </div>
         <EditorPanel
