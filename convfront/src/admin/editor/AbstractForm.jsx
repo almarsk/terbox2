@@ -39,15 +39,8 @@ const AbstractForm = ({
   };
 
   useEffect(() => {
-    if (fields.length && elementData) {
-      fields.forEach(([fName]) =>
-        setActiveItem((prevActive) => {
-          console.log("ED", elementData);
-          return { ...prevActive, [fName]: elementData[fName] };
-        }),
-      );
-    }
-  }, [fields, element, elementData]);
+    setActiveItem(elementData);
+  }, [element, elementData]);
 
   return (
     <div className="form-container">
