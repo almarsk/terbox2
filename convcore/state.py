@@ -10,7 +10,6 @@ class ResponseType(Enum):
 class State:
     name: str
     intents: dict
-    annotation: str
     say: list[tuple[Say,str]]
     response_type: ResponseType
     prioritize: bool
@@ -21,9 +20,8 @@ class State:
     iterate_states: list
     def __init__(self, state):
         self.name = state.get("name", "")
-        self.intents = state.get("intents", {})
-        self.annotation = state.get("annotation", "")
         self.say = state.get("say", [])
+        self.intents = state.get("intents", {})
         self.response_type = state.get("response_type", ResponseType.FLEXIBLE)
         self.prioritize = state.get("prioritize", False)
         self.iteration = state.get("iteration", 1)

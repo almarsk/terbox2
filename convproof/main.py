@@ -2,6 +2,8 @@ import os
 import json
 import jsonschema
 from jsonschema import validate
+
+from .proof_empty import proof_empty
 from .proof_exception import ProofException
 from .proof_references import proof_references
 
@@ -13,7 +15,6 @@ def validate_flow(path, flow, return_flow=False):
     full_path = f"./{path}/{flow.lower()}.json"
 
     from app import db, Flow
-
     flow_data = Flow.query.filter_by(flow_name=flow).first()
 
     # check valid path
@@ -25,24 +26,11 @@ def validate_flow(path, flow, return_flow=False):
         }
     else:
         bot = flow_data.flow
-        # print(bot)
 
-        with open("convproof/schema.json", "r") as s:
-            schema = json.loads(s.read())
+        proof_empty(bot, issues)
+        proof_references(bot, issues)
 
-        # check structure and non-empty fields
-        validator = jsonschema.Draft7Validator(schema)
-        #[issues.append(f"{e.message}, found in {', '.join(list(e.schema_path))}") for e in validator.iter_errors(bot)]
-
-        #[issues.append(f"{e}") for e in validator.iter_errors(bot)]
-
-
-        # check references
-        if not issues:
-            proof_references(bot, issues)
-
-        print("todo check that there isnt only $")
-        print("todo check that there is a state_intro and a state_outro only $")
+        print("todo check that there is a state_intro and a state_outro")
 
         result = dict()
 

@@ -1,82 +1,57 @@
-to_check = {
-    "flow": {
-        "track": "states",
-        "coda": "states"
-    },
-    "states": {
-        "context_intents": "intents",
-        "context_states": "states",
-        "iterate_states": "states",
-
-        # handled separately
-        #
-        #"intents": {
-        #    "intents": "states",
-        #}
-
-    },
-    "intents": {
-        "adjacent": "states",
-        "context_intents": "intents",
-        "context_states": "states",
-        "iterate_states": "states",
-    }
-}
-
-
 def proof_references(bot, issues):
-    intent_names = [intent["name"] for intent in bot["intents"]]
-    state_names = [state["name"] for state in bot["states"]]
+    existing_states = [state["name"] for state in bot.get("states", []) if "name" in state]
+    existing_intents = [intent["name"] for intent in bot.get("intents", []) if "name" in intent]
 
-    destinations_states = set()
-    destinations_intents = set()
-    for key, value in to_check.items():
-        collect_destinations(key, value, "states", destinations_states)
-        collect_destinations(key, value, "intents", destinations_intents)
+    state_refs = dict()
+    intent_refs = dict()
 
-    for destination in destinations_intents:
-        check_intents = collect_check_items(destination, "intents", bot)
-        [issues.append(f"missing intent {missing} from {', '.join(destination)}") for missing in filter(lambda i: i not in intent_names, check_intents)]
+    try:
+        for state in bot["track"]:
+            add_or_append(state, state_refs, "track")
+        for state in bot["coda"]:
+            add_or_append(state, state_refs, "coda")
 
-    # intents field handled separately
-    issues.extend(f"missing intent {intent} from state {state['name']}" for state in bot["states"] for intent in state["intents"].keys() if intent not in intent_names)
+        for state in bot["states"]:
+            for substate in state["iterate_states"]:
+                add_or_append(substate, state_refs, f"iterate_states of {substate} in {state['name']}")
+            for substate in state["context_states"]:
+                add_or_append(substate, state_refs, f"context_states of {substate} in {state['name']}")
+            for subintent in state["context_intents"]:
+                add_or_append(subintent, intent_refs, f"context_states of {subintent}in {state['name']}")
+            for intent, adjacent in state["intents"].items():
+                add_or_append(intent, intent_refs, f"intent {intent} in state {state['name']}")
+                for substate in adjacent:
+                    add_or_append(substate, state_refs, f"adjacent {substate} of intent {intent} in state {state['name']}")
 
-    for destination in destinations_states:
-        check_states = collect_check_items(destination, "states", bot)
-        [issues.append(f"missing state {missing} from {', '.join(destination)}") for missing in filter(lambda i: i not in state_names, check_states)]
+        for intent in bot ["intents"]:
+            for substate in intent["iterate_states"]:
+                add_or_append(substate, state_refs, f"iterate_states of {substate} in {intent['name']}")
+            for substate in intent["context_states"]:
+                add_or_append(substate, state_refs, f"context_states of {substate} in {intent['name']}")
+            for subintent in intent["context_intents"]:
+                add_or_append(subintent, intent_refs, f"context_states of {subintent} in {intent['name']}")
+            for state in intent["adjacent"]:
+                add_or_append(state, state_refs, f"context_states of {state} in {intent['name']}")
 
-    # adjacent in intent field in state handled separately
-    issues.extend(f"missing state {', '.join(adjacent)} from state {state['name']} and its intent {intent}" for state in bot["states"] for intent,adjacent in state["intents"].items() if adjacent not in state_names)
+    except Exception as e:
+        issues.append(e)
+
+    missing = dict()
+
+    for state, location in state_refs.items():
+        if state not in existing_states:
+            missing[state] = ["state", ",".join(location)]
+    for intent, location in intent_refs.items():
+        if intent not in existing_states:
+            missing[intent] = ["intent", ",".join(location)]
 
 
-def collect_destinations(key, value, target_key, destinations):
-    if isinstance(value, dict):
-        for k,v in value.items():
-            collect_destinations(sediment(key) + [k] ,v, target_key, destinations)
-    elif isinstance(value, str):
-        if value is target_key:
-            destinations.add(tuple(key))
+    print("missing",missing)
+    for missing_item, [type, location] in missing.items():
+        issues.append(f"missing {type} {missing_item} found in {location}")
 
-def sediment(key):
-    if isinstance(key, str):
-        return [key]
+def add_or_append(key, my_dict, value):
+    if key in my_dict:
+        my_dict[key].append(value)
     else:
-        return [*key]
-
-def collect_check_items(destination, check_against, bot):
-    where = bot
-    resulting_items = list()
-    for i, checkpoint in enumerate(destination):
-        if checkpoint == "flow":
-            pass
-        elif isinstance(where, list):
-            for current_item in where:
-                for inner_checkpoint in destination[i:]:
-                    where = current_item[inner_checkpoint]
-                resulting_items = resulting_items + sediment(where)
-                resulting_items = [f"{i} of {check_against[:-1]} {current_item['name']}" for i in resulting_items]
-            return resulting_items
-        else:
-            where = where[checkpoint]
-
-    return where
+        my_dict[key] = [value]
