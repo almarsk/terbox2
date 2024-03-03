@@ -1,24 +1,3 @@
-"""
-valid references
-    flow
-        the track
-        coda
-    state
-        intent
-            name
-            adjecent
-        context
-            add state
-            interate state
-            add intent
-    intent
-        adjacent
-        context
-            add state
-            interate state
-            add intent
-"""
-
 to_check = {
     "flow": {
         "track": "states",
@@ -29,7 +8,7 @@ to_check = {
         "context_states": "states",
         "iterate_states": "states",
 
-        # taking care of this separately
+        # handled separately
         #
         #"intents": {
         #    "intents": "states",
@@ -59,12 +38,14 @@ def proof_references(bot, issues):
         check_intents = collect_check_items(destination, "intents", bot)
         [issues.append(f"missing intent {missing} from {', '.join(destination)}") for missing in filter(lambda i: i not in intent_names, check_intents)]
 
+    # intents field handled separately
     issues.extend(f"missing intent {intent} from state {state['name']}" for state in bot["states"] for intent in state["intents"].keys() if intent not in intent_names)
 
     for destination in destinations_states:
         check_states = collect_check_items(destination, "states", bot)
         [issues.append(f"missing state {missing} from {', '.join(destination)}") for missing in filter(lambda i: i not in state_names, check_states)]
 
+    # adjacent in intent field in state handled separately
     issues.extend(f"missing state {', '.join(adjacent)} from state {state['name']} and its intent {intent}" for state in bot["states"] for intent,adjacent in state["intents"].items() if adjacent not in state_names)
 
 
@@ -76,13 +57,11 @@ def collect_destinations(key, value, target_key, destinations):
         if value is target_key:
             destinations.add(tuple(key))
 
-
 def sediment(key):
     if isinstance(key, str):
         return [key]
     else:
         return [*key]
-
 
 def collect_check_items(destination, check_against, bot):
     where = bot

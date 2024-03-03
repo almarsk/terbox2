@@ -13,7 +13,7 @@ const AbstractForm = ({
   fetchProof,
   fetchItems,
 }) => {
-  const [changes, setChanges] = useState(false);
+  const [, setChanges] = useState(false);
   const [activeItem, setActiveItem] = useState({});
 
   const handleSubmit = (e) => {
@@ -42,6 +42,7 @@ const AbstractForm = ({
     if (fields.length && elementData) {
       fields.forEach(([fName]) =>
         setActiveItem((prevActive) => {
+          console.log("ED", elementData);
           return { ...prevActive, [fName]: elementData[fName] };
         }),
       );

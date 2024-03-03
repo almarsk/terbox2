@@ -34,7 +34,7 @@ def validate_flow(path, flow, return_flow=False):
         validator = jsonschema.Draft7Validator(schema)
         #[issues.append(f"{e.message}, found in {', '.join(list(e.schema_path))}") for e in validator.iter_errors(bot)]
 
-        [issues.append(f"{e}") for e in validator.iter_errors(bot)]
+        #[issues.append(f"{e}") for e in validator.iter_errors(bot)]
 
 
         # check references

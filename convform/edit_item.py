@@ -19,6 +19,10 @@ def edit_item(args):
 
         if item_type == "meta":
             for key, value in data.items():
+
+                if key not in ["coda", "track", "persona"]:
+                    print(f"trying to print {key} from {data}")
+                    raise Exception
                 if key != "states" and key != "intents":
                     flow_data[key] = value
 
