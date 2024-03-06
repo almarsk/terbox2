@@ -1,12 +1,9 @@
 """
     Conversation status {
-        bot turns: int
         context intents: {str: str}
         previous last states: [str]
-        possible intents: [str]
-        matched intents: [str]
-        intent matches: {str: int}
-        adjacent states: [str]
+        possible intents: {str: [str]}
+        matched intents: {str: [str]}
         last states: [str]
         turns_since_initiative: int
         initiativity: int
@@ -14,20 +11,24 @@
         history: [[str]]
         state usage: {str: int}
         coda: bool
+        raw_say: str
         say: str
         end: bool
+        bot turns: int
     }
 """
 
+
+from .pipeline.get_to_match import get_to_match
+from .pipeline.get_matched_intents import get_matched_intents
+from .pipeline.is_initiative import is_initiative
+
 class ConversationStatus:
 
-    def __init__(self, userSpeech, flow, prev_cs):
+    def __init__(self, user_speech, flow, prev_cs):
 
-        # flow isnt yet passed to all places it should be
-        # flow is an instance of class Flow
-
-
-        # number of bot turns increment
+        # number of bot turns
+        # increments at the end of __init__
         self.bot_turns = (
             0 if prev_cs is None
             else prev_cs["bot_turns"]
@@ -35,27 +36,17 @@ class ConversationStatus:
 
         # move last states of previous cso to previous last states of current cso
         self.previous_last_states = (
-            None if prev_cs is None
+            list() if prev_cs is None
             else prev_cs["last_states"]
         )
         # collect intents from now previous last states
-        self.possible_intents = self.to_match()
+        self.possible_intents = self.to_match(flow)
 
         # decide which intents have been matched
-        self.matched_intents = self.match_intents(userSpeech)
+        self.matched_intents = self.match_intents(user_speech, flow)
 
-        # update intent matches
-        self.intent_matches = self.update_intent_matches(
-            None if prev_cs is None
-            else prev_cs["intent_matches"]
-        )
-        # collect adjacent states from matched intents and add context states
-        self.adjacent_states = self.get_adjacent_states(
-            None if prev_cs is None
-            else list(prev_cs["context_states"])
-        )
         # process adjacent states to have max one initiative etc
-        self.last_states = self.rhematize()
+        self.last_states = self.rhematize(prev_cs is None, flow["track"])
 
         # mark down initiativity
         self.turns_since_initiative = self.update_turns_since_initiative(
@@ -70,7 +61,7 @@ class ConversationStatus:
 
         # update context intents based on matched intents and last states
         self.context_intents = self.update_context_intents(
-            None if prev_cs is None
+            list() if prev_cs is None
             else prev_cs["context_intents"]
         )
 
@@ -82,56 +73,55 @@ class ConversationStatus:
 
         # update state usage
         self.state_usage = self.update_state_usage(
-            None if prev_cs is None
+            dict() if prev_cs is None
             else prev_cs["state_usage"]
         )
         # check if coda has started
         self.coda = self.check_for_coda()
 
-        # assemble reply including global prompting
-        self.say = self.assemble_reply()
+        # assemble reply
+        self.raw_say = self.assemble_reply()
+
+        # replace prompt sections with llm output
+        self.prompted_say = self.prompt_reply()
+
+        # finalize answer via prompting
+        self.say = self.finalize_reply()
 
         # if there is no reply, it is the end of convo
-        self.end = self.say is None
+        self.end = self.raw_say is None
 
     #_______ pipeline _______
 
-    def to_match(self):
+    def to_match(self, flow):
+        # TEST
+        return get_to_match(flow, self.previous_last_states, self.context_intents)
+
+
+    def match_intents(self, user_speech, flow):
+        to_match_intent_names = list(self.possible_intents.keys())
         # TODO
-        # self.previous_last_states
+        if to_match_intent_names:
+            matched_intents_with_index = get_matched_intents(flow, to_match_intent_names, user_speech)
+            return {key: {
+                "adjacent": value,
+                "index": matched_intents_with_index[key]
+            } for key, value in to_match_intent_names if key in list(matched_intents_with_index.keys())}
+        else:
+            return {}
 
-        # take intents of last states
-        # add context intents from previous cstatus
-        # either mark their adjacent states or the source last state
-        # to map adjacent state later
-        return {}
 
-
-    def match_intents(self, userSpeech):
+    def rhematize(self, is_conversation_start, track):
         # TODO
-        # match using regex and prompting
-        return []
+        if is_conversation_start:
+            return [track[0]]
 
-
-    def update_intent_matches(self, previous_intent_matches):
-        # TODO
-        return {}
-
-
-    def get_adjacent_states(self, context_states):
-        # TODO
-        # collect adjacent states and
-        return []
-
-
-    def rhematize(self):
-        # TODO
         return []
 
 
     def update_turns_since_initiative(self, previous_number_of_turns):
         # TODO
-        return previous_number_of_turns
+        return 0 if is_initiative() else previous_number_of_turns + 1
 
 
     def update_initiative(self):
@@ -164,4 +154,12 @@ class ConversationStatus:
 
     def assemble_reply(self):
         # TODO
-        return "blolzp"
+        return "assebmled"
+
+    def prompt_reply(self):
+        # TODO
+        return "prompt"
+
+    def finalize_reply(self):
+        # TODO prompting
+        return "final"

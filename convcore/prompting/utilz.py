@@ -5,9 +5,6 @@ def api_key():
     json_file_path = "config.json"
     field_name = "OPENAI_API_KEY"
 
-
-
-
     if not field_name in os.environ:
         try:
             with open(json_file_path, 'r') as json_file:

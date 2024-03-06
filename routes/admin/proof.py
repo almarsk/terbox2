@@ -11,6 +11,6 @@ def proof():
     from app import app
 
     try:
-        return jsonify(validate_flow(app.config['BOTS_PATH'], flow))
+        return jsonify(validate_flow(flow))
     except Exception as e:
         return jsonify({})

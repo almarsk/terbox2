@@ -22,7 +22,7 @@ def list_bots():
         return jsonify([])
 
     files = [
-        [name, validate_flow(app.config['BOTS_PATH'], name), project, date, archived]
+        [name, validate_flow(name), project, date, archived]
         for [name, date, project, archived]
         in flow_names
     ]

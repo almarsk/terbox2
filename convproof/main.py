@@ -7,17 +7,16 @@ from .proof_empty import proof_empty
 from .proof_exception import ProofException
 from .proof_references import proof_references
 
-def validate_flow(path, flow, return_flow=False):
+def validate_flow(flow, return_flow=False):
     issues = list()
     bot = dict()
     schema = dict()
     result = dict()
-    full_path = f"./{path}/{flow.lower()}.json"
 
     from app import db, Flow
     flow_data = Flow.query.filter_by(flow_name=flow).first()
 
-    # check valid path
+    # check valid data
     if flow_data is None:
         issues.append("no such bot")
         result =  {
@@ -29,8 +28,6 @@ def validate_flow(path, flow, return_flow=False):
 
         proof_empty(bot, issues)
         proof_references(bot, issues)
-
-        print("todo check that there is a state_intro and a state_outro")
 
         result = dict()
 

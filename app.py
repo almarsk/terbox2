@@ -17,7 +17,7 @@ from datetime import datetime
 import json
 
 from convproof import validate_flow
-from convcore import reply, Flow
+from convcore import reply
 from convform import convform
 
 app = Flask(__name__, static_url_path='/assets', static_folder='static/assets')
@@ -109,7 +109,7 @@ def dispatcher(path):
         session["phase"] = 0
         return redirect(url_for("dispatcher"))
 
-    success, message = validate_flow("bots", session["flow"] if "flow" in session else "").values()
+    success, message = validate_flow(session["flow"] if "flow" in session else "").values()
 
     if "flow" not in session or not success:
         session["flow"] = ""

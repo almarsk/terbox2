@@ -12,7 +12,7 @@ class Flow:
     intents: list
     def __init__(self, path, flow_name, structure=False):
         if not structure:
-            flow = validate_flow(path, flow_name, return_flow=True)
+            flow = validate_flow( flow_name, return_flow=True)
         else:
             flow = {}
         self.persona = flow.get("persona", "")
