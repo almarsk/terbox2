@@ -17,7 +17,7 @@
         bot turns: int
     }
 """
-
+import random
 
 from .pipeline.get_to_match import get_to_match
 from .pipeline.get_matched_intents import get_matched_intents
@@ -62,14 +62,14 @@ class ConversationStatus:
         # update initiativity for next round
         self.initiativity = self.update_initiative(flow)
 
-        # extract context states for next round
-        self.context_states = self.get_context_states(flow)
-
         # update context intents based on matched intents and last states
         self.context_intents = self.update_context_intents(
             list() if prev_cs is None
             else prev_cs["context_intents"],
             flow)
+
+        # extract context states for next round
+        self.context_states = self.get_context_states(flow)
 
         # update history
         self.history_intents = (
@@ -90,10 +90,10 @@ class ConversationStatus:
             self.last_states)
 
         # check if coda has started
-        self.coda = self.check_for_coda()
+        self.coda = self.check_for_coda(flow)
 
         # assemble reply
-        self.raw_say = self.assemble_reply()
+        self.raw_say = self.assemble_reply(flow)
 
         # replace prompt sections with llm output
         self.prompted_say = self.prompt_reply()
@@ -149,25 +149,25 @@ class ConversationStatus:
 
 
     def update_state_usage(self, previous_state_usage, last_states):
-        # TODO
         # including incrementing iteration from within states
         for state in last_states:
             if state not in previous_state_usage:
                 previous_state_usage[state] = 0
-
             previous_state_usage[state] += 1
-
         return previous_state_usage
 
 
-    def check_for_coda(self):
-        # TODO
-        return False
+    def check_for_coda(self, flow):
+        coda = flow["coda"]
+        return bool([state for state in self.last_states if state in coda])
 
 
-    def assemble_reply(self):
-        # TODO
-        return "assebmled"
+    def assemble_reply(self, flow):
+        return [
+            state["say"][random.randint(0, len(state["say"]) - 1)]
+            for state in flow["states"]
+            if state["name"] in self.last_states
+        ]
 
 
     def prompt_reply(self):

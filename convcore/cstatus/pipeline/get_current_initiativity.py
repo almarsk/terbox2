@@ -1,4 +1,7 @@
 def get_current_initiativity(last_states, flow):
+
+
+
     initiativy_values = [
         state["initiativity"]
         for state in flow["states"]
@@ -7,4 +10,4 @@ def get_current_initiativity(last_states, flow):
     ]
 
     # max or min? 💀
-    return min(initiativy_values)
+    return min(initiativy_values) if initiativy_values else 1
