@@ -23,6 +23,5 @@ def get_to_match(flow, last_states, context_intents):
         else:
             possible_intents[intent] = set(full_intent["adjacent"])
 
-    pprint.pp(f"\n\n\npossible intents:\n{possible_intents}\n\n\n")
 
     return possible_intents

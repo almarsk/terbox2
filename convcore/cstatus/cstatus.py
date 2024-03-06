@@ -45,7 +45,7 @@ class ConversationStatus:
         # collect intents from now previous last states
         self.possible_intents = (
             {} if prev_cs is None
-            else self.to_match(flow)
+            else self.to_match(flow, prev_cs["context_intents"])
         )
         # decide which intents have been matched
         self.matched_intents = self.match_intents(user_speech, flow)
@@ -106,26 +106,26 @@ class ConversationStatus:
 
     #_______ pipeline _______
 
-    def to_match(self, flow):
-        # TEST
-        return get_to_match(flow, self.previous_last_states, self.context_intents)
+    def to_match(self, flow, prev_context_intents):
+        return get_to_match(flow, self.previous_last_states, prev_context_intents)
 
 
     def match_intents(self, user_speech, flow):
-        to_match_intent_names = list(self.possible_intents.keys())
-        # TODO
+        to_match_intent_names = dict(self.possible_intents)
+        print("TODO prompt intent reco")
+
         if to_match_intent_names:
-            matched_intents_with_index = get_matched_intents(flow, to_match_intent_names, user_speech)
+            matched_intents_with_index = get_matched_intents(flow, to_match_intent_names.keys(), user_speech)
             return {key: {
                 "adjacent": value,
                 "index": matched_intents_with_index[key]
-            } for key, value in to_match_intent_names if key in list(matched_intents_with_index.keys())}
+            } for key, value in to_match_intent_names.items() if key in list(matched_intents_with_index.keys())}
         else:
             return {}
 
 
     def rhematize(self, is_conversation_start, track):
-        # TODO
+        print("TODO rhematize")
         # dont forget self.context_states
         if is_conversation_start:
             return [track[0]]
@@ -171,10 +171,10 @@ class ConversationStatus:
 
 
     def prompt_reply(self):
-        # TODO
+        print("TODO prompt says")
         return "prompt"
 
 
     def finalize_reply(self):
-        # TODO prompting
+        print("TODO global prompting")
         return "final"

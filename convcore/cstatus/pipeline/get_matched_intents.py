@@ -50,7 +50,6 @@ def get_matched_intents(flow, to_match_intent_names, user_speech):
         else:
             matched_intents_with_start_index[matching_prompt_info["intent"]] = matched["match_index"]
 
-    print(matched_intents_with_start_index)
     return matched_intents_with_start_index
 
 
