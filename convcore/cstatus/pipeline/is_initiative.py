@@ -1,4 +1,9 @@
-def is_initiative():
+def is_initiative(states, flow):
     # check in flow if at least one state is initiative
-    print("todo is initiative")
-    return True
+    initiative = [
+        state["name"] for state
+        in flow["states"]
+        if state["name"] in states
+        and state["initiativity"] == "initiative"
+    ]
+    return bool(initiative)

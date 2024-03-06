@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const IntInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (
     <input
-      min={0}
+      min={-1}
       type="number"
       className="input-field"
       name={label}
@@ -12,7 +12,7 @@ const IntInput = ({ label, activeItem, setChanges, setActiveItem }) => {
       onChange={(e) => {
         setChanges(true);
         setActiveItem((prevActive) => {
-          return { ...prevActive, [label]: e.target.value };
+          return { ...prevActive, [label]: parseInt(e.target.value) };
         });
       }}
     />

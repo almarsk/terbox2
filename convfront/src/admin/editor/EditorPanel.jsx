@@ -30,10 +30,6 @@ const EditorPanel = ({
     fetchStructure();
   }, [flowData]);
 
-  useEffect(() => {
-    fetchProof();
-  }, [activeElement, fetchProof]);
-
   return (
     <div className="panel">
       <EditorButtons setActivePanel={setActivePanel} />

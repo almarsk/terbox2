@@ -1,12 +1,9 @@
 import pprint
 
 def get_to_match(flow, last_states, context_intents):
-    # TODO
-
     possible_intents = dict()
     flow_intents = flow["intents"]
     get_full_intent = lambda intent: [i for i in flow["intents"] if i["name"] == intent][0]
-
 
     for state in last_states:
         # find intents of state

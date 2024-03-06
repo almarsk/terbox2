@@ -20,7 +20,12 @@ const Listing = ({
       const data = {};
 
       fields.forEach(([key, type]) => {
-        data[key] = key == "name" ? newItemValue : determineDefault(type);
+        data[key] =
+          key == "name"
+            ? newItemValue
+            : key == "initiativity"
+              ? -1
+              : determineDefault(type);
       });
 
       await myRequest("/convform", {

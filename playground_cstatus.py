@@ -1,5 +1,6 @@
 from convproof import validate_flow
 from convcore.cstatus.cstatus import ConversationStatus
+import pprint
 
 from app import app
 
@@ -10,4 +11,4 @@ with app.app_context():
 
     user_speech = "twl lol haha"
 
-    print(str(ConversationStatus(flow, ["yeah", "čau"], user_speech)))
+    pprint.pp(ConversationStatus(user_speech, flow, None).__dict__)
