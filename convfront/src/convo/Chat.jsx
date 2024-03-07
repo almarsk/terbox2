@@ -18,6 +18,9 @@ const Chat = () => {
     if (cStatus && cStatus.end) {
       window.location.href = "/";
     }
+
+    if (!loading) console.log(cStatus);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cStatus, loading]);
 
