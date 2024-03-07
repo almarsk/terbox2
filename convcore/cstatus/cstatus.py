@@ -25,6 +25,7 @@ from .pipeline.is_initiative import is_initiative
 from .pipeline.get_current_initiativity import get_current_initiativity
 from .pipeline.gather_context_states import gather_context_states
 from .pipeline.gather_context_intents import gather_context_intents
+from ..prompting.resolve_prompt import resolve_prompt
 
 class ConversationStatus:
 
@@ -51,7 +52,7 @@ class ConversationStatus:
         self.matched_intents = self.match_intents(user_speech, flow)
 
         # process adjacent states to have max one initiative etc
-        self.last_states = self.rhematize(prev_cs is None, flow["track"])
+        self.last_states = self.rhematize(prev_cs is None, flow.track)
 
         # mark down initiativity
         self.turns_since_initiative = self.update_turns_since_initiative(
@@ -158,23 +159,26 @@ class ConversationStatus:
 
 
     def check_for_coda(self, flow):
-        coda = flow["coda"]
+        coda = flow.coda
         return bool([state for state in self.last_states if state in coda])
 
 
     def assemble_reply(self, flow):
         return [
-            state["say"][random.randint(0, len(state["say"]) - 1)]
-            for state in flow["states"]
-            if state["name"] in self.last_states
+            state.say[random.randint(0, len(state.say) - 1)]
+            for state in flow.states
+            if state.name in self.last_states
         ]
 
 
     def prompt_reply(self):
-        print("TODO prompt says")
-        return "prompt"
+        return " ".join([
+            resolve_prompt(say["text"])
+            if say["prompt"]
+            else say["text"]
+            for say in self.raw_say])
 
 
     def finalize_reply(self):
         print("TODO global prompting")
-        return "final"
+        return self.prompted_say

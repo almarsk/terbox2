@@ -3,7 +3,11 @@ import re
 from convcore.prompting.intent_reco import intent_reco
 
 def get_matched_intents(flow, to_match_intent_names, user_speech):
-    get_full_intent = lambda searched_intent: [intent for intent in flow["intents"] if intent["name"] == searched_intent][0]
+    get_full_intent = lambda searched_intent: [
+        intent
+        for intent in flow.intents
+        if intent.name == searched_intent
+        ][0]
 
     matched_intents_with_start_index = dict()
     prompts_to_match = list()
@@ -14,7 +18,7 @@ def get_matched_intents(flow, to_match_intent_names, user_speech):
         matched = False
         match_index = sys.maxsize
 
-        for match_against in full_intent["match_against"]:
+        for match_against in full_intent.match_against:
 
             if match_against["prompt"]:
                 # add prompt to call llm later

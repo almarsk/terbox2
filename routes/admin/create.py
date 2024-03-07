@@ -37,4 +37,4 @@ def create():
 
 def default_item():
     from convcore import Flow
-    return Flow("","", structure=True).__dict__
+    return Flow("", structure=True).__dict__

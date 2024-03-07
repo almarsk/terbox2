@@ -10,7 +10,7 @@ class Flow:
     coda: list
     states: list
     intents: list
-    def __init__(self, path, flow_name, structure=False):
+    def __init__(self, flow_name, structure=False):
         if not structure:
             flow = validate_flow( flow_name, return_flow=True)
         else:

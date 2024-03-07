@@ -105,6 +105,7 @@
 .eval-field {
     margin: 0 0 15px 15px;
     width: 25vw;
+    min-height: 120px;
 }
 
 .admin-button {

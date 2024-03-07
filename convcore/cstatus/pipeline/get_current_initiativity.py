@@ -3,10 +3,10 @@ def get_current_initiativity(last_states, flow):
 
 
     initiativy_values = [
-        state["initiativity"]
-        for state in flow["states"]
-        if state["name"] in last_states
-        and state["initiativity"] >= 0
+        state.initiativity
+        for state in flow.states
+        if state.name in last_states
+        and state.initiativity >= 0
     ]
 
     # max or min? 💀

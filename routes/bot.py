@@ -9,7 +9,7 @@ bot_bp = Blueprint('bot', __name__)
 def bot():
     from app import app
     [user_speech, c_status_in] = request.get_json()
-    cstatus_out = reply(user_speech, Flow(app.config['BOTS_PATH'], session["flow"]), c_status_in)
+    cstatus_out = reply(user_speech, Flow(session["flow"]), c_status_in)
     if cstatus_out.end:
         session["phase"] += 1
     return jsonify(cstatus_out.__dict__)

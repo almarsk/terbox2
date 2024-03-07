@@ -1,12 +1,14 @@
 from convproof import validate_flow
 from convcore.cstatus.cstatus import ConversationStatus
+from convcore import Flow
 import pprint
 
 from app import app
 
 with app.app_context():
 
-    cs = {'bot_turns': 1,
+    cs = {
+     'bot_turns': 1,
      'previous_last_states': [],
      'possible_intents': {},
      'matched_intents': {},
@@ -22,11 +24,12 @@ with app.app_context():
      'raw_say': [{'text': 'broh', 'prompt': True}],
      'prompted_say': 'prompt',
      'say': 'final',
-     'end': False}
+     'end': False
+    }
 
     flow_name = "test"
-    flow = validate_flow(flow_name, return_flow=True)
+    flow = Flow(flow_name)
 
     user_speech = "twl lol haha"
 
-    pprint.pp(ConversationStatus(user_speech, flow, cs).__dict__)
+    pprint.pp(ConversationStatus(user_speech, flow, None).__dict__)
