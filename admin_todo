@@ -1,6 +1,15 @@
 cstatus pipe line (as already done)
+    write replys in db
+    rhematize
+    function calling
+    intent reco
+    prompt says
+    global reflection and prompting
 
-write replys in db
+how to manipulate context from under
+    - prioritize a state and give at an entirely misleading prompt
+    - how to manipulate whether previous conversation is provided
+
 convread - nice flexible exporting (cstatus interface dependency)
 cstatus interface - list convos and within convos list cstatuses
 

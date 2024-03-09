@@ -4,7 +4,7 @@ from langchain_core.messages.human import HumanMessage
 from langchain_core.messages.ai import AIMessage
 from convcore import api_key
 
-with open("playground_lch_result", "a") as p:
+def intent_reco():
     api_key()
     task="""
     Tady jsou možnosti:
@@ -13,7 +13,7 @@ with open("playground_lch_result", "a") as p:
     b) zeptal se jak se má
     c) postěžoval si na počasí
     d) pochválil počasí
-    d) nic z nabídnutých možností
+    e) nic z nabídnutých možností
 
     Které z uvedených variant nejlépe odpovídá poslední replika v následující konverzaci?
     """
@@ -28,6 +28,8 @@ with open("playground_lch_result", "a") as p:
     Jasně! z nabídnutých variant volil mluvčí variantu"""))
 
     result = chat.invoke(messages)
-    print(result.content)
-    p.write("\n")
-    p.write(str(result.content))
+
+    with open("playground_lch_result", "a") as p:
+        p.write("\n")
+        p.write(str(result.content))
+    return  result.content

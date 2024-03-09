@@ -5,3 +5,5 @@ from .intent import Intent
 
 from .prompting.utilz import api_key
 from .structure import structure
+
+from .prompting import *

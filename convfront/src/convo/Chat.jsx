@@ -7,6 +7,11 @@ import "./loader.css";
 const Chat = () => {
   const [[loading, minLoading], setLoading] = useState([true, true]);
   const [cStatus, setCStatus] = useState(null);
+  const [startTime, setStartTime] = useState(null);
+
+  useEffect(() => {
+    setStartTime(Date.now()); // Record the start time when component mounts
+  }, []);
 
   useEffect(() => {
     if (cStatus == null) {
@@ -30,7 +35,11 @@ const Chat = () => {
   };
 
   const handleCStatus = async (userSpeech) => {
-    const newCStatus = await myRequest("/bot", [userSpeech, cStatus]);
+    const newCStatus = await myRequest("/bot", [
+      userSpeech,
+      cStatus,
+      Date.now() - startTime,
+    ]);
     setCStatus(newCStatus);
     setTimeout(() => setLoading([false, false]), 1500);
   };
