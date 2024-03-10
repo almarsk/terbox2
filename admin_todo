@@ -1,7 +1,6 @@
 cstatus pipe line (as already done)
-    write replys in db
     rhematize
-    function calling
+    function calling - dynamically create the functions dict
     intent reco
     prompt says
     global reflection and prompting

@@ -1,2 +1,18 @@
 
 c) postěžoval si na počasí
+
+
+
+
+
+
+
+
+
+
+{'function_call': {'arguments': '{"variants":["a) prozradil co d\\u011bl\\u00e1","b) zeptal se jak se m\\u00e1","c) post\\u011boval si na po\\u010das\\u00ed","d) pochv\\u00e1lil po\\u010das\\u00ed","e) nic z nab\\u00eddnut\\u00fdch mo\\u017enost\\u00ed"]}', 'name': 'choose_variants'}}
+{'function_call': {'arguments': '{"variants":["a) prozradil co d\\u011bl\\u00e1","b) zeptal se jak se m\\u00e1","c) post\\u0119\\u017eoval si na po\\u010das\\u00ed","d) pochv\\u00e1lil po\\u010das\\u00ed","e) nic z nab\\u00eddnut\\u00fdch mo\\u017enost\\u00ed"]}', 'name': 'choose_variants'}}
+{'function_call': {'arguments': '{"variants":["a) prozradil co d\\u011bl\\u00e1","b) zeptal se jak se m\\u00e1","c) post\\u0119\\u017eoval si na po\\u010das\\u00ed","d) pochv\\u00e1lil po\\u010das\\u00ed","e) nic z nab\\u00eddnut\\u00fdch mo\\u017enost\\u00ed"]}', 'name': 'choose_variants'}}
+{'function_call': {'arguments': '{"variants":["prozradil co d\\\\u011bl\\\\u00e1","zeptal se jak se m\\\\u00e1","post\\\\u011b\\\\u017eoval si na po\\\\u010das\\\\u00ed","pochv\\\\u00e1lil po\\\\u010das\\\\u00ed","nic z nab\\\\u00eddnut\\\\u00fdch mo\\\\u017enost\\\\u00ed"]}', 'name': 'choose_variants'}}
+{"variants":["a) prozradil co d\u011bl\u00e1","b) zeptal se jak se m\u00e1","c) post\u011b\u017eoval si na po\u010das\u00ed","d) pochv\u00e1lil po\u010das\u00ed","e) nic z nab\u00eddnut\u00fdch mo\u017enost\u00ed"]}
+{"variants":["prozradil co d\u011bl\u00e1","zeptal se jak se m\u00e1","post\u0119\u017eoval si na po\u010das\u00ed","pochv\u00e1lil po\u010das\u00ed","nic z nab\u00eddnut\u00fdch mo\u017enost\u00ed"]}

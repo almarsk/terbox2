@@ -50,3 +50,9 @@ Můj oblíbený film je Pán prstenů.
 Myslím, že dneska mají být výborné slevy na elektrospotřebiče!
 Podle předpovědi by mělo být dneska celkem jasno, ale počasí se může rychle změnit. Raději si vem s sebou deštník, pro jistotu.
 Podíval jsem se ráno a vypadalo to, že by mohlo, ale teď už si nejsem tak jistý. Raději si vem s sebou deštník.
+['a) prozradil co dÃ\x84Â\x9blÃ¡', 'b) zeptal se jak se mÃ¡', 'c) postÄ\x9bÅ¾oval si na poÄ\x8dasÃ\xad', 'd) pochvÃ¡lil poÄ\x8dasÃ\xad', 'e) nic z nabÃ\xaddnutÃ½ch moÅ¾nostÃ\xad']
+['a) prozradil co dÄ\x9blÃ¡', 'b) zeptal se jak se mÃ¡', 'c) postÄ\x99Å¾oval si na poÄ\x8dasÃ\xad', 'd) pochvÃ¡lil poÄ\x8dasÃ\xad', 'e) nic z nabÃ\xaddnutÃ½ch moÅ¾nostÃ\xad']
+['prozradil co dělá', 'zeptal se jak se má', 'postęžoval si na počasí', 'pochválil počasí', 'nic z nabídnutých možností']
+['a) prozradil co dělá', 'b) zeptal se jak se má', 'c) postěžoval si na počasí', 'd) pochválil počasí', 'e) nic z nabídnutých možností']
+['a', 'b', 'c', 'd', 'e']
+a,b,c,d,e
