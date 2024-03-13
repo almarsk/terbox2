@@ -39,5 +39,6 @@ with app.app_context():
     flow = Flow(flow_name)
 
     user_speech = "twl lol haha okidouk"
+    c = ConversationStatus(user_speech, flow, cs).__dict__
 
-    pprint.pp(ConversationStatus(user_speech, flow, cs).__dict__)
+    pprint.pp(c)

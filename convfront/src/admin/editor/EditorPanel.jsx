@@ -56,6 +56,7 @@ const EditorPanel = ({
           setActivePanel={setActivePanel}
           setActiveElement={setActiveElement}
           fetchItems={fetchItems}
+          fetchProof={fetchProof}
           elements={
             flowData && flowData.states
               ? flowData.states.map((s) => s.name)

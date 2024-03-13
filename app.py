@@ -57,10 +57,11 @@ class Reply(db.Model):
     __tablename__ = "reply"
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("conversation.id"), nullable=False)
-    user_reply = db.Column(db.Text, nullable=False)
+    reply = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     reaction_ms = db.Column(db.Integer) # chatbot replies have a NULL reaction_ms
     cstatus = db.Column(JSON)
+    who = db.Column(db.Text, nullable=False)
     __table_args__ = {'extend_existing': True}
 
 class Flow(db.Model):

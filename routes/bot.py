@@ -12,12 +12,21 @@ def bot():
     cstatus_out = reply(user_speech, Flow(session["flow"]), c_status_in)
     if cstatus_out.end:
         session["phase"] += 1
+
     from app import Reply
     reply = Reply(
         user_id=session["conversation_id"],
-        user_reply=user_speech,
+        reply=user_speech,
         reaction_ms=elapsed_time,
-        cstatus=cstatus_out.__dict__)
+        cstatus=c_status_in.__dict__,
+        who="human")
+
+    reply = Reply(
+        user_id=session["conversation_id"],
+        reply=cstatus_out.say,
+        reaction_ms=0, # todo
+        cstatus=cstatus_out.__dict__,
+        who="bot")
 
     db.session.add(reply)
     db.session.commit()

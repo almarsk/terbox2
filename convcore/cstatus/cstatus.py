@@ -53,7 +53,14 @@ class ConversationStatus:
         self.matched_intents = self.match_intents(user_speech, flow)
 
         # process adjacent states to have max one initiative etc
-        self.last_states = self.rhematize(prev_cs is None, flow, prev_cs["context_states"])
+        self.last_states = ([flow.track[0]]
+            if prev_cs is None
+            else self.rhematize(
+            flow,
+            prev_cs["context_states"],
+            prev_cs["state_usage"]
+            )
+        )
 
         # mark down initiativity
         self.turns_since_initiative = self.update_turns_since_initiative(
@@ -106,7 +113,11 @@ class ConversationStatus:
         # if there is no reply, it is the end of convo
         self.end = self.raw_say is None or not self.raw_say
 
-        self.turns_history = prev_cs["turns_history"] + [user_speech] + [self.say]
+        self.turns_history = [] if prev_cs is None else prev_cs["turns_history"] + [
+            {"say": user_speech, "who": "human"}
+        ] + [
+            {"say": self.say, "who": "bot"}
+        ]
 
     #_______ pipeline _______
 
@@ -128,10 +139,8 @@ class ConversationStatus:
             return {}
 
 
-    def rhematize(self, is_conversation_start, flow, context_states):
-        if is_conversation_start:
-            return [flow.track[0]]
-        return get_rhematized_states(flow, self.matched_intents, context_states)
+    def rhematize(self, flow, context_states, usage):
+        return get_rhematized_states(flow, self.matched_intents, context_states, usage)
 
 
     def update_turns_since_initiative(self, previous_number_of_turns, flow):
