@@ -106,7 +106,7 @@ class ConversationStatus:
         # if there is no reply, it is the end of convo
         self.end = self.raw_say is None or not self.raw_say
 
-        self.turns = prev_cs["turns"] + [user_speech] + [self.say]
+        self.turns_history = prev_cs["turns_history"] + [user_speech] + [self.say]
 
     #_______ pipeline _______
 
