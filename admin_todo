@@ -2,6 +2,7 @@ cstatus pipe line (as already done)
     rhematize
     make some flows
     convread - nice flexible exporting (cstatus interface dependency)
+    convread prompt - history
 
 ________________________________________________________________________________
     function calling - dynamically create the functions dict
@@ -14,6 +15,9 @@ how to manipulate context from under - this is in prompting the says part
     - emphasise a state and give at an entirely misleading prompt
     - how to manipulate whether previous conversation is provided - emphasis
 ________________________________________________________________________________
+
+    convread peek   - nice readable output
+    convread debug  - flexible cstatus
 
 cstatus interface - list convos and within convos list cstatuses
 

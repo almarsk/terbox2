@@ -31,7 +31,8 @@ with app.app_context():
       ],
       "prompted_say": "BROH",
       "say": "BROH",
-      "end": False
+      "end": False,
+      "turns": []
     }
 
     flow_name = "test"
