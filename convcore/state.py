@@ -12,7 +12,7 @@ class State:
     intents: dict
     say: list[tuple[Say,str]]
     response_type: ResponseType
-    prioritize: bool
+    emphasis: bool
     iteration: int
     initiativity: int
     context_intents: list
@@ -23,7 +23,7 @@ class State:
         self.intents = state.get("intents", {})
         self.say = state.get("say", [])
         self.response_type = state.get("response_type", ResponseType.FLEXIBLE)
-        self.prioritize = state.get("prioritize", False)
+        self.emphasis = state.get("emphasis", False)
         self.iteration = state.get("iteration", 1)
         self.initiativity = state.get("initiativity", 1)
         self.context_intents = state.get("context_intents", [])

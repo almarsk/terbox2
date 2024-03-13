@@ -1,18 +1,21 @@
 cstatus pipe line (as already done)
     rhematize
+    make some flows
+    convread - nice flexible exporting (cstatus interface dependency)
+
+________________________________________________________________________________
     function calling - dynamically create the functions dict
     intent reco
     prompt says
     global reflection and prompting
 
-how to manipulate context from under
-    - prioritize a state and give at an entirely misleading prompt
-    - how to manipulate whether previous conversation is provided
+how to manipulate context from under - this is in prompting the says part
+    - if a state is emphasised, it doesnt receive context
+    - emphasise a state and give at an entirely misleading prompt
+    - how to manipulate whether previous conversation is provided - emphasis
+________________________________________________________________________________
 
-convread - nice flexible exporting (cstatus interface dependency)
 cstatus interface - list convos and within convos list cstatuses
-
-make some flows
 
 add user directions to flow
 add pictures

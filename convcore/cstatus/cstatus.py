@@ -25,6 +25,7 @@ from .pipeline.is_initiative import is_initiative
 from .pipeline.get_current_initiativity import get_current_initiativity
 from .pipeline.gather_context_states import gather_context_states
 from .pipeline.gather_context_intents import gather_context_intents
+from .pipeline.get_rhematized_states import get_rhematized_states
 from ..prompting.resolve_prompt import resolve_prompt
 
 class ConversationStatus:
@@ -51,8 +52,10 @@ class ConversationStatus:
         # decide which intents have been matched
         self.matched_intents = self.match_intents(user_speech, flow)
 
+        self.adjacent = self.get_adjacent(flow)
+
         # process adjacent states to have max one initiative etc
-        self.last_states = self.rhematize(prev_cs is None, flow.track)
+        self.last_states = self.rhematize(prev_cs is None, flow, prev_cs["context_states"])
 
         # mark down initiativity
         self.turns_since_initiative = self.update_turns_since_initiative(
@@ -124,13 +127,23 @@ class ConversationStatus:
         else:
             return {}
 
+    def get_adjacent(self, flow):
+        get_full_intent = lambda searched_intent: [
+            intent
+            for intent in flow.intents
+            if intent.name == searched_intent
+            ][0]
 
-    def rhematize(self, is_conversation_start, track):
-        print("TODO rhematize")
-        # dont forget self.context_states
+        return [
+            adjacent
+            for intent in self.matched_intents
+            for adjacent in get_full_intent(intent).adjacent
+        ]
+
+    def rhematize(self, is_conversation_start, flow, context_states):
         if is_conversation_start:
-            return [track[0]]
-        return []
+            return [flow.track[0]]
+        return get_rhematized_states(flow, self.adjacent + context_states)
 
 
     def update_turns_since_initiative(self, previous_number_of_turns, flow):

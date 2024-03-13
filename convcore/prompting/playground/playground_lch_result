@@ -56,3 +56,5 @@ Podíval jsem se ráno a vypadalo to, že by mohlo, ale teď už si nejsem tak j
 ['a) prozradil co dělá', 'b) zeptal se jak se má', 'c) postěžoval si na počasí', 'd) pochválil počasí', 'e) nic z nabídnutých možností']
 ['a', 'b', 'c', 'd', 'e']
 a,b,c,d,e
+{'popis0': False, 'popis1': True, 'popis2': True, 'popis3': False, 'popis4': False}
+{'popis0': False, 'popis1': False, 'popis2': True, 'popis3': False, 'popis4': False}

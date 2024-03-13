@@ -5,58 +5,65 @@ from langchain_core.messages.ai import AIMessage
 from convcore import api_key
 
 import json
+import pprint
 
-def intent_reco():
+def intent_reco(prompts, convo):
     api_key()
-    task="""
-    Tady jsou možnosti:
 
-    a) prozradil co dělá
-    b) zeptal se jak se má
-    c) postěžoval si na počasí
-    d) pochválil počasí
-    e) nic z nabídnutých možností
-
-    Tvůj úkol:
-    Seřaď možnosti podle toho, jak dobře popisují poslední repliku v konverzaci.
-    Možnosti, které nezapadají nezahrnuj.
-    Odpověď pouze písmenem.
-
-    Přechozí konverzace:
-    """
     chat = ChatOpenAI(model="gpt-4-1106-preview", temperature=0.5)
-    messages = [
-        HumanMessage(content="Ahoj jak se máš?"),
-        AIMessage(content="čau jo dobře, mám se fajn. co teď děláš?"),
-        SystemMessage(content="\nAktuální replika:"),
-        HumanMessage(content="dneska je ošklivo"),
+
+    messages: list[HumanMessage | AIMessage | SystemMessage] = [
+        HumanMessage(content=turn["say"])
+        if turn["who"] == "human"
+        else AIMessage(content=turn["say"])
+        for turn in convo
     ]
 
+    messages.insert(-1, SystemMessage(content="\nAktuální replika:"))
+
     functions=[{
-        'name': 'choose_variants',
-        'description': 'Zaznamenává pořadí daných popisů poslední repliky od nejvhodnějšího po nejméně vhodný. Ty úplně nevhodné vynechává.',
+        'name': 'zhodnot_nalezitost_popisu',
+        'description': '''\
+Zaznamenej u jednotlivých popisů,\
+jestli odpovídají aktuální replice v konverzaci.\
+Hodnoť jen poslední repliku, \
+ty přdchozí jsou zde jen pro kontext''',
         'parameters': {
             'type': 'object',
             'properties': {
-                "variants": {
-                    "type": "string",
-                    "description": "Seřaď vhodné popisy",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-
-
+                f"popis{index}": {
+                    "type": "boolean",
+                    "description": prompt,
+                } for index, prompt in enumerate(prompts, start=1)
             },
-        'required': ['variants']
+        'required': [f"popis{index}" for index, _ in enumerate(prompts, start=1)]
     }}]
 
-    result = chat.invoke(messages, functions=functions).additional_kwargs
+    pprint.pp(messages)
+    pprint.pp(functions)
 
+    result = chat.invoke(messages, functions=functions).additional_kwargs
     decoded_arguments = json.loads(bytes(result["function_call"]["arguments"], "utf-8").decode("unicode_escape"))
 
     with open("convcore/prompting/playground/playground_lch_result", "a") as p:
         p.write("\n")
-        p.write(str(decoded_arguments['variants']))
+        p.write(str(decoded_arguments))
 
     return decoded_arguments
+
+def test_func_call():
+
+    convo = [
+        {"say": "Ahoj, jak se máš", "who": "human"},
+        {"say": "čau jo dobře, mám se fajn. co teď děláš?", "who": "bot"},
+        {"say": "dneska je ošklivo", "who": "human"},
+    ]
+
+    prompts = [
+        "prozradil co dělá",
+        "zeptal se jak se má",
+        "postěžoval si na počasí",
+        "pochválil počasí",
+    ]
+
+    return intent_reco(prompts, convo)

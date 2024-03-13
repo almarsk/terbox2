@@ -10,6 +10,7 @@ const Listing = ({
   setActiveElement,
   elements,
   fetchItems,
+  fetchProof,
   setLastEvent,
 }) => {
   const [newItemValue, setNewItemValue] = useState("");
@@ -37,6 +38,7 @@ const Listing = ({
       }).then((e) => {
         console.log(e);
         fetchItems();
+        fetchProof();
         e.success
           ? setLastEvent(`created ${elementType} ${newItemValue}`)
           : setLastEvent(`couldn't create ${elementType} ${newItemValue}`);
@@ -55,6 +57,7 @@ const Listing = ({
       name: elementName,
     }).then(() => {
       fetchItems();
+      fetchProof();
     });
   };
 
@@ -116,6 +119,7 @@ Listing.propTypes = {
   setActiveElement: PropTypes.func.isRequired,
   elements: PropTypes.array.isRequired,
   fetchItems: PropTypes.func.isRequired,
+  fetchProof: PropTypes.func.isRequired,
   setLastEvent: PropTypes.func.isRequired,
 };
 

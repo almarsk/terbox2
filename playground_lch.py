@@ -1,3 +1,3 @@
-from convcore.prompting.playground.func_call_intent_reco import intent_reco
+from convcore.prompting.playground.func_call_intent_reco import test_func_call
 
-print(intent_reco())
+print(test_func_call())
