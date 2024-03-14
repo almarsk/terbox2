@@ -4,8 +4,6 @@ from sys import getswitchinterval
 
 def get_rhematized_states(flow, states, context_states, usage, coda, time_to_initiate):
 
-    #print(states)
-
     # order adjacents by index
     ordered_states = [
         state
@@ -17,8 +15,6 @@ def get_rhematized_states(flow, states, context_states, usage, coda, time_to_ini
         ], key=lambda x: x[0])
         for state in states
     ]
-
-    #print("ordered",ordered_states)
 
     ordered_states += [state for state in context_states if state not in ordered_states]
 
@@ -38,21 +34,21 @@ def get_rhematized_states(flow, states, context_states, usage, coda, time_to_ini
         if is_connective:
             pass
 
+        is_overiterated = full_state.iteration >= 0 and full_state.iteration - usage.get(state, 0) < 0
         is_initiative = full_state.response_type == "initiative" or full_state.response_type == "flexible"
         if is_initiative:
             initiatives.append([previous_connective, state] if previous_connective else [state])
             pass
 
-        is_overiterated = full_state.iteration >= 0 and full_state.iteration - usage.get(state, 0) < 0
-        if not is_overiterated and state not in rhematized_states:
+        elif not is_initiative and not is_overiterated and state not in rhematized_states:
             if previous_connective:
                 #print(previous_connective)
                 rhematized_states.append(previous_connective)
             rhematized_states.append(state)
-
         previous_connective = ""
+    print("prin", rhematized_states)
     rhematized_states += (initiatives[-1] if initiatives else [])
-
+    print("fin",rhematized_states)
 
     if not initiatives and not coda and time_to_initiate:
         #print("time to initiate")
@@ -66,6 +62,7 @@ def get_rhematized_states(flow, states, context_states, usage, coda, time_to_ini
             rhematized_states.append(coda_state)
 
     return rhematized_states
+
 
 def add_least_iterated_non_over_iterated(states, flow, usage):
     get_full_state = lambda searched_state: [
