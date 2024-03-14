@@ -53,13 +53,29 @@ const Flows = ({ setIssues }) => {
 
   return (
     <div className="listing_container">
-      <MenuButton
-        icon={archived ? "📂" : "📁"}
-        click={() => {
-          setArchived((prevArchived) => !prevArchived);
-        }}
-        hoverText={`${archived ? "hide" : "view"} archived`}
-      />
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <MenuButton
+          icon={archived ? "📂" : "📁"}
+          click={() => {
+            setArchived((prevArchived) => !prevArchived);
+          }}
+          hoverText={`${archived ? "hide" : "view"} archived`}
+        />
+        {archived ? (
+          <MenuButton
+            icon={"❌"}
+            click={async () => {
+              await myRequest("/stash", {}).then((e) => {
+                fetchBots();
+                fetchProjects();
+              });
+            }}
+            hoverText={`remove archived`}
+          />
+        ) : (
+          ""
+        )}
+      </div>
       <div className="flow-container">
         <ProjectList
           archived={archived}

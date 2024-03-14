@@ -34,8 +34,8 @@ ty předchozí jsou zde jen pro kontext''',
                 f"{intent}": {
                     "type": "integer",
                     "description": f'''\
-index znaku aktuální repliky, kde začíná segment,\
-kde uživatel {prompt}, nebo -1 pokud popis neodpovídá''',
+číslo písmene od začátku aktuální repliky, kde začíná část repliky,\
+ve které uživatel {prompt}, nebo -1 pokud popis neodpovídá''',
                 } for intent, prompt in prompts.items()
             },
         'required': [f"{intent}" for intent, _ in prompts.items()]

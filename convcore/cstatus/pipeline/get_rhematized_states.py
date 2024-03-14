@@ -46,9 +46,8 @@ def get_rhematized_states(flow, states, context_states, usage, coda, time_to_ini
                 rhematized_states.append(previous_connective)
             rhematized_states.append(state)
         previous_connective = ""
-    print("prin", rhematized_states)
     rhematized_states += (initiatives[-1] if initiatives else [])
-    print("fin",rhematized_states)
+
 
     if not initiatives and not coda and time_to_initiate:
         #print("time to initiate")

@@ -38,7 +38,7 @@ const RenameItemForm = ({
           if (response.success) {
             fetchProof();
             fetchItems();
-            setNewItemValue(bot);
+            setNewItemValue(newItemValue);
             setRenameMode(false);
             setLastEvent(
               `renamed ${elementType} from ${item} to ${newItemValue}`,
@@ -47,12 +47,13 @@ const RenameItemForm = ({
         });
       }}
       className="rename-flow-form"
+      style={{ width: "15px" }}
     >
       <input
         required
         ref={inputRef}
         className="new-flow"
-        placeholder="rename flow"
+        placeholder={`rename ${elementType}`}
         value={newItemValue}
         onChange={(e) => setNewItemValue(e.target.value)}
         type="text"

@@ -40,7 +40,11 @@ def copy_item(args):
     index = 1
     while [item for item in items if item["name"] == new_name]:
         index += 1
-        new_name = f"{new_name}_{str(index)}"
+        if len(split) > 1 and split[-1].isdigit():
+            base = "_".join(split[0:-1])
+        else:
+            base = split[0]
+        new_name = f"{base}_{str(index)}"
 
     copied_target["name"] = new_name
 

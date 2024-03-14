@@ -22,7 +22,7 @@ class State:
         self.name = state.get("name", "")
         self.intents = state.get("intents", {})
         self.say = state.get("say", [])
-        self.response_type = state.get("response_type", ResponseType.FLEXIBLE)
+        self.response_type = state.get("response_type", ResponseType.RESPONSIVE)
         self.emphasis = state.get("emphasis", False)
         self.iteration = state.get("iteration", 1)
         self.initiativity = state.get("initiativity", 1)

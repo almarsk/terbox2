@@ -50,53 +50,51 @@ const ItemBrick = ({
           elementType={elementType}
         />
       ) : (
-        <>
-          <p className="project-name"> {itemName}</p>
-          <div className="button-container">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                const copy_item = async () => {
-                  const really = window.confirm(`copy ${elementType} ${flow}?`);
-                  really &&
-                    (await myRequest("/convform", {
-                      flow: flow,
-                      func: "copy",
-                      name: itemName,
-                      item_type: elementType,
-                    }).then(() => {
-                      fetchProof();
-                      fetchItems();
-                      setLastEvent(`copied ${elementType} ${itemName}`);
-                    }));
-                };
-                copy_item();
-              }}
-              className="submit admin-button"
-            >
-              👥
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setRenameMode(true);
-              }}
-              className="submit admin-button"
-            >
-              ✏️
-            </button>
-            <button
-              onClick={(e) => {
-                removeButton(e, itemName);
-                setLastEvent(`removed ${elementType} ${itemName}`);
-              }}
-              className="submit admin-button"
-            >
-              ❌️
-            </button>
-          </div>
-        </>
+        <p className="project-name"> {itemName}</p>
       )}
+      <div className="button-container">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            const copy_item = async () => {
+              const really = window.confirm(`copy ${elementType} ${itemName}?`);
+              really &&
+                (await myRequest("/convform", {
+                  flow: flow,
+                  func: "copy",
+                  name: itemName,
+                  item_type: elementType,
+                }).then(() => {
+                  fetchProof();
+                  fetchItems();
+                  setLastEvent(`copied ${elementType} ${itemName}`);
+                }));
+            };
+            copy_item();
+          }}
+          className="submit admin-button"
+        >
+          👥
+        </button>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setRenameMode((prev) => !prev);
+          }}
+          className="submit admin-button"
+        >
+          ✏️
+        </button>
+        <button
+          onClick={(e) => {
+            removeButton(e, itemName);
+            setLastEvent(`removed ${elementType} ${itemName}`);
+          }}
+          className="submit admin-button"
+        >
+          ❌️
+        </button>
+      </div>
     </div>
   );
 };

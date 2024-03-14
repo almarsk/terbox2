@@ -24,7 +24,11 @@ def copy_flow():
         index = 1
         while Flow.query.filter_by(flow_name=new_name).first():
             index += 1
-            new_name = f"{new_name}_{str(index)}"
+            if len(split) > 1 and split[-1].isdigit():
+                base = "_".join(split[0:-1])
+            else:
+                base = source_flow.flow_name
+            new_name = f"{base}_{str(index)}"
 
         item = Flow(
             flow_name=new_name,

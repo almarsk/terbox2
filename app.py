@@ -139,7 +139,8 @@ blueprint_paths = [
     "admin.copy.copy_flow_bp",
     "admin.export.export_flow_bp",
     "admin.rename.rename_bp",
-    "admin.structure.structure_bp"
+    "admin.structure.structure_bp",
+    "admin.stash.stash_bp"
 ]
 
 for path in blueprint_paths:

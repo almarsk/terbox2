@@ -111,6 +111,6 @@ const determineDefault = (type) => {
         : type.includes("int")
           ? 1
           : type == "ResponseType"
-            ? "flexible"
+            ? "responsive"
             : "";
 };
