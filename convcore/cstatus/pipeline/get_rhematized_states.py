@@ -2,12 +2,12 @@ from os import setuid
 import pprint
 from sys import getswitchinterval
 
-def get_rhematized_states(flow, states, context_states, usage, coda):
+def get_rhematized_states(flow, states, context_states, usage, coda, time_to_initiate):
 
-    print(states)
+    #print(states)
 
     # order adjacents by index
-    ordered_states = {
+    ordered_states = [
         state
         for [index, states]
         in sorted([
@@ -16,9 +16,11 @@ def get_rhematized_states(flow, states, context_states, usage, coda):
             in states.items()
         ], key=lambda x: x[0])
         for state in states
-    }
+    ]
 
-    ordered_states |= set(context_states)
+    #print("ordered",ordered_states)
+
+    ordered_states += [state for state in context_states if state not in ordered_states]
 
     get_full_state = lambda searched_state: [
         state
@@ -44,7 +46,7 @@ def get_rhematized_states(flow, states, context_states, usage, coda):
         is_overiterated = full_state.iteration >= 0 and full_state.iteration - usage.get(state, 0) < 0
         if not is_overiterated and state not in rhematized_states:
             if previous_connective:
-                print(previous_connective)
+                #print(previous_connective)
                 rhematized_states.append(previous_connective)
             rhematized_states.append(state)
 
@@ -52,7 +54,8 @@ def get_rhematized_states(flow, states, context_states, usage, coda):
     rhematized_states += (initiatives[-1] if initiatives else [])
 
 
-    if not initiatives and not coda:
+    if not initiatives and not coda and time_to_initiate:
+        #print("time to initiate")
         track_state = add_least_iterated_non_over_iterated(flow.track, flow, usage)
         if track_state:
             rhematized_states.append(track_state)

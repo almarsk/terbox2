@@ -40,12 +40,14 @@ def get_matched_intents(flow, to_match_intent_names, user_speech, history, log):
         matched_prompts = intent_reco(prompts, history, log)
 
     # add llm matched intents to matched_intents_with_start_index
-    for intent, matched in matched_prompts.items():
+    for intent, index in matched_prompts.items():
         # find intent based on prompt
-        if matched:
-            matched_intents_with_start_index[intent] = sys.maxsize
+        if index >= 0:
+            matched_intents_with_start_index[intent] = index
 
+    #print(matched_prompts)
     #print("matched llm",matched_intents_with_start_index)
+
     return matched_intents_with_start_index
 
 

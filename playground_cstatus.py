@@ -26,13 +26,14 @@ with app.app_context():
         "say": "jé ahoj",
         "state_usage": {"intro": 1},
         "turns_history": [{"say": "jé ahoj", "who": "bot"}],
-        "turns_since_initiative": 1,
+        "turns_since_initiative": 1
     }
+
 
     flow_name = "test"
     flow = Flow(flow_name)
 
-    user_speech = "mám rád špagety"
+    user_speech = "nemám rád psy ale mám rád špagety"
     c = ConversationStatus(user_speech, flow, cs).__dict__
 
     pprint.pp(c)

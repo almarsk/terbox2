@@ -1,22 +1,3 @@
-"""
-    Conversation status {
-        context intents: {str: str}
-        previous last states: [str]
-        possible intents: {str: [str]}
-        matched intents: {str: [str]}
-        last states: [str]
-        turns_since_initiative: int
-        initiativity: int
-        context states: [str]
-        history: [[str]]
-        state usage: {str: int}
-        coda: bool
-        raw_say: str
-        say: str
-        end: bool
-        bot turns: int
-    }
-"""
 import random
 
 from .pipeline.get_to_match import get_to_match
@@ -65,7 +46,8 @@ class ConversationStatus:
             flow,
             prev_cs["context_states"],
             prev_cs["state_usage"],
-            prev_cs["coda"]
+            prev_cs["coda"],
+            prev_cs["initiativity"] - prev_cs["turns_since_initiative"] < 0
             )
         )
 
@@ -137,7 +119,6 @@ class ConversationStatus:
 
     def match_intents(self, user_speech, flow, history):
         to_match_intent_names = dict(self.possible_intents)
-        print("TODO prompt intent reco")
 
         if not to_match_intent_names:
             return {}
@@ -157,8 +138,15 @@ class ConversationStatus:
 
 
 
-    def rhematize(self, flow, context_states, usage, coda):
-        return get_rhematized_states(flow, self.matched_intents, context_states, usage, coda)
+    def rhematize(self, flow, context_states, usage, coda, time_to_initiate):
+        return get_rhematized_states(
+            flow,
+            self.matched_intents,
+            context_states,
+            usage,
+            coda,
+            time_to_initiate
+        )
 
 
     def update_turns_since_initiative(self, previous_number_of_turns, flow):
@@ -192,11 +180,17 @@ class ConversationStatus:
 
 
     def assemble_reply(self, flow):
-        return [
-            state.say[random.randint(0, len(state.say) - 1)]
-            for state in flow.states
-            if state.name in self.last_states
-        ]
+        raw_says = []
+        get_full_state = lambda state: [s for s in flow.states if s.name == state][0]
+        for state in self.last_states:
+            full_state = get_full_state(state)
+            raw_says.append(
+                full_state.say[random.randint(0, len(full_state.say) - 1)]
+            )
+
+        return raw_says
+
+
 
 
     def prompt_reply(self):

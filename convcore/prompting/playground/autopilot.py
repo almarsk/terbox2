@@ -31,6 +31,6 @@ with open("playground_lch_result", "a") as p:
     Sure, an answering {options[choice]}"""))
 
     result = chat.invoke(messages)
-    print(result.content)
+    #print(result.content)
     p.write("\n")
     p.write(str(result.content))
