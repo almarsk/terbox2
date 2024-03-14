@@ -49,8 +49,14 @@ class ConversationStatus:
             {} if prev_cs is None
             else self.to_match(flow, prev_cs["context_intents"])
         )
+
+        self.prompt_log = []
+
         # decide which intents have been matched
-        self.matched_intents = self.match_intents(user_speech, flow)
+        self.matched_intents = self.match_intents(
+            user_speech,
+            flow,
+            prev_cs["turns_history"]+[{"say": user_speech, "who": "human"}] if prev_cs is not None else [])
 
         # process adjacent states to have max one initiative etc
         self.last_states = ([flow.track[0]]
@@ -114,7 +120,7 @@ class ConversationStatus:
         # if there is no reply, it is the end of convo
         self.end = self.raw_say is None or not self.raw_say
 
-        self.turns_history = [] if prev_cs is None else prev_cs["turns_history"] + [
+        self.turns_history = [{"say": self.say, "who": "bot"}] if prev_cs is None else prev_cs["turns_history"] + [
             {"say": user_speech, "who": "human"}
         ] + [
             {"say": self.say, "who": "bot"}
@@ -125,19 +131,30 @@ class ConversationStatus:
     def to_match(self, flow, prev_context_intents):
         return get_to_match(flow, self.previous_last_states, prev_context_intents)
 
+    def add_to_prompt_log(self, addition):
+        self.prompt_log += addition
 
-    def match_intents(self, user_speech, flow):
+
+    def match_intents(self, user_speech, flow, history):
         to_match_intent_names = dict(self.possible_intents)
         print("TODO prompt intent reco")
 
-        if to_match_intent_names:
-            matched_intents_with_index = get_matched_intents(flow, to_match_intent_names.keys(), user_speech)
-            return {key: {
-                "adjacent": value,
-                "index": matched_intents_with_index[key]
-            } for key, value in to_match_intent_names.items() if key in list(matched_intents_with_index.keys())}
-        else:
+        if not to_match_intent_names:
             return {}
+
+        matched_intents_with_index = get_matched_intents(
+            flow,
+            to_match_intent_names.keys(),
+            user_speech,
+            history[-3:] if len(history) >= 3 else history,
+            self.add_to_prompt_log)
+
+        return {key: {
+            "adjacent": value,
+            "index": matched_intents_with_index[key]
+        } for key, value in to_match_intent_names.items() if key in list(matched_intents_with_index.keys())}
+
+
 
 
     def rhematize(self, flow, context_states, usage, coda):

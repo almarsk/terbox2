@@ -2,7 +2,7 @@ import sys
 import re
 from convcore.prompting.intent_reco import intent_reco
 
-def get_matched_intents(flow, to_match_intent_names, user_speech):
+def get_matched_intents(flow, to_match_intent_names, user_speech, history, log):
     get_full_intent = lambda searched_intent: [
         intent
         for intent in flow.intents
@@ -34,26 +34,18 @@ def get_matched_intents(flow, to_match_intent_names, user_speech):
             matched_intents_with_start_index[intent] = match_index
 
     # do the prompting
-    prompts = [prompt["prompt"] for prompt in prompts_to_match]
+    prompts = {prompt["intent"]: prompt["prompt"] for prompt in prompts_to_match}
     matched_prompts = dict()
     if prompts:
-        matched_prompts = intent_reco(prompts, user_speech)
+        matched_prompts = intent_reco(prompts, history, log)
 
     # add llm matched intents to matched_intents_with_start_index
-    for matched in matched_prompts:
+    for intent, matched in matched_prompts.items():
         # find intent based on prompt
-        matching_prompt_info = [
-            prompt_info for prompt_info
-            in prompts_to_match
-            if matched["prompt"] == prompt_info["prompt"]][0]
+        if matched:
+            matched_intents_with_start_index[intent] = sys.maxsize
 
-        if matching_prompt_info["intent"] in matched_intents_with_start_index:
-            match_index = matched_intents_with_start_index[matching_prompt_info["intent"]]
-            if match_index > matched["match_index"]:
-                match_index = matched["match_index"]
-        else:
-            matched_intents_with_start_index[matching_prompt_info["intent"]] = matched["match_index"]
-
+    #print("matched llm",matched_intents_with_start_index)
     return matched_intents_with_start_index
 
 

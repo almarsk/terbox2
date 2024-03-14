@@ -8,34 +8,31 @@ from app import app
 with app.app_context():
 
     cs = {
-      "bot_turns": 0,
-      "previous_last_states": [],
-      "possible_intents": {},
-      "matched_intents": {},
-      "last_states": [],
-      "turns_since_initiative": 0,
-      "initiativity": 1,
-      "context_intents": [],
-      "context_states": [],
-      "history_intents": [[]],
-      "history_states": [],
-      "state_usage": {
-
-      },
-      "coda": False,
-      "raw_say": [
-
-      ],
-      "prompted_say": "",
-      "say": "",
-      "end": False,
-      "turns_history": []
+        "bot_turns": 1,
+        "coda": False,
+        "context_intents": [],
+        "context_states": [],
+        "end": False,
+        "history_intents": [[]],
+        "history_states": [["intro"]],
+        "initiativity": 1,
+        "last_states": ["intro"],
+        "matched_intents": {},
+        "possible_intents": {},
+        "previous_last_states": [],
+        "prompt_log": [],
+        "prompted_say": "jé ahoj",
+        "raw_say": [{"prompt": False, "text": "jé ahoj"}],
+        "say": "jé ahoj",
+        "state_usage": {"intro": 1},
+        "turns_history": [{"say": "jé ahoj", "who": "bot"}],
+        "turns_since_initiative": 1,
     }
 
     flow_name = "test"
     flow = Flow(flow_name)
 
-    user_speech = ""
+    user_speech = "mám rád špagety"
     c = ConversationStatus(user_speech, flow, cs).__dict__
 
     pprint.pp(c)

@@ -6,7 +6,6 @@ def get_to_match(flow, last_states, context_intents):
     get_full_intent = lambda intent: [i for i in flow.intents if i.name == intent][0]
 
     for state in last_states:
-        print(state)
         # find intents of state
         full_state = [s for s in flow.states if s.name == state][0]
 

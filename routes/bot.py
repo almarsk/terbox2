@@ -14,12 +14,14 @@ def bot():
         session["phase"] += 1
 
     from app import Reply
+
     reply = Reply(
         user_id=session["conversation_id"],
         reply=user_speech,
         reaction_ms=elapsed_time,
         cstatus=c_status_in,
         who="human")
+    db.session.add(reply)
 
     reply = Reply(
         user_id=session["conversation_id"],

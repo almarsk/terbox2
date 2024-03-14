@@ -27,13 +27,13 @@ def intent_reco(prompts, convo):
 Zaznamenej u jednotlivých popisů,\
 jestli odpovídají aktuální replice v konverzaci.\
 Hodnoť jen poslední repliku, \
-ty přdchozí jsou zde jen pro kontext''',
+ty předchozí jsou zde jen pro kontext''',
         'parameters': {
             'type': 'object',
             'properties': {
                 f"popis{index}": {
                     "type": "boolean",
-                    "description": prompt,
+                    "description": "uživatel v aktuální replice "+prompt,
                 } for index, prompt in enumerate(prompts, start=1)
             },
         'required': [f"popis{index}" for index, _ in enumerate(prompts, start=1)]
@@ -51,6 +51,7 @@ ty přdchozí jsou zde jen pro kontext''',
 
     return decoded_arguments
 
+
 def test_func_call():
 
     convo = [
@@ -61,7 +62,7 @@ def test_func_call():
 
     prompts = [
         "prozradil co dělá",
-        "zeptal se jak se má",
+        "zeptal se bota jak se má",
         "postěžoval si na počasí",
         "pochválil počasí",
     ]

@@ -4,6 +4,8 @@ from sys import getswitchinterval
 
 def get_rhematized_states(flow, states, context_states, usage, coda):
 
+    print(states)
+
     # order adjacents by index
     ordered_states = {
         state
@@ -49,15 +51,13 @@ def get_rhematized_states(flow, states, context_states, usage, coda):
         previous_connective = ""
     rhematized_states += (initiatives[-1] if initiatives else [])
 
-    print("RHEMA", rhematized_states)
 
     if not initiatives and not coda:
         track_state = add_least_iterated_non_over_iterated(flow.track, flow, usage)
         if track_state:
             rhematized_states.append(track_state)
-    print("RHEMA+INIT", rhematized_states)
+
     if not rhematized_states:
-        print("coda time")
         coda_state = add_least_iterated_non_over_iterated(flow.coda, flow, usage)
         if coda_state:
             rhematized_states.append(coda_state)
@@ -66,9 +66,7 @@ def get_rhematized_states(flow, states, context_states, usage, coda):
 
 def add_least_iterated_non_over_iterated(states, flow, usage):
     get_full_state = lambda searched_state: [
-        state
-        for state in flow.states
-        if state.name == searched_state
+        s for s in flow.states if s.name == searched_state
         ][0]
 
     candidate = sorted(
