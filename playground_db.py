@@ -18,15 +18,10 @@ def insert_data(cursor, data):
                            VALUES (?, ?, ?, ?, ?)''',
                            data)
 
-#pprint.pp([q for q in cursor.execute('''SELECT * FROM Flow;''')])
-
-pprint.pp([x for x in cursor.execute('''SELECT * FROM Reply;''')])
+# pprint.pp([q for q in cursor.execute('''SELECT * FROM Flow;''')])
+# pprint.pp([x for x in cursor.execute('''SELECT * FROM Reply;''')])
 # Insert JSON data into SQLite database
-#insert_data(cursor,("brlb", 1, load_json("bots/brlb.json"), 0, datetime.utcnow()))
-
-
-
-
+# insert_data(cursor,("brlb", 1, load_json("bots/brlb.json"), 0, datetime.utcnow()))
 
 
 # Commit changes and close connection

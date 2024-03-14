@@ -58,7 +58,8 @@ class ConversationStatus:
             else self.rhematize(
             flow,
             prev_cs["context_states"],
-            prev_cs["state_usage"]
+            prev_cs["state_usage"],
+            prev_cs["coda"]
             )
         )
 
@@ -139,8 +140,8 @@ class ConversationStatus:
             return {}
 
 
-    def rhematize(self, flow, context_states, usage):
-        return get_rhematized_states(flow, self.matched_intents, context_states, usage)
+    def rhematize(self, flow, context_states, usage, coda):
+        return get_rhematized_states(flow, self.matched_intents, context_states, usage, coda)
 
 
     def update_turns_since_initiative(self, previous_number_of_turns, flow):

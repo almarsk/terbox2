@@ -1,5 +1,10 @@
 cstatus pipe line (as already done)
-    make some flows
+    check that coda is turned on and convo is ended properly
+    next from track and not overiterated
+    check that adjacent is taken both from intent and state
+
+    get full state and get full intent in utils
+
     convread - nice flexible exporting (cstatus interface dependency)
     convread prompt - history
 

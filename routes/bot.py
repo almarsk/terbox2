@@ -18,7 +18,7 @@ def bot():
         user_id=session["conversation_id"],
         reply=user_speech,
         reaction_ms=elapsed_time,
-        cstatus=c_status_in.__dict__,
+        cstatus=c_status_in,
         who="human")
 
     reply = Reply(
