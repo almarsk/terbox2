@@ -2,20 +2,18 @@ copy intent and state
 rename intent and state
 
 ________________________________________________________________________________
-    function calling - dynamically create the functions dict
-    intent reco
-    prompt says
-    global reflection and prompting
+prompt says
+global reflection and prompting
 
 how to manipulate context from under - this is in prompting the says part
     - if a state is emphasised, it doesnt receive context
-    - emphasise a state and give at an entirely misleading prompt
+    - emphasise a state and give it an entirely misleading prompt
     - how to manipulate whether previous conversation is provided - emphasis
 ________________________________________________________________________________
 
-    convread        - nice flexible exporting
-    convread prompt - history
-    convread debug  - flexible cstatus
+convread        - nice flexible exporting
+convread prompt - history
+convread debug  - flexible cstatus
 
 cstatus interface - list convos and within convos list cstatuses
 

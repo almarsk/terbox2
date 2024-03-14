@@ -95,6 +95,42 @@ const Listing = ({
               <div className="button-container">
                 <button
                   onClick={(e) => {
+                    e.stopPropagation();
+                    const copy_item = async () => {
+                      const really = window.confirm(
+                        `copy ${elementType} ${flow}?`,
+                      );
+                      really &&
+                        console.log(`gonna copy ${elementType} ${f}`) &&
+                        false &&
+                        (await myRequest("/convform", {
+                          flow: flow,
+                          func: "copy",
+                          name: f,
+                          item_type: elementType,
+                        }).then(() => {
+                          fetchProof();
+                          fetchItems();
+                          setLastEvent(`copied ${elementType} ${f}`);
+                        }));
+                    };
+                    copy_item();
+                  }}
+                  className="submit admin-button"
+                >
+                  👥
+                </button>
+                <button
+                  onClick={(e) => {
+                    removeButton(e, f);
+                    setLastEvent(`removed ${elementType} ${f}`);
+                  }}
+                  className="submit admin-button"
+                >
+                  ✏️
+                </button>
+                <button
+                  onClick={(e) => {
                     removeButton(e, f);
                     setLastEvent(`removed ${elementType} ${f}`);
                   }}

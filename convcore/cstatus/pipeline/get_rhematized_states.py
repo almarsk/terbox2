@@ -41,7 +41,7 @@ def get_rhematized_states(flow, states, context_states, usage, coda):
             initiatives.append([previous_connective, state] if previous_connective else [state])
             pass
 
-        is_overiterated = full_state.iteration - usage.get(state, 0) < 0
+        is_overiterated = full_state.iteration >= 0 and full_state.iteration - usage.get(state, 0) < 0
         if not is_overiterated and state not in rhematized_states:
             if previous_connective:
                 print(previous_connective)
@@ -70,7 +70,10 @@ def add_least_iterated_non_over_iterated(states, flow, usage):
         ][0]
 
     candidate = sorted(
-        [state for state in states if get_full_state(state).iteration - usage.get(state, 0) > 0],
+        [state
+            for state in states
+            if get_full_state(state).iteration >= 0
+            and get_full_state(state).iteration - usage.get(state, 0) > 0],
         key=lambda state: get_full_state(state).iteration - usage.get(state, 0)
     )
 
