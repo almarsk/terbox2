@@ -16,15 +16,15 @@ def copy_flow():
     source_flow = Flow.query.filter_by(flow_name=name).first()
     if source_flow:
         split = name.split("_")
-        try:
-            new_name = split[0]
-        except:
+        if len(split) > 1 and split[-1].isdigit():
+            new_name = "_".join(split[0:-1])
+        else:
             new_name = source_flow.flow_name
 
         index = 1
         while Flow.query.filter_by(flow_name=new_name).first():
             index += 1
-            new_name = f"{split[0]}_{str(index)}"
+            new_name = f"{new_name}_{str(index)}"
 
         item = Flow(
             flow_name=new_name,

@@ -3,11 +3,15 @@ import json
 from .list_items import list_items
 from .edit_item import edit_item
 from .remove_item import remove_item
+from .copy_item import copy_item
+from .rename_item import rename_item
 
 ops = {
     "list": lambda args: list_items(args),
     "remove": lambda args: remove_item(args),
     "edit": lambda args: edit_item(args),
+    "copy": lambda args: copy_item(args),
+    "rename": lambda args: rename_item(args),
 }
 
 def convform(instruction):

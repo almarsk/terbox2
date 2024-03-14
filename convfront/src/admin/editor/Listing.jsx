@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import myRequest from "../../myRequest";
+import ItemBrick from "./ItemBrick";
 
 const Listing = ({
   elementType,
@@ -48,24 +49,6 @@ const Listing = ({
     setNewItemValue("");
   };
 
-  const removeButton = (e, elementName) => {
-    e.stopPropagation();
-    myRequest("/convform", {
-      flow: flow,
-      func: "remove",
-      item_type: elementType,
-      name: elementName,
-    }).then(() => {
-      fetchItems();
-      fetchProof();
-    });
-  };
-
-  const handleClick = (element) => {
-    setActivePanel(elementType);
-    setActiveElement(element);
-  };
-
   return (
     <div>
       <h5>{elementType}s</h5>
@@ -86,60 +69,17 @@ const Listing = ({
       <ul className="items-list">
         {elements.map((f, i) => {
           return (
-            <div
-              onClick={() => handleClick(f)}
-              className="project-brick"
+            <ItemBrick
+              itemName={f}
               key={i}
-            >
-              <p className="project-name"> {f}</p>
-              <div className="button-container">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const copy_item = async () => {
-                      const really = window.confirm(
-                        `copy ${elementType} ${flow}?`,
-                      );
-                      really &&
-                        console.log(`gonna copy ${elementType} ${f}`) &&
-                        false &&
-                        (await myRequest("/convform", {
-                          flow: flow,
-                          func: "copy",
-                          name: f,
-                          item_type: elementType,
-                        }).then(() => {
-                          fetchProof();
-                          fetchItems();
-                          setLastEvent(`copied ${elementType} ${f}`);
-                        }));
-                    };
-                    copy_item();
-                  }}
-                  className="submit admin-button"
-                >
-                  👥
-                </button>
-                <button
-                  onClick={(e) => {
-                    removeButton(e, f);
-                    setLastEvent(`removed ${elementType} ${f}`);
-                  }}
-                  className="submit admin-button"
-                >
-                  ✏️
-                </button>
-                <button
-                  onClick={(e) => {
-                    removeButton(e, f);
-                    setLastEvent(`removed ${elementType} ${f}`);
-                  }}
-                  className="submit admin-button"
-                >
-                  ❌️
-                </button>
-              </div>
-            </div>
+              flow={flow}
+              elementType={elementType}
+              setActivePanel={setActivePanel}
+              setActiveElement={setActiveElement}
+              setLastEvent={setLastEvent}
+              fetchItems={fetchItems}
+              fetchProof={fetchProof}
+            />
           );
         })}
       </ul>
