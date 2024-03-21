@@ -7,7 +7,7 @@ def get_matched_intents(flow, to_match_intent_names, user_speech, history, log):
         intent
         for intent in flow.intents
         if intent.name == searched_intent
-        ][0]
+    ][0]
 
     matched_intents_with_start_index = dict()
     prompts_to_match = list()
@@ -22,7 +22,9 @@ def get_matched_intents(flow, to_match_intent_names, user_speech, history, log):
 
             if match_against["prompt"]:
                 # add prompt to call llm later
-                prompts_to_match.append({"prompt": match_against["text"], "intent": intent})
+                prompts_to_match.append(
+                    {"prompt": match_against["text"], "intent": intent}
+                )
             else:
                 match_info = is_match(match_against["text"], user_speech)
                 if match_info["is_match"]:

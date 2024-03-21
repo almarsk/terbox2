@@ -7,7 +7,7 @@ import DraggableLabel from "./DraggableLabel";
 import RenameFlowForm from "./RenameFlowForm";
 import download_flow from "./download_flow";
 
-const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
+const BotBrick = ({ bot, status, archived, setBotsList }) => {
   const [renameMode, setRenameMode] = useState(false);
   const [newFlowValue, setNewFlowValue] = useState(bot);
 
@@ -42,7 +42,7 @@ const BotBrick = ({ bot, status, setIssues, archived, setBotsList }) => {
           icon={"🚀"}
           hoverText={`redirect to ${bot}`}
           click={() => {
-            status.success ? (window.location = `/?flow=${bot}`) : ``;
+            if (status.success) window.open(`/?flow=${bot}`, "_blank");
           }}
         />
       </div>

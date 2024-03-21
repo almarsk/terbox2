@@ -46,7 +46,14 @@ def get_rhematized_states(flow, states, context_states, usage, coda, time_to_ini
                 rhematized_states.append(previous_connective)
             rhematized_states.append(state)
         previous_connective = ""
+
     rhematized_states += (initiatives[-1] if initiatives else [])
+
+    emphasised = [state for state in rhematized_states if get_full_state(state).emphasis]
+
+    if emphasised:
+        return [emphasised[-1]]
+
 
 
     if not initiatives and not coda and time_to_initiate:

@@ -10,7 +10,6 @@ how to manipulate context from under - this is in prompting the says part
 ________________________________________________________________________________
 
 convread        - nice flexible exporting
-convread prompt - history
 convread debug  - flexible cstatus
 
 cstatus interface - list convos and within convos list cstatuses
@@ -19,7 +18,6 @@ add user directions to flow
 add pictures
     - upload button
     - state has
-
 
 nice to have:
 self fix

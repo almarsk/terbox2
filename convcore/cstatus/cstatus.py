@@ -83,9 +83,10 @@ class ConversationStatus:
 
         # update state usage
         self.state_usage = self.update_state_usage(
+            flow,
             dict() if prev_cs is None
             else dict(prev_cs["state_usage"]),
-            self.last_states)
+            self.last_states, self.matched_intents.keys())
 
         # check if coda has started
         self.coda = self.check_for_coda(flow)
@@ -113,7 +114,9 @@ class ConversationStatus:
     def to_match(self, flow, prev_context_intents):
         return get_to_match(flow, self.previous_last_states, prev_context_intents)
 
+
     def add_to_prompt_log(self, addition):
+        print(addition)
         self.prompt_log += addition
 
 
@@ -130,12 +133,13 @@ class ConversationStatus:
             history[-3:] if len(history) >= 3 else history,
             self.add_to_prompt_log)
 
+        print("matched cstatus", matched_intents_with_index)
+        print("tomatch cstatus", to_match_intent_names)
+
         return {key: {
             "adjacent": value,
             "index": matched_intents_with_index[key]
         } for key, value in to_match_intent_names.items() if key in list(matched_intents_with_index.keys())}
-
-
 
 
     def rhematize(self, flow, context_states, usage, coda, time_to_initiate):
@@ -162,15 +166,33 @@ class ConversationStatus:
 
 
     def update_context_intents(self, prev_context_intents, flow):
-        return gather_context_intents(prev_context_intents, self.matched_intents.keys(), flow, self.last_states)
+        return gather_context_intents(
+            prev_context_intents,
+            self.matched_intents.keys(),
+            flow,
+            self.last_states
+        )
 
+    def update_state_usage(self, flow, previous_state_usage, last_states, matched_intents):
+        get_full_state = lambda state: [s for s in flow.states if s.name == state][0]
+        get_full_intent = lambda intent: [i for i in flow.intents if i.name == intent][0]
 
-    def update_state_usage(self, previous_state_usage, last_states):
         # including incrementing iteration from within states
         for state in last_states:
             if state not in previous_state_usage:
                 previous_state_usage[state] = 0
             previous_state_usage[state] += 1
+
+            for iterated in get_full_state(state).iterate_states:
+                if iterated not in previous_state_usage:
+                    previous_state_usage[iterated] = 0
+                previous_state_usage[iterated] += 1
+        for intent in matched_intents:
+            for iterated in get_full_intent(intent).iterate_states:
+                if iterated not in previous_state_usage:
+                    previous_state_usage[iterated] = 0
+                previous_state_usage[iterated] += 1
+
         return previous_state_usage
 
 
@@ -187,10 +209,7 @@ class ConversationStatus:
             raw_says.append(
                 full_state.say[random.randint(0, len(full_state.say) - 1)]
             )
-
         return raw_says
-
-
 
 
     def prompt_reply(self):

@@ -1,13 +1,16 @@
 import sqlite3
 import json
+from slugify import slugify
 
 def edit_item(args):
     from app import Flow, db
 
     flow = args.get("flow", "")
     item_type = args.get("item_type", "")
-    name = args.get("name", "")
+    name = slugify(args.get("name", ""))
     data = args.get("data", "")
+    if "name" in data:
+        data["name"] = name
 
     conn = sqlite3.connect("chatbot.db")
     cursor = conn.cursor()

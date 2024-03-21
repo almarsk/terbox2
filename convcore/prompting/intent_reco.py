@@ -44,11 +44,12 @@ ve které uživatel {prompt}, nebo -1 pokud popis neodpovídá''',
     result = chat.invoke(messages, functions=functions)
     result = result.additional_kwargs
 
-    addition = [[str(message) for message in messages], prompts, result]
+    addition = {"context":[str(message) for message in messages], "function": functions, "result":result}
     log(addition)
 
     if "function_call" in result:
         decoded_arguments = json.loads(bytes(result["function_call"]["arguments"], "utf-8").decode("unicode_escape"))
+
         return decoded_arguments
     else:
         return {}
