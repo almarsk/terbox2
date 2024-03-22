@@ -133,8 +133,8 @@ class ConversationStatus:
             history[-3:] if len(history) >= 3 else history,
             self.add_to_prompt_log)
 
-        print("matched cstatus", matched_intents_with_index)
-        print("tomatch cstatus", to_match_intent_names)
+        #print("matched cstatus", matched_intents_with_index)
+        #print("tomatch cstatus", to_match_intent_names)
 
         return {key: {
             "adjacent": value,
@@ -221,5 +221,5 @@ class ConversationStatus:
 
 
     def finalize_reply(self):
-        print("TODO global prompting")
+        # TODO check order and add missed info
         return self.prompted_say
