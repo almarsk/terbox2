@@ -30,7 +30,6 @@ def edit_item(args):
             if item_type == "intent":
                 items_list = flow_data.get("intents", [])
             elif item_type == "state":
-                print("changing state")
                 items_list = flow_data.get("states", [])
             if items_list is None:
                 return {
@@ -79,5 +78,4 @@ def isEdited(data):
             pass
         elif value:
             updatedData = True
-    print("updated data", updatedData)
     return updatedData

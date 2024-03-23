@@ -7,10 +7,7 @@ from .utilz import api_key
 def resolve_prompt(args: dict):
     api_key()
     messages = list()
-    last = "Co myslíš, bude dneska pršet?"
     if args["context"]:
-        messages += [SystemMessage(content="Dosavadní konverzace:")]
-
         messages += [
             AIMessage(content=say["say"]) if say["who"] == "bot"
             else HumanMessage(content=say["say"])
@@ -26,10 +23,10 @@ Jasně, odpověď by mohla vypadat třeba takhle:""")]
 
     else:
         messages.append(SystemMessage(
-            content=f"""There is a conversation
-Your task is to give the next answer
-The answer description:
-{args["prompt"]}"""))
+            content=f"""Doplň další odpověď do konverzace.
+Stručně, jednou větou, maximálně 10 slov.
+Popis další odpovědi:
+Robot {args["prompt"]}"""))
 
     try:
         chat = ChatOpenAI(model="gpt-4-1106-preview", temperature=0)

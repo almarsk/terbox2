@@ -212,8 +212,10 @@ class ConversationStatus:
         get_full_state = lambda state: [s for s in flow.states if s.name == state][0]
         for state in self.last_states:
             full_state = get_full_state(state)
+            say_info = full_state.say[random.randint(0, len(full_state.say) - 1)]
+            say_info["emphasis"] = full_state.emphasis
             raw_says.append(
-                full_state.say[random.randint(0, len(full_state.say) - 1)]
+                say_info
             )
         return raw_says
 
@@ -224,7 +226,7 @@ class ConversationStatus:
             else history)
         prompts = [{
             "prompt": say["text"],
-            "context": context,
+            "context": context if not say["emphasis"] else [],
             "log": self.add_to_prompt_log
         } for say in self.raw_say if say["prompt"]]
 
@@ -233,9 +235,8 @@ class ConversationStatus:
             exec.shutdown(wait=True)
             resolved = list(results)
         prompted = [say["text"] if not say["prompt"] else resolved.pop(0) for say in self.raw_say]
-
-        return " ".join(prompted)
+        return prompted
 
     def finalize_reply(self):
         # TODO check order and add missed info
-        return self.prompted_say
+        return " ".join(self.prompted_say)
