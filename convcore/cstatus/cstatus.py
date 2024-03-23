@@ -11,6 +11,8 @@ from ..prompting.resolve_prompt import resolve_prompt
 
 from concurrent.futures import ThreadPoolExecutor
 
+HISTORY_LEN = 3
+
 class ConversationStatus:
 
     def __init__(self, user_speech, flow, prev_cs):
@@ -97,8 +99,9 @@ class ConversationStatus:
         self.raw_say = self.assemble_reply(flow)
 
         # replace prompt sections with llm output
-        self.prompted_say = self.prompt_reply()
-
+        self.prompted_say = self.prompt_reply(
+            prev_cs["turns_history"] + [{"say": user_speech, "who": "human"}]
+        )
         # finalize answer via prompting
         self.say = self.finalize_reply()
 
@@ -118,7 +121,6 @@ class ConversationStatus:
 
 
     def add_to_prompt_log(self, addition):
-        print(addition)
         self.prompt_log += addition
 
 
@@ -132,7 +134,9 @@ class ConversationStatus:
             flow,
             to_match_intent_names.keys(),
             user_speech,
-            history[-3:] if len(history) >= 3 else history,
+            (history[HISTORY_LEN*-1:]
+                if len(history) >= HISTORY_LEN
+                else history),
             self.add_to_prompt_log)
 
         #print("matched cstatus", matched_intents_with_index)
@@ -214,24 +218,23 @@ class ConversationStatus:
         return raw_says
 
 
-    def prompt_reply(self):
-        print(self.raw_say)
+    def prompt_reply(self, history):
+        context = (history[HISTORY_LEN*-1:]
+            if len(history) >= HISTORY_LEN
+            else history)
+        prompts = [{
+            "prompt": say["text"],
+            "context": context,
+            "log": self.add_to_prompt_log
+        } for say in self.raw_say if say["prompt"]]
 
-
-        '''
         with ThreadPoolExecutor() as exec:
-            results = exec.map(resolve_prompt, *zip(*prompts))
+            results = exec.map(resolve_prompt, prompts)
             exec.shutdown(wait=True)
+            resolved = list(results)
+        prompted = [say["text"] if not say["prompt"] else resolved.pop(0) for say in self.raw_say]
 
-            return "-_-"
-
-            " ".join([
-                resolve_prompt(say["text"])
-                if say["prompt"]
-                else say["text"]
-                for say in self.raw_say])
-            '''
-
+        return " ".join(prompted)
 
     def finalize_reply(self):
         # TODO check order and add missed info

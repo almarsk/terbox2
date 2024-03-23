@@ -5,7 +5,7 @@ from langchain_core.messages.ai import AIMessage
 import pprint
 from concurrent.futures import ThreadPoolExecutor
 
-def resolve(prompt):
+def resolve(prompt, context):
     messages = list()
     last = "Co myslíš, bude dneska pršet?"
     if context:

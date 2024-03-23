@@ -30,7 +30,7 @@ with app.app_context():
     }
 
 
-    flow_name = "test_llm"
+    flow_name = "test_resolve"
     flow = Flow(flow_name)
 
     user_speech = "nemám rád psy ale mám rád špagety"
