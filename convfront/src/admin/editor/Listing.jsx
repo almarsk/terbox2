@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import myRequest from "../../myRequest";
 import ItemBrick from "./ItemBrick";
+import slugify from "slugify";
 
 const Listing = ({
   elementType,
@@ -24,7 +25,7 @@ const Listing = ({
       fields.forEach(([key, type]) => {
         data[key] =
           key == "name"
-            ? newItemValue
+            ? slugify(newItemValue)
             : key == "initiativity"
               ? -1
               : determineDefault(type);

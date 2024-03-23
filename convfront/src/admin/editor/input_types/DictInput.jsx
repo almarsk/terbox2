@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import NewItem from "./NewItem";
 import ListItems from "./ListItems";
+import slugify from "slugify";
 
 const DictInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   const [dict, setDict] = useState({});
@@ -31,7 +32,7 @@ const DictInput = ({ label, activeItem, setChanges, setActiveItem }) => {
           addTag={(newItem) => {
             setChanges(true);
             setDict((prev) => {
-              return { ...prev, [newItem]: [] };
+              return { ...prev, [slugify(newItem)]: [] };
             });
           }}
           tags={dict}

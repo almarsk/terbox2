@@ -9,6 +9,8 @@ from .pipeline.gather_context_intents import gather_context_intents
 from .pipeline.get_rhematized_states import get_rhematized_states
 from ..prompting.resolve_prompt import resolve_prompt
 
+from concurrent.futures import ThreadPoolExecutor
+
 class ConversationStatus:
 
     def __init__(self, user_speech, flow, prev_cs):
@@ -213,11 +215,22 @@ class ConversationStatus:
 
 
     def prompt_reply(self):
-        return " ".join([
-            resolve_prompt(say["text"])
-            if say["prompt"]
-            else say["text"]
-            for say in self.raw_say])
+        print(self.raw_say)
+
+
+        '''
+        with ThreadPoolExecutor() as exec:
+            results = exec.map(resolve_prompt, *zip(*prompts))
+            exec.shutdown(wait=True)
+
+            return "-_-"
+
+            " ".join([
+                resolve_prompt(say["text"])
+                if say["prompt"]
+                else say["text"]
+                for say in self.raw_say])
+            '''
 
 
     def finalize_reply(self):

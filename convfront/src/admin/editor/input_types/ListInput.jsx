@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import NewItem from "./NewItem";
 import ListItems from "./ListItems";
+import slugify from "slugify";
 
 const ListInput = ({ label, activeItem, setChanges, setActiveItem }) => {
   return (
@@ -11,7 +12,7 @@ const ListInput = ({ label, activeItem, setChanges, setActiveItem }) => {
           addTag={(newValue) => {
             setChanges(true);
             setActiveItem((prev) => {
-              return { ...prev, [label]: [...prev[label], newValue] };
+              return { ...prev, [label]: [...prev[label], slugify(newValue)] };
             });
           }}
           tags={
